@@ -83,11 +83,16 @@ python tools/replay.py --moment M01 --start-round 2 --model anthropic/claude-opu
 | `--provider anthropic` | 固定服务提供方，默认不允许 fallback |
 | `--replay-mode semantic` | 默认清理历史流程注入；`faithful` 保留旧条件 |
 | `--effort high` | 设置推理强度；默认 `default`，使用服务端默认配置 |
+| `--cache-input` | 开启 5 分钟输入缓存；默认关闭，适用于 OpenRouter 的 Claude 模型 |
 | `--temperature 0.7` | 设置采样温度；默认使用服务端配置 |
 | `--system-prompt-file PATH` | 加载自定义 harness 提示词，仍保留历史上下文 |
 | `--max-tokens 32768` | 设置单次响应的输出上限 |
 
 参数支持范围因模型与 provider 而异。完整选项见 `python tools/replay.py --help`。
+
+需要缓存时，在原命令末尾加 `--cache-input` 即可。开启后使用 5 分钟 TTL，缓存范围随多轮对话和工具调用自动推进；`run.json` 记录开关和 TTL。省略此参数时不发送缓存指令。DeepSeek 等模型的服务端自动缓存不受这个开关控制。
+
+实际命中取决于 provider 支持、重复前缀长度和请求间隔；可在原始响应的 `usage.cache_read_input_tokens` / `usage.cache_creation_input_tokens` 中检查读写量。参数依据 [OpenRouter prompt caching 文档](https://openrouter.ai/docs/guides/best-practices/prompt-caching)。
 
 比较模型时，尽量保持 moment、起点、回放模式、harness、推理设置与交互方式一致；比较 harness 时，保持模型和其他条件一致。正式记录建议指定 provider，减少自动路由带来的变量。
 

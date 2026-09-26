@@ -41,6 +41,8 @@ class HTTPReplayTests(unittest.TestCase):
         body = r.build_request(args, "system", [])
         self.assertNotIn("output_config", body)
         self.assertNotIn("temperature", body)
+        self.assertNotIn("cache_control", body)
+        self.assertFalse(args.cache_input)
         self.assertEqual(body["provider"], {
             "only": ["anthropic"], "allow_fallbacks": False, "require_parameters": True,
         })
@@ -65,7 +67,7 @@ class HTTPReplayTests(unittest.TestCase):
             self.assertEqual(r.messages_endpoint(url), "https://example.test/api/v1/messages")
 
     def test_tool_loop_preserves_thinking_signatures_and_exact_wire_log(self):
-        args = arguments("--provider", "anthropic")
+        args = arguments("--provider", "anthropic", "--cache-input")
         calls = []
         thinking = {"type": "thinking", "thinking": "reasoning", "signature": "opaque-signature"}
         responses = [
@@ -91,6 +93,8 @@ class HTTPReplayTests(unittest.TestCase):
                 with contextlib.redirect_stdout(io.StringIO()):
                     r.api_turn(client, args, "system", messages, r.FrozenEnvironment(PACKET / "environment", None), log, set())
             self.assertEqual(len(calls), 2)
+            for body in calls:
+                self.assertEqual(json.loads(body)["cache_control"], {"type": "ephemeral", "ttl": "5m"})
             self.assertEqual(calls[0], initial)
             second = json.loads(calls[1])
             self.assertEqual(second["messages"][-2]["content"][0], thinking)
@@ -106,6 +110,37 @@ class HTTPReplayTests(unittest.TestCase):
             self.assertEqual(log.metadata["routing_observations"][1]["resolved_providers"], [])
             self.assertTrue(log.metadata["warnings"])
             self.assertNotIn("offline-secret", (log.run_dir / "transcript.jsonl").read_text())
+
+    def test_cache_input_dry_run_records_condition_without_changing_context(self):
+        requests = []
+        for enabled in (False, True):
+            with self.subTest(enabled=enabled), tempfile.TemporaryDirectory() as directory:
+                cli = ["--moment", "M01", "--start-round", "2", "--dry-run", "--runs-dir", directory]
+                if enabled:
+                    cli.append("--cache-input")
+                with contextlib.redirect_stdout(io.StringIO()):
+                    self.assertEqual(r.main(cli), 0)
+                run_path = next(Path(directory).rglob("run.json"))
+                metadata = json.loads(run_path.read_text())
+                self.assertEqual(metadata["cache_input"], enabled)
+                self.assertEqual(metadata["cache_input_ttl"], "5m" if enabled else None)
+                wire = (run_path.parent / "initial_request.json").read_bytes()
+                self.assertEqual(metadata["initial_request_sha256"], hashlib.sha256(wire).hexdigest())
+                request = json.loads(wire)
+                if enabled:
+                    self.assertEqual(request.pop("cache_control"), {"type": "ephemeral", "ttl": "5m"})
+                else:
+                    self.assertNotIn("cache_control", request)
+                request.pop("session_id")
+                requests.append(request)
+        self.assertEqual(requests[0], requests[1])
+
+    def test_cache_input_rejects_unsupported_gateways_and_models(self):
+        for options in (("--gateway", "deepseek"), ("--model", "deepseek/deepseek-v4.1-flash")):
+            with self.subTest(options=options), contextlib.redirect_stderr(io.StringIO()):
+                with self.assertRaises(SystemExit) as result:
+                    arguments("--cache-input", *options)
+                self.assertEqual(result.exception.code, 2)
 
     def test_errors_logged_without_retries(self):
         cases = [

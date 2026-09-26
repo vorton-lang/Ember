@@ -1212,6 +1212,9 @@ def build_request(args: argparse.Namespace, system: str, messages: list[dict[str
         request["output_config"] = {"effort": args.effort}
     if args.temperature is not None:
         request["temperature"] = args.temperature
+    if args.cache_input:
+        # Automatic caching advances the breakpoint as the conversation grows.
+        request["cache_control"] = {"type": "ephemeral", "ttl": "5m"}
     if args.gateway == "openrouter":
         provider = {"allow_fallbacks": args.allow_provider_fallbacks, "require_parameters": True}
         if args.provider:
@@ -1470,6 +1473,8 @@ def parse_args(argv: list[str] | None = None, default_gateway: str = "openrouter
     parser.add_argument("--system-prompt-file", type=Path,
                         help="Replace the harness scaffold; recovered context is still appended")
     parser.add_argument("--temperature", type=float, default=None)
+    parser.add_argument("--cache-input", action="store_true",
+                        help="Enable 5-minute input caching for Claude via OpenRouter (default: off)")
     parser.add_argument("--timeout", type=float, default=600.0, help="HTTP timeout in seconds")
     args = parser.parse_args(argv)
     base_url, key_env, model = GATEWAYS[args.gateway]
@@ -1483,6 +1488,8 @@ def parse_args(argv: list[str] | None = None, default_gateway: str = "openrouter
         parser.error("Messages API temperature must be between 0 and 1")
     if args.gateway != "openrouter" and (args.provider or args.allow_provider_fallbacks):
         parser.error("provider routing options require --gateway openrouter")
+    if args.cache_input and (args.gateway != "openrouter" or not args.model.startswith("anthropic/")):
+        parser.error("--cache-input requires a Claude model (anthropic/...) via --gateway openrouter")
     if args.provider is not None and not args.provider.strip():
         parser.error("provider cannot be empty")
     parsed = urlsplit(args.base_url)
@@ -1660,6 +1667,8 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
         "timeout_seconds": args.timeout,
         "automatic_retries": 0,
         "effort": args.effort,
+        "cache_input": args.cache_input,
+        "cache_input_ttl": "5m" if args.cache_input else None,
         "max_tokens": args.max_tokens,
         "script_sha256": script_hash,
         "warnings": adapter_warnings,
