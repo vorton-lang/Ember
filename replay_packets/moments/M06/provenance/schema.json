@@ -1,0 +1,571 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "moment_id": {
+      "type": "string",
+      "pattern": "^M[0-9]{2,}$"
+    },
+    "anchor": {
+      "type": "object",
+      "properties": {
+        "session_id": {
+          "type": "string"
+        },
+        "target_user_message_uuid": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_version": {
+          "type": "string"
+        },
+        "source_line": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "session_id",
+        "target_user_message_uuid",
+        "timestamp",
+        "source_version",
+        "source_line"
+      ],
+      "additionalProperties": false
+    },
+    "cutoff": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "before_first_assistant"
+        },
+        "first_assistant_uuid": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_line": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pre_response_attachment_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "kind",
+        "first_assistant_uuid",
+        "timestamp",
+        "source_line",
+        "pre_response_attachment_count"
+      ],
+      "additionalProperties": false
+    },
+    "historical_execution": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string"
+        },
+        "continuation_models": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence_only": {
+          "const": true
+        }
+      },
+      "required": [
+        "model",
+        "continuation_models",
+        "evidence_only"
+      ],
+      "additionalProperties": false
+    },
+    "components": {
+      "type": "object",
+      "properties": {
+        "conversation": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "const": "conversation.jsonl"
+            },
+            "visibility": {
+              "const": "model_input"
+            }
+          },
+          "required": [
+            "path",
+            "visibility"
+          ],
+          "additionalProperties": false
+        },
+        "pre_response": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "const": "context/pre_response.jsonl"
+            },
+            "visibility": {
+              "const": "model_input"
+            }
+          },
+          "required": [
+            "path",
+            "visibility"
+          ],
+          "additionalProperties": false
+        },
+        "instructions": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "const": "context/instructions.json"
+            },
+            "visibility": {
+              "const": "model_input"
+            }
+          },
+          "required": [
+            "path",
+            "visibility"
+          ],
+          "additionalProperties": false
+        },
+        "skills": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "const": "context/skills.json"
+            },
+            "visibility": {
+              "const": "model_input"
+            }
+          },
+          "required": [
+            "path",
+            "visibility"
+          ],
+          "additionalProperties": false
+        },
+        "personal_context": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "const": "context/personal_context.json"
+            },
+            "visibility": {
+              "const": "model_input"
+            }
+          },
+          "required": [
+            "path",
+            "visibility"
+          ],
+          "additionalProperties": false
+        },
+        "tools": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "const": "context/tools.json"
+            },
+            "visibility": {
+              "const": "model_input"
+            }
+          },
+          "required": [
+            "path",
+            "visibility"
+          ],
+          "additionalProperties": false
+        },
+        "workspace": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "const": "workspace/snapshot.json"
+            },
+            "visibility": {
+              "const": "model_input"
+            }
+          },
+          "required": [
+            "path",
+            "visibility"
+          ],
+          "additionalProperties": false
+        },
+        "files": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "const": "workspace/files.jsonl"
+            },
+            "visibility": {
+              "const": "model_input"
+            }
+          },
+          "required": [
+            "path",
+            "visibility"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "conversation",
+        "pre_response",
+        "instructions",
+        "skills",
+        "personal_context",
+        "tools",
+        "workspace",
+        "files"
+      ],
+      "additionalProperties": false
+    },
+    "evidence_directories": {
+      "const": [
+        "historical",
+        "provenance"
+      ]
+    },
+    "recovery": {
+      "$ref": "#/$defs/recovery"
+    },
+    "context_source": {
+      "const": "single_version_parent_chain"
+    },
+    "api_input_verified": {
+      "const": false
+    },
+    "boundary": {
+      "enum": [
+        "root",
+        "compaction"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "properties": {
+        "algorithm": {
+          "const": "sha256"
+        },
+        "files": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "input_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "packet_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "algorithm",
+        "files",
+        "input_sha256",
+        "packet_sha256"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "moment_id",
+    "anchor",
+    "cutoff",
+    "historical_execution",
+    "components",
+    "evidence_directories",
+    "recovery",
+    "context_source",
+    "api_input_verified",
+    "boundary",
+    "limitations",
+    "integrity"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vorton:canonical-replay-packet:1",
+  "title": "Environment-independent historical replay packet v1",
+  "$defs": {
+    "recovery": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "exact",
+            "reconstructed",
+            "partial",
+            "unknown"
+          ]
+        },
+        "missing": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "status",
+        "missing"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "version",
+        "line",
+        "raw_line_sha256"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "raw_line_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": true
+    },
+    "event": {
+      "type": "object",
+      "required": [
+        "id",
+        "parent_id",
+        "timestamp",
+        "source",
+        "recovery",
+        "kind"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "timestamp": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "recovery": {
+          "$ref": "#/$defs/recovery"
+        },
+        "kind": {
+          "enum": [
+            "message",
+            "context_observation",
+            "control_observation"
+          ]
+        },
+        "speaker": {
+          "enum": [
+            "user",
+            "assistant"
+          ]
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "component": {
+      "type": "object",
+      "required": [
+        "recovery",
+        "observations"
+      ],
+      "properties": {
+        "recovery": {
+          "$ref": "#/$defs/recovery"
+        },
+        "observations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "category",
+              "status",
+              "name",
+              "source",
+              "recovery"
+            ],
+            "properties": {
+              "source": {
+                "$ref": "#/$defs/source"
+              },
+              "recovery": {
+                "$ref": "#/$defs/recovery"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "workspace": {
+      "type": "object",
+      "properties": {
+        "recovery": {
+          "$ref": "#/$defs/recovery"
+        },
+        "repo_commit": {
+          "type": "null"
+        },
+        "runtime_observations": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "files": {
+          "const": "workspace/files.jsonl"
+        },
+        "observed_fragment_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "recovery",
+        "repo_commit",
+        "runtime_observations",
+        "files",
+        "observed_fragment_count"
+      ],
+      "additionalProperties": false
+    },
+    "fragment": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "content": {
+          "type": "string"
+        },
+        "content_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "extent": {
+          "type": "object"
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "pointer": {
+          "type": "string"
+        },
+        "state_at_anchor": {
+          "const": "unknown"
+        },
+        "recovery": {
+          "$ref": "#/$defs/recovery"
+        },
+        "interpretation": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "content",
+        "content_sha256",
+        "extent",
+        "source",
+        "pointer",
+        "state_at_anchor",
+        "recovery",
+        "interpretation"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "x-components": {
+    "conversation.jsonl": {
+      "definition": "event",
+      "jsonl": true
+    },
+    "context/pre_response.jsonl": {
+      "definition": "event",
+      "jsonl": true
+    },
+    "context/instructions.json": {
+      "definition": "component",
+      "jsonl": false
+    },
+    "context/skills.json": {
+      "definition": "component",
+      "jsonl": false
+    },
+    "context/personal_context.json": {
+      "definition": "component",
+      "jsonl": false
+    },
+    "context/tools.json": {
+      "definition": "component",
+      "jsonl": false
+    },
+    "workspace/snapshot.json": {
+      "definition": "workspace",
+      "jsonl": false
+    },
+    "workspace/files.jsonl": {
+      "definition": "fragment",
+      "jsonl": true
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "deepseek-dispatch": "deepseek-dispatch/SKILL.md",
+  "personal-context": "personal-context/SKILL.md",
+  "superpowers:brainstorming": "superpowers__brainstorming/SKILL.md",
+  "superpowers:subagent-driven-development": "superpowers__subagent-driven-development/SKILL.md",
+  "superpowers:systematic-debugging": "superpowers__systematic-debugging/SKILL.md",
+  "superpowers:using-superpowers": "superpowers__using-superpowers/SKILL.md",
+  "superpowers:writing-plans": "superpowers__writing-plans/SKILL.md",
+  "superpowers:writing-skills": "superpowers__writing-skills/SKILL.md"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "ring-llvm-addon",
+  "version": "1.0.0",
+  "description": "N-API addon bridging LLVM-C 22 API for Ring compiler",
+  "private": true,
+  "scripts": {
+    "build": "node-gyp rebuild",
+    "clean": "node-gyp clean"
+  },
+  "dependencies": {
+    "node-gyp": "^10.0.0"
+  }
+}

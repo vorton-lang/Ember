@@ -1,0 +1,40 @@
+{
+  "adapter_version": "moments-deepseek-anthropic-v2.0",
+  "moments": [
+    {
+      "moment_id": "M02",
+      "input_sha256": "a5b8528c0b411c15fc9e9619a7ddd66be3040f293e2ede05312b97b955bbe644",
+      "packet_sha256": "27803aae879b8d8db1df06ffa3403f85a6649907bbb86d1bf1104e0b2e2dccbf",
+      "environment_sha256": "85a25aa9902912e30973b3364ff3025af383723084947052ee86b71597dcd18e",
+      "resource_inventory_sha256": "36712e779e92273054e2f369d60ad7bb6d0d830b0bbbd9b82582167d072ded0f"
+    },
+    {
+      "moment_id": "M03",
+      "input_sha256": "2355232a64c8114c159a3f99a6a581e8b3e4de6a4939d410d2ae2335fe9c1827",
+      "packet_sha256": "b53d3340ea16cd875f1ced898c2ab671440c4d9e34cd351483aa1ad6c49ecaa1",
+      "environment_sha256": "3a5b6c927bc04977b1455c311bf96c2a55cc99fd2071589d5ea9dfd947b7a6a2",
+      "resource_inventory_sha256": "f332b42613f78a0f7603ba75e1952ce309f0a0e309922429306ab84e65a670a1"
+    },
+    {
+      "moment_id": "M04",
+      "input_sha256": "059e6b21aa68755b3e33544e9031d35ccb4b3c0ef37db993600f3dfa8214048c",
+      "packet_sha256": "abc5ac6dc23dd50595f2bdfa95e000e59f5072a4a6d1f98ecb5f4b005140790f",
+      "environment_sha256": "6465f466e7ada6f5800f4c5b2cec68c627fa79d83b47132db43fccc042079b85",
+      "resource_inventory_sha256": "69a08638cf1d1cdb65d6ee9ffcc24263ac183e9c6ef613ac489c6e84f1426e17"
+    },
+    {
+      "moment_id": "M05",
+      "input_sha256": "2d5c855ad7e76bba6e30c6e88f92740bfebf56f73bd021cf972f0aea6ee0fb8f",
+      "packet_sha256": "1c3a7abbfd6dbca3cb1be590e0a9fa66263bd6ebb73cab62fcd6a5e729ee6975",
+      "environment_sha256": "2f1477edae09cb7190254a770d8d7a9920d6824c250783ef08caaa85800c60f2",
+      "resource_inventory_sha256": "f76484726e4f66d9c9521166b6669f516924ab780c0f5aa94caf55edd5f19fa3"
+    },
+    {
+      "moment_id": "M06",
+      "input_sha256": "74c5494bd6d29afb35fd23170a1a3254d2360eb2a1b3df6dda183a90c6413df6",
+      "packet_sha256": "6c7ee7d9472867832301ec488251edda130b1cb954ebe5c726c84f88ea708500",
+      "environment_sha256": "1ad064f9f8e7e31365b71be2d3c1747d3e3f5d057ce40b590297b58833f5b4de",
+      "resource_inventory_sha256": "7fccdd6ab10e78757ab7255f1b36d70b3713f7e087aa594a171efccab3a837c0"
+    }
+  ]
+}

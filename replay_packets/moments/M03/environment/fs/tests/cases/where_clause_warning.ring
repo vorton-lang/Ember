@@ -1,0 +1,17 @@
+// B-112: refinement 'where' clauses are parsed but NOT enforced yet.
+// The compiler must emit warning W0002 so the annotation is never mistaken
+// for an enforced constraint ("looks enforced but is a no-op" is the worst
+// failure mode for unattended LLM loops). Compilation behavior is unchanged:
+// the program still type-checks, builds, and runs (exit code 0).
+//
+// NOTE: when refinement types land (B-001), this warning, this test case,
+// and the W0002 assertions in tests/e2e.test.ts must be removed together.
+
+struct Account {
+    balance: Int where balance >= 0
+}
+
+fn main() {
+    let a = Account { balance: 5 }
+    print(a.balance)
+}

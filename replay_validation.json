@@ -1,0 +1,61 @@
+{
+  "api_called": false,
+  "offline_tests": "5 passed; all 7 supported fork points checked",
+  "environment_validation": [
+    {
+      "ok": true,
+      "moment_id": "M02",
+      "resource_files": 589,
+      "tracked_files": 585,
+      "omitted_files": 42,
+      "tracked_tree_complete": false,
+      "recovery": "partial",
+      "commit": "89d2eb78364e93496b77f95ba4d0ce24611f69f2",
+      "resource_inventory_sha256": "36712e779e92273054e2f369d60ad7bb6d0d830b0bbbd9b82582167d072ded0f"
+    },
+    {
+      "ok": true,
+      "moment_id": "M03",
+      "resource_files": 595,
+      "tracked_files": 591,
+      "omitted_files": 42,
+      "tracked_tree_complete": false,
+      "recovery": "partial",
+      "commit": "1fb7f0fd853e1696f97afea6318006977a388d35",
+      "resource_inventory_sha256": "f332b42613f78a0f7603ba75e1952ce309f0a0e309922429306ab84e65a670a1"
+    },
+    {
+      "ok": true,
+      "moment_id": "M04",
+      "resource_files": 596,
+      "tracked_files": 592,
+      "omitted_files": 43,
+      "tracked_tree_complete": false,
+      "recovery": "partial",
+      "commit": "958ddb1dd2c85e69a353b5266f14893acf11d8e9",
+      "resource_inventory_sha256": "69a08638cf1d1cdb65d6ee9ffcc24263ac183e9c6ef613ac489c6e84f1426e17"
+    },
+    {
+      "ok": true,
+      "moment_id": "M05",
+      "resource_files": 568,
+      "tracked_files": 564,
+      "omitted_files": 43,
+      "tracked_tree_complete": false,
+      "recovery": "partial",
+      "commit": "fe7843d15349e70c21c6041b65ca9ec6a871f07b",
+      "resource_inventory_sha256": "f76484726e4f66d9c9521166b6669f516924ab780c0f5aa94caf55edd5f19fa3"
+    },
+    {
+      "ok": true,
+      "moment_id": "M06",
+      "resource_files": 573,
+      "tracked_files": 569,
+      "omitted_files": 43,
+      "tracked_tree_complete": false,
+      "recovery": "partial",
+      "commit": "574b92d263fd549883eb62c96e5d0e247a51b180",
+      "resource_inventory_sha256": "7fccdd6ab10e78757ab7255f1b36d70b3713f7e087aa594a171efccab3a837c0"
+    }
+  ]
+}

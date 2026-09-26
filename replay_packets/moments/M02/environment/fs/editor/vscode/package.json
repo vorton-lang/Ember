@@ -1,0 +1,51 @@
+{
+  "name": "ring-lang",
+  "displayName": "Ring Language",
+  "description": "Ring-lang language support — diagnostics, hover, completion, go-to-definition",
+  "version": "0.1.0",
+  "publisher": "ring-lang",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:ring"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "ring",
+        "aliases": [
+          "Ring",
+          "ring"
+        ],
+        "extensions": [
+          ".ring"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "ring",
+        "scopeName": "source.ring",
+        "path": "./syntaxes/ring.tmLanguage.json"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "watch": "tsc -watch -p ."
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.8.0"
+  }
+}

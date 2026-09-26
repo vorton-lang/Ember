@@ -1,0 +1,32 @@
+{
+  "adapter_version": "m01-deepseek-anthropic-v1.1-environment",
+  "moment_id": "M01",
+  "started_at": "2026-09-25T15:12:48.306911Z",
+  "status": "interrupted",
+  "packet_dir": "C:\\Users\\Yufeng Ying\\Desktop\\M01_replay_with_environment\\replay_packets\\moments\\M01",
+  "packet_sha256": "d6c576c981c6072c5da4480917073fbdca59802276a582ece19af2644ee3190f",
+  "input_sha256": "4e9c5e957b7b06be71682dc3d67fbdcffab27d03059c31a7d80a21d92abcef14",
+  "environment_dir": "C:\\Users\\Yufeng Ying\\Desktop\\M01_replay_with_environment\\replay_packets\\moments\\M01\\environment",
+  "environment_available": true,
+  "environment_sha256": "20e210a3cfbcab2155fab4acc45f2d83cdb5caf41bb4756e0987f09b22b1c5c5",
+  "environment_recovery": "partial",
+  "environment_commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+  "resource_inventory_sha256": "0464374074d87b0537340a99ff59a4e360db6604a4991fcec2693f041e6eb074",
+  "historical_fidelity": "partial",
+  "start_round": 1,
+  "historical_prefix_records": 0,
+  "historical_prefix_used": false,
+  "requested_model": "deepseek-v4-pro",
+  "returned_models": [
+    "deepseek-v4-pro"
+  ],
+  "base_url": "https://api.deepseek.com/anthropic",
+  "effort": "max",
+  "max_tokens": 32768,
+  "script_sha256": "01972743e678aa20e7f627aecce442ef44fd9d69e05c12ed05964e8c6aeb5980",
+  "warnings": [
+    "Adapter uses a leading system projection for recovered harness injections; the original API request/rendering is not available.",
+    "Only the replay's read-only tool subset is callable even if the historical catalog mentioned additional tools or agents."
+  ],
+  "ended_at": "2026-09-25T15:21:40.575367Z"
+}

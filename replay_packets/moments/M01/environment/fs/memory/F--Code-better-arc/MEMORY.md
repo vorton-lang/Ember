@@ -1,0 +1,8 @@
+- [User profile](user_profile.md) — C#/Rust dev, Arcaea player, vibe coding, low tolerance for manual iteration
+- [No guessing — ArcCreate is truth](feedback_no_guessing.md) — all impl must come from ArcCreate source, never from imagination
+- [ArcCreate is sole reference](feedback_arccreate_scope.md) — v2: ArcCreate C# is the only reference, no more Arcaea RE
+- [AFF format references](reference_aff_parsers.md) — open-source parsers for .aff chart files
+- [v2 rewrite: C# + MonoGame](project_v2_rewrite.md) — 2026-04-19 full rewrite from Rust to C#, driven by agent self-verification needs
+- [No rewrite — mechanical copy only](feedback_no_rewrite.md) — CC must copy ArcCreate code verbatim, fix via Shim, never "understand and rewrite"
+- [v3 Godot port](project_v3_godot_port.md) — 2026-04-19 pivot to Godot 4 + C# with Unity API Shim approach
+- [Use cp not Write](feedback_use_cp_not_write.md) — always use bash cp to copy files, never Write tool to recreate

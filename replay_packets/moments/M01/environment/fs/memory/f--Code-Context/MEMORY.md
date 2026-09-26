@@ -1,0 +1,3 @@
+- [User Background](user_background.md) — 应宇峰，2023年思看科技实习，开发GPU VDB实时3D重建系统，零CUDA基础入门
+- [User Profile](user_profile.md) — 完整用户画像已写入仓库 profile.md，涵盖个人背景、FIRE规划、投资理念、技术栈、性格特征
+- [DS Final Summary](feedback_ds_final_summary.md) — DS prompt 必须要求最终回复包含完整报告，因为 --output-format json 只捕获最后一条消息

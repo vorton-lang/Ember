@@ -1,0 +1,15 @@
+{
+  "name": "ring-lang-compiler",
+  "version": "0.2.0",
+  "description": "Ring-lang compiler (self-hosted) - transpiles to JavaScript",
+  "type": "module",
+  "main": "dist/main.js",
+  "bin": {
+    "ring": "dist/main.js"
+  },
+  "scripts": {
+    "test:e2e": "node --test ../tests/e2e.test.ts",
+    "test:llvm": "node --test ../tests/llvm_diff.test.mjs",
+    "test": "node --test ../tests/e2e.test.ts"
+  }
+}

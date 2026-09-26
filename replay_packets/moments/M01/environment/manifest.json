@@ -1,0 +1,2446 @@
+{
+  "anchor_timestamp": "2026-05-15T21:28:53.341Z",
+  "available_skills": [
+    "deepseek-dispatch",
+    "personal-context",
+    "superpowers:brainstorming",
+    "superpowers:subagent-driven-development",
+    "superpowers:systematic-debugging",
+    "superpowers:using-superpowers",
+    "superpowers:writing-plans",
+    "superpowers:writing-skills"
+  ],
+  "files": [
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "70ac77eac64177a8019c8b62be1431a53a26bed0",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/.claude/ds-claude.ps1",
+      "sha256": "f057a148ce906388f695656d0361bacfb70451888c7a68a2dab56fd8db94a708",
+      "size_bytes": 2268
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "8e50357cb9c8eff9236cb42c23d5bd7debf3539d",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/.claude/settings.json",
+      "sha256": "7adb61952fd7cc617043758b106a6555c723f08645cacd0b141723ae9b57338d",
+      "size_bytes": 281
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "98b384248ab5f377371885c3c5819821436572e4",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/.claude/settings.local.json",
+      "sha256": "89379199b3bb85b0cfbe467a520b20f234dd8544469ee3c29b7842fa263f4673",
+      "size_bytes": 98
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "5d66e5b9caef7ce9219d29f0db6c37a4bd9bfe9d",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/.claude/skills/deepseek-dispatch/SKILL.md",
+      "sha256": "8a3cf96aaefbc615f8c1a34ec9cc197cae4774d3ca24b318c41b716633c4f18c",
+      "size_bytes": 3299
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "4f843b630310390145fdcd4dbd17ddbc03fc5d58",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/.claude/skills/personal-context/SKILL.md",
+      "sha256": "095ff4cc5ef2c3c5416610fbc71a2179bbe0839ddcd929238d2975f560980edb",
+      "size_bytes": 3008
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "1ef86c158b92074a3d2e9889c735ce22ceabd0fa",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/.gitignore",
+      "sha256": "7326a6aa45ef8864262c933c59e3af948a5da37477ba1c68025874491b6691b3",
+      "size_bytes": 161
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "013a5568bf1078556fce837d9a703521147512a0",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/CLAUDE.md",
+      "sha256": "f16adf8c3a7139ba634d828dff58a710f07448e986d19c8c7f5ae32b372b12f7",
+      "size_bytes": 5237
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "7ba63076568607cf1e08a207f793fecf54ca4bab",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/README.md",
+      "sha256": "6ada0ee4bae57a9097b73dc436e6ea492ef6ff20563a7b22e1aca029f86d6a99",
+      "size_bytes": 1001
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "4c2abe953e2dfd91b359dd96af1c7ee041287c36",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/VDB.md",
+      "sha256": "21dbb8d166fefb917311c1a59071cb44e833d254076a64e8c80b04cde57cc201",
+      "size_bytes": 2311
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "f8ee1f8470b8d15b821936f9920e4183108affed",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/assets/1.drawio.svg",
+      "sha256": "4952db0ba2df67324944bd8a8aac5e886f40bb397ec589aaceb1b8c539eafaa7",
+      "size_bytes": 45201
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "27615a0bfa6156591ac9fb5ccb6971ce6872035b",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/CUDA Debug.md",
+      "sha256": "d8497aae2f2fce37129247f102b8d1def941552281901046115005bd9d643c98",
+      "size_bytes": 6083
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "d357f4b0948b3967c30e9a25af80f0b4ec8130c8",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/CUDA性能优化.md",
+      "sha256": "a7664708ca52ec728f7db086f8af64b14e3a7830f017321275f93b2cbe8f2fc4",
+      "size_bytes": 12151
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "f34fbf21a8c925dd21f523f78d3c01006ccdc89f",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/DeepFusionPoints_defect.md",
+      "sha256": "c40ece332d59b2bcde39944c5bdf9bf9b1d682f2d3471e609894f9206d2ef74b",
+      "size_bytes": 2086
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "118b960b62f6a25b31a287e7a78c51fdd1d08928",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/DeepFusionPoints_doc.md",
+      "sha256": "f555b1e91f898723c1238dff5be46e0c86c0dd217614d941fa7111a4f1a7882d",
+      "size_bytes": 16168
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "f8ee1f8470b8d15b821936f9920e4183108affed",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/1.drawio.svg",
+      "sha256": "4952db0ba2df67324944bd8a8aac5e886f40bb397ec589aaceb1b8c539eafaa7",
+      "size_bytes": 45201
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "12e47487d87d8e44b5bcde6ba2cf59c838e7b012",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817093950202.png",
+      "sha256": "934a146213b21849404253b5dd9d8447f5e482b4e0ff280f8e09a02a5727b8e3",
+      "size_bytes": 33425
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "01fc7a755e5e9b615b045dadce39a6ac68dc37f1",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817094616968.png",
+      "sha256": "1cb8d84748863447d59a6406e81725e7871361a1c5e5b645ffa27babe8b17c90",
+      "size_bytes": 35200
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "d0d9b2f07888394fe35648642085c1dce6da4b54",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817103339910.png",
+      "sha256": "f6a7fd781c9d3d0afd8909e0550f3013622733e221fef0a1593e27b55a8795ef",
+      "size_bytes": 8624
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "aa43d4dfef9012a506a87146f9ef77b5613be751",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817103555215.png",
+      "sha256": "26759a54fd729f3fb9155906fca1fe0d0a70a767fc05151d07961624826f6e46",
+      "size_bytes": 24138
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "8bead3270afbe7205f2a28045b5912d23931ae76",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817103725895.png",
+      "sha256": "e660298873f7b467495ac917941cba33ef8b79444612e310bbe357127ffbffc9",
+      "size_bytes": 25113
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "fd8fc852b95458ef1edce1cb392f06fa75232102",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817104008656.png",
+      "sha256": "9b0e29ece0e558166d0c1d3536d82ac6202a1a79a7a4230fd85b255ef8e09ddf",
+      "size_bytes": 38556
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "494203c02d401c1b989134c03283677ca89a58c0",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817104157486.png",
+      "sha256": "4e06baa0ac3bce4bc506fb5b525e617e51346e4f10a9a6a5e9d97975ca551e6c",
+      "size_bytes": 47285
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "494203c02d401c1b989134c03283677ca89a58c0",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817104201839.png",
+      "sha256": "4e06baa0ac3bce4bc506fb5b525e617e51346e4f10a9a6a5e9d97975ca551e6c",
+      "size_bytes": 47285
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ea3bab3ed74e68091f0f9897d0f8c499b3b4b918",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817104704585.png",
+      "sha256": "fb90e354cf230d1f25be025fdc6a016b963b3aed994fbfb3b1142fca464881fa",
+      "size_bytes": 83048
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "bbcff317f4c007211bb7559bd88cd5f08310d03b",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817105316129.png",
+      "sha256": "a879531a710ce30935a0851821a03106e6adb99124509c1f11c02c971ecfcdfd",
+      "size_bytes": 117811
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "2714cd09f86eff8c2e567dcbee5dab8fc99d6caf",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817134846147.png",
+      "sha256": "f0cee1f7173ef18f168c6f96686e12eb98baa8e01051d2676e568ba5ea3b7f6d",
+      "size_bytes": 28756
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "580bf6e011245813b461f89aeac06f4be538f059",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817140914785.png",
+      "sha256": "ca6d05f95b003697771dc3e5355cfdf29eedd695feb9ed7c62c89455fae57aa4",
+      "size_bytes": 6180
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ccafa1a48f43511fe6f43ca480e359e275d62a12",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817142242730.png",
+      "sha256": "79a4a631882a15a6d4e07a4ca646a0b0b8b55b0e546b12bc1e79eef1437a6ca0",
+      "size_bytes": 43948
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "3bb31a550d503804b5d4207fa86ed029b6e888ea",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817142605020.png",
+      "sha256": "5689b310454a3dd088152869742f6d3f670418e1e8c1fb8cb953fa2b528ec033",
+      "size_bytes": 78877
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "081bae059902c5cb638a5d6f9d221511c7f4176c",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817142926841.png",
+      "sha256": "4e17673673fceb29b34c696fe1ff685985a9ef0c0b36a355bf4b271806ae3c4c",
+      "size_bytes": 79465
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "38fbed491bf93f7cc1630063e4b364df0c877f98",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817144239029.png",
+      "sha256": "4d4aaace9286fb1e50a3447e69a6fc676a5cd658367bc7b5a340bb5ea1aa874a",
+      "size_bytes": 6865
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "a55a0b3396735d2940ec1c21e3e8ef9d74f13b90",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817144315535.png",
+      "sha256": "6f1b0d08bdd752d7c4f422ae7b6535b71a71730872fcbf176cbdffa1dd14fdb5",
+      "size_bytes": 5055
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "c96a3fa461b0b9db1b2dc81fe3fc84b0a5c6eb15",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817144909470.png",
+      "sha256": "7ac02ab2d48ec50aa5a55932646c61d163c5144e2d816b9e90a6dd63f1df848f",
+      "size_bytes": 22235
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "3923b1535c8f50805aff97cfb1751dac94979032",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817150933702.png",
+      "sha256": "c660a7448163e5e273e8fb39c6ddffd86d9bc803f9ce97a124d651b485fd7885",
+      "size_bytes": 28569
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "14e83c77f0c3f61fafee232ffbe6646fee025848",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817151254005.png",
+      "sha256": "08340e6de89dff9f7a25dc158e784a9bf9ba09a871bfdc6f62fe088232194c25",
+      "size_bytes": 13814
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "66d376bf8d619f4739016da1bb5dff48cbe9663d",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817152106863.png",
+      "sha256": "8afa74c50feacbfc7ac0de315530da2a8916ba63567457e1243b831630185f07",
+      "size_bytes": 152862
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "f59f3d9413e0102cd28dc36c43f74842487136c9",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817152817256.png",
+      "sha256": "85f8eb1a8f3fd58b230b90cbe1dfef241434a5b077726ce72d1511fb1dd28f90",
+      "size_bytes": 62962
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "7c9b403feea9b528f7577e79d0d9e4836c6b28a5",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230817153014738.png",
+      "sha256": "6ffee9081168d170d63f2ec6646b8fa543ef7bda5670a35091d95f6bda456388",
+      "size_bytes": 19248
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ae159b150aebb7aee4163c75f194c2aff6701ec0",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230825133954296.png",
+      "sha256": "94cbbca24ed12eff90eae09ff5e1896bd4a6e2c7bcca964c3b90c65a4c3ad4e2",
+      "size_bytes": 8521
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "f2d4f4b62c0fb3c2eaa7d095c4274f9d57e0537a",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230825134655077.png",
+      "sha256": "88623aafafa2e0ced352cd5bd9cdcadadc014ed59ac9e6fef72090a9ee20ff96",
+      "size_bytes": 17814
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "88e1463e73079e3d52105b03d58a8816070e180a",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230825135348583.png",
+      "sha256": "0888d992cafb5f0abc6ee63b8d631fd17c8a979ac217f612fccf217a3a6e2320",
+      "size_bytes": 5818
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "14478918f196db260e6d45d430fad8a2ba46c197",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230829131152691.png",
+      "sha256": "f33b721ca50b64a7fcd5a1c139d52d90f7cac0252992a6c2226467b2d7d5f586",
+      "size_bytes": 20452
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "01cb767f9f808d50e00f47847c53c509a6a21906",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230829131328037.png",
+      "sha256": "0c4557e47b36a147b43f8430d4918064b29a960b225310bc588ad270d3160d24",
+      "size_bytes": 21412
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "1bad42416c33b0e919bdfa7447c783a38c31dab6",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230829131427483.png",
+      "sha256": "c59426c313d708c2f7bda41a56ec6830ef8d6a6731625d7b52bf0f392a53910d",
+      "size_bytes": 18482
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "53a2f12ff5853393feca8032de933fb923a2841e",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230829132518900.png",
+      "sha256": "88e5dc9eaad807429619f5e106f79598d138c7e69324316832aa1671af9e13df",
+      "size_bytes": 160190
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "978f2c25795948a5bb562c4d8677aac34a1e9020",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/assets/image-20230829132608343.png",
+      "sha256": "418d9139e214d161f4322bc185e0cc890bdb2194162f51d0a66efa2579df9360",
+      "size_bytes": 8497
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "d02c87e3fca89280bab4c15951fb4073de2a55e5",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/交接文档/s7122-stephen-jones-cuda-optimization-tips-tricks-and-techniques.pdf",
+      "sha256": "0652655e265fc84880c82aa32698e4774a734c3968a0f465586b4fc89f9d5a81",
+      "size_bytes": 1683964
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "49fc63408b48352358f32e4a4b3d02354468b9dc",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/VDB/备忘录_DeepFusionPoints系统回顾与改进.md",
+      "sha256": "64a0e26237e4f8c58fd9f1ef7891894c621fb15bec8cc84cde2d9dfef554ef78",
+      "size_bytes": 13712
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "831dd17a0a568e6b03d299676a3b06bb8db1d462",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/adult-industry-research/01-行业全景.md",
+      "sha256": "96825ca6481844e184ddcbe9914cf40c5f3249043c0e8852e4452cbc8adcdd4a",
+      "size_bytes": 2815
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "b1a98523cce94509edb2afd9d5cb00379acef33f",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/adult-industry-research/02-飞机杯传统产品.md",
+      "sha256": "d0f148f6d7976aac5b6158cea2df3f3d50d2485f433c397a894a7ca8db4d8388",
+      "size_bytes": 10064
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "77b674288223557fc2eda723f53275cc436afda4",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/adult-industry-research/03-实体娃娃传统制造.md",
+      "sha256": "669311d4a25d958601eeecbfee94179b49bed1c91840bd9dfbd8b60f16d2b670",
+      "size_bytes": 41899
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "7bf0d0cbc59e6b48a154a30517315319d7c8924b",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/adult-industry-research/04-机器人娃娃时间线.md",
+      "sha256": "82103f881e0655aa67266133fd555f4038387dce95fddaaef0572bf1444577fb",
+      "size_bytes": 16254
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "37e5aa879cbe593afc9bf812097b56b6fb390b2f",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/adult-industry-research/05-贴牌厂生态.md",
+      "sha256": "517d7091b7a85b866c42558fc11f32a3b2f0738431ac41375e4c16fc73b35597",
+      "size_bytes": 19417
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "24abc079949c3d18d7d89ddfbea3233f7d508166",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/adult-industry-research/06-二次元娃娃新兴品牌.md",
+      "sha256": "15b71cec30b45d1df9e9f4a2b5239345e5ca041b1c81a7994df1290c48138b62",
+      "size_bytes": 7013
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "5a46f53c0a5dd2e4cc7c8bd66f275c0751af80ce",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/analyze_expenses.py",
+      "sha256": "6a51d5b266a8e76a75dba8ea04c3a7021378c9e6b35e19d6832405af2826c77b",
+      "size_bytes": 23726
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "33cffcdf988ed1b26a646ac72d8384d0a4f9f7c9",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/backtest_compare_funds.py",
+      "sha256": "406b6bc1771ee9bbe50647702358bce9570f9d63ed1d6b511df2b38970280be6",
+      "size_bytes": 13440
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "0cb2350b81d7572dd38a33b0126c12f839a1abd0",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/backtest_permanent_portfolio.py",
+      "sha256": "89670c580ff7bfdd19e8082f7a691c8fe8067f4c1335a7e4a1a461cd2b15a86d",
+      "size_bytes": 12258
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "149db75d64e0a71bb065d58872ba3c1d0f857553",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/backtest_rebalance_freq.py",
+      "sha256": "a16b0bfc336a0e3504f118bb850ed7724a8ba15f79fbb1dc3200b0d227f545b1",
+      "size_bytes": 9020
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ed6525232ccf020cbb05289bc1dbdceb1445b203",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/expenses/微信支付账单流水文件(20250516-20260515)_20260515212932.xlsx",
+      "sha256": "010e36d0ca95a5ebd1ebc14cc527b82552bec592a4d5b8f8642f99f8d1567af9",
+      "size_bytes": 39288
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "fa8be0f2df21bbe1ef41ed5a19edb318b5524925",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/expenses/支付宝交易明细(20250516-20260515).csv",
+      "sha256": "ea2dd790f9638acab6e3c16763bd378ead40b8a5ec34f842e2595d7dba277de8",
+      "size_bytes": 185152
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "a3c9aaae079ea0e54d909fbc215d0873f61fdbc2",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/fire_calc.py",
+      "sha256": "f4cbe9059f634ba521c6120f1fb98b8d33c2ea6cc4c3a5f4b8ddb3ca3d4cd6ca",
+      "size_bytes": 11686
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "93e228b1da0e19bfd66467fdac9d4d3e689530e0",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/fire_monte_carlo.py",
+      "sha256": "e0198b04ad8876d9ab0014ab5fd82d863797ce9857774ab013ea9b2536b6afc3",
+      "size_bytes": 21465
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "46e6eee068ec416018fce2725976d241d0fb5240",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/fire_monte_carlo_findings.md",
+      "sha256": "e863b5e1926fe44743ae95294710260628948d6f0993c032ad328a0927663dd3",
+      "size_bytes": 3907
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "5f6b5f5c64ceaf07ca804a656e25d1beb683e8e0",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/fire_v2.py",
+      "sha256": "1b8913c18b643311ab740b0336308dfe8f66d508d46b48bb300982ab50b9c7ff",
+      "size_bytes": 13373
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "b3388b6c5c592188af508e81a5d60d822fb33965",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/pick_bonds.py",
+      "sha256": "79f39bf4462f30c99a773cfb632d3afbe2e1fe5a5e8608667afe570eb0035ad1",
+      "size_bytes": 1597
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "7c21b524cc177a66523f68fbb79d470e3e5199cd",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/pick_funds.py",
+      "sha256": "7af3cd408185be272b90d75e9edf699f8534ee04bb3cf44e707318a167c82d16",
+      "size_bytes": 2813
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "25faf2fc241a5524316295f1eac5beebcd1a8807",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/financial/qdii_compare.py",
+      "sha256": "1dbe576e045c38878b36d4a0182839ed5f1e234c8ad8001eb1d75d2eaec4db9c",
+      "size_bytes": 13297
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "d790f72c8aa91a4c1a67cc12404550aa4aa13a9f",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/F--Code-better-arc/MEMORY.md",
+      "sha256": "cd4d596f64632bd52af049a4e8310c251e3c794a39a3a1e4315a0018701738f9",
+      "size_bytes": 984
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "07bb22af2d3634b9f08ddbaf7139103ac47feae6",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/F--Code-better-arc/feedback_arccreate_scope.md",
+      "sha256": "52d1c12bb99d442eb237ba0ed036a06ed6c7799316c21a1a5ce6e670ce201275",
+      "size_bytes": 900
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "5db8b744c0a646d4d30373501d40034f4b3aa58a",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/F--Code-better-arc/feedback_no_guessing.md",
+      "sha256": "5cc51373918a616ea1269516457bd63b3e47a19bd9dd512b8581c1056cfcb8b9",
+      "size_bytes": 1136
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "5257c294961be99130fdead7163e5684ae1edbe9",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/F--Code-better-arc/feedback_no_rewrite.md",
+      "sha256": "6df1f3acac95fb4cdb85cfea93f9ededb96708dddff86b9ad9998cb9c7b85c3f",
+      "size_bytes": 925
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "66ccb662ddf1117313daf0acc4a205a71da616e0",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/F--Code-better-arc/feedback_use_cp_not_write.md",
+      "sha256": "be97a9d5a022f34f7b820cec324e3c5bad6aee3d1ee8d143132dbda66db5af99",
+      "size_bytes": 687
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "2bf78931d224f9745a45cd29b518d4ecd0c7b50f",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/F--Code-better-arc/project_v2_rewrite.md",
+      "sha256": "5234c1adc435ebfaa5b17f02d6f5fcb311cdaf1bc7657bd49034dca8c3a06f27",
+      "size_bytes": 917
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "b62dc56dcfa631bb764bfa5710fb579f5e256343",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/F--Code-better-arc/project_v3_godot_port.md",
+      "sha256": "ce1cd5f44e4f38e25a6bfa488f1c130c801bff562da718c3b963ade3cbe61cf2",
+      "size_bytes": 883
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "4ecbd852ac0f51c7d27d6fbc8b4a4cb3645ba22a",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/F--Code-better-arc/reference_aff_parsers.md",
+      "sha256": "7c56e178c1a298dcfe8aeaae29b0b99870e771e5f1a976358e45cc19a30d397b",
+      "size_bytes": 973
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "699618a4b856b0cafb18eed178dbbcb619dda87e",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/F--Code-better-arc/user_profile.md",
+      "sha256": "00d5d22a7046690a4c3fa7f28111752f2f1c20f5afaee0d4182d5d0c233c1aad",
+      "size_bytes": 620
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "eb4178d8893c20cbdb7e08eff6722f08ccd96b68",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--Code-Context/MEMORY.md",
+      "sha256": "f7dfc9b9f4c336635f28a53b7ef818816b195a6b1381a541c6147f61adb12c77",
+      "size_bytes": 465
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "fd4c2921f9f304f97c173485b24ae5ca533f9c67",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--Code-Context/feedback_ds_final_summary.md",
+      "sha256": "55e929a5d94ea6aefd074a503d7b8ffb612705d9fe6f930119cde4d689840d58",
+      "size_bytes": 899
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "e1b96381f6ecaa54e157a8be20d3ad8a9c70290d",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--Code-Context/user_background.md",
+      "sha256": "397a38472306be760fef200712a6f99c851d98ef7c17e50e45f1d6270b6a2b5c",
+      "size_bytes": 736
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "e595ae094c6d5c84aa47662185d4e0a41c1ddfda",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--Code-Context/user_profile.md",
+      "sha256": "28ea042ed9a55d61069e2dd2fefbd91557704c567c5739741dd85be12d58ad21",
+      "size_bytes": 907
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ab1c271cad67e584d6719bc774ffd52c2427b536",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--Code-Ring-rs/MEMORY.md",
+      "sha256": "ca584f745b12839f1c6bb9468ad59fbd87a202f8a6bbed66a187330c200cbe4d",
+      "size_bytes": 3889
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "bc43d2a9f3f1e5fbe706f5d4a866c544bf5697d4",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--Code-Ring-rs/feedback_harness_2026_04.md",
+      "sha256": "a9632193e8b8b571f8457220aca92706624a20bea585cb0e4f602702df719209",
+      "size_bytes": 1746
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ba0f5f0cf6d404d60f64932470452d399d67b053",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--Code-Ring-rs/feedback_no_backward_compat.md",
+      "sha256": "e4410ced77546bc421cf49e4e74bf37ac52ad19636a78b3dd99d5fab074be942",
+      "size_bytes": 686
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "0ada45c038812c493007ced0e2ed4d5cad7ac1d1",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--Code-Ring-rs/project_latex_formula_rendering.md",
+      "sha256": "96e6ce79fd04c81e7e2e8455f97a966ff29312a5a06f808dfa756ed79d47bb6c",
+      "size_bytes": 1255
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "a4dc2f237b8a4988ca9aee0b97c8ee643c0bc8a0",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--Code-Ring-rs/project_lsp_next_steps.md",
+      "sha256": "fca7a11d8cbf59fe69a9b77df416514f8da896bd29e136c9a3074c2d87393f51",
+      "size_bytes": 1420
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "0233e66021e2af41051a6a3859986bab2dd9f903",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--Code-Ring-rs/reference_deepseek_integration.md",
+      "sha256": "3c178f0e923dc7de2e6f98814ce608eec21929cf6622abd98363f3aa0aa33f35",
+      "size_bytes": 2264
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "e32fd20b844d0b5f1063115902ec96fe99da8eee",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--Code-Ring-rs/reference_webgal_issues.md",
+      "sha256": "4237460d724eaf69f675712393c11d8f2bd1db81fbd9e014b0e649f5568e3901",
+      "size_bytes": 719
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "15076f776c64a37de2fa404ecb5fd298f92167b9",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--onedriveDump------VDB/MEMORY.md",
+      "sha256": "95c56289c3242ef3344b7d25e2acfa741d0ecc9b21125593629dacf9a1b67416",
+      "size_bytes": 140
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "3b9af15bd459126b5d1fae2bf0b235494c3216c7",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/memory/f--onedriveDump------VDB/user_background.md",
+      "sha256": "8bbc34b72e9ab523ec11c70275e12f663b30a978666d3a5d398f87daec432066",
+      "size_bytes": 736
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "fe65a20c3dd385a100b0baf4cc33bf42a7db8752",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/profile.md",
+      "sha256": "78a880eac3288f6a14a04d662a7a776eddddd07f6ab34df14af2f1f310216048",
+      "size_bytes": 3012
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "3d2ca8f34d2c7a83eb38e7b44723251cca2dc2e3",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/register-skill.ps1",
+      "sha256": "6c0b53039208ee82ed86d58fe6c063659c52e9b3105ba3d293cbce7af2ed6e1a",
+      "size_bytes": 4665
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ccc1f81418ee5c6e3abf37b9e06fe1b2d65ed050",
+        "kind": "git_tree",
+        "mode": "100644"
+      },
+      "path": "fs/session-init.ps1",
+      "sha256": "d8504b69338fc32d727ee0f26802644c188617adc57262d60f2c508b1bb364a9",
+      "size_bytes": 3441
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "39837d19f8520261000973544c6a1c17bee6bbbc",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T22:01:39.735000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/C--Users-Yufeng-Ying-Documents/49fb0c80-bb29-4d79-8e10-afe63af95df0.jsonl",
+      "sha256": "8e1a499d376294341075e078800f142b09cffddf67db0ca15e263711d889b46f",
+      "size_bytes": 219484
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "f9502495f26c62c9ae0fd7ad26b2a27a42bb66b8",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T21:58:58.555000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/C--Users-Yufeng-Ying-Documents/71f01fd2-081b-414d-a86c-d261bdeee772.jsonl",
+      "sha256": "3471a8566c911ec9f63f0e0eab1f59ff78f8860a34bf46933b6091c22322b09d",
+      "size_bytes": 121889
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "7e01d0ce4d7a533288c235b3908c30d429cb235a",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-19T18:04:08.152000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/07eec7d8-0ac4-40cd-abe4-39cc19d473ea.jsonl",
+      "sha256": "b706f63719ac1137b8d8a8cc62af567c00a98d2bec6cf80fe41ef0c81cde5280",
+      "size_bytes": 114597
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "402325a0ac021d6778d8b111536faf928d91795a",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-19T12:17:13.922000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/0ab60864-b1e6-4cdd-ba7c-ebb28b3c87cf.jsonl",
+      "sha256": "fca9592dbd9c0f0da1590d806f31383a083c471a8b116b118de8f16301c343b3",
+      "size_bytes": 9136971
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "70f993f15bbdd435f43dac9a5836d4134cd59d53",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-18T20:36:49.288000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/0b31e462-e596-4aab-9278-90c23fed8e6d.jsonl",
+      "sha256": "297f974f4285bf7873e366cfaaf717862f0c404460c48483ae5c142623d5eec5",
+      "size_bytes": 758862
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "093c305fc3ca476e56fc5ca9155ffadc566f20b4",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-15T19:16:09.769000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/1769912a-8ba9-471c-a6f8-ef2d2a8d06f6.jsonl",
+      "sha256": "ecea8822281c2240cbf99754b3243707e2b53347db7bc1a5d742e3eb3c077753",
+      "size_bytes": 4366910
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "3a567401cf74815a2d00a8815d7b901bc2c33853",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-18T13:32:41.740000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/1a7dea68-a513-4123-9861-5ddbe324c0e5.jsonl",
+      "sha256": "b54407be94b6f71b43da72ba07552ba79699fd1da35e34de4a6e29deaaea5212",
+      "size_bytes": 2206735
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "2ea86e60276253b791ca4968c3e77a6f1a7580dd",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-19T15:28:28.684000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/33f20642-9caf-49b1-8a92-3476277cfcf3.jsonl",
+      "sha256": "046feabd87deb3ff71790b7c52106a5a1b20436718309cde9a00d735951f6b77",
+      "size_bytes": 1037641
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "d94072524165f22923be136f7443296c4f95f863",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-19T09:47:16.186000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/49f000e4-0c59-497e-8702-cff814db8a3b.jsonl",
+      "sha256": "f38109e9c8b3f674b81f3b555618f4cf41ed586c5c75f133586307746bbba725",
+      "size_bytes": 2227381
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ca3d5a2edff0e23fe3080794d3f6fef95f138892",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-18T17:40:08.313000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/52da3210-aa8b-4529-80d3-d61a5acd616a.jsonl",
+      "sha256": "5d3edf2f273de288f49867749c0306563a3be0a8f58ad0f16a8a4ab6f5763963",
+      "size_bytes": 2296318
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "1d66289e1cef3876ef519ac146f61f40a0270c7c",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-18T19:12:45.939000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/573d05fa-3b74-4f3c-ad11-8003386d3b51.jsonl",
+      "sha256": "e8e07c486edd8217f90b908bf64e65be66e270ee0d556fafb1dd65ccc933b1bb",
+      "size_bytes": 2320237
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "e1a420ae1e5bcbd2ee90b01c4078f2d53b002c77",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-19T18:08:14.465000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/612a58a9-d8f1-4c5a-90d9-94d831dcb057.jsonl",
+      "sha256": "722f8e482e4ec357fb81034518f162f86b5848f0cdedf61037be93b512fa9f65",
+      "size_bytes": 142805
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "60eea96ed2a32c291393d7b2076b0abdaf99d65b",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-15T17:05:44.739000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/64489372-b3da-4c3d-8800-cc25631b0d11.jsonl",
+      "sha256": "e80549caf677778dd01762fe25ded374e6011c84692912da7e09fa89286add4d",
+      "size_bytes": 1934387
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "8048b725b14c2152621b5f9e3c99b90b963e6bdb",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-18T15:45:56.367000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/80ba22d1-31bc-4feb-b50a-541f3ae1763b.jsonl",
+      "sha256": "344b8c56697cc11ea747a0e50c635da014763c504afbde18e5ce824951ca9e2b",
+      "size_bytes": 1226822
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "173c49a98613ded4c39023599a1c0b5e7cd9722e",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-19T17:58:37.115000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/98c699ae-3974-485f-b247-9fbb1e970456.jsonl",
+      "sha256": "934dcb35479f32c8abc6d1a5381d994a0fdb76d9f6979307efbe74267b4e860c",
+      "size_bytes": 1272089
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "b8d877e22d3d59bce606406bc04b711c226feb74",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-16T08:17:57.607000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/cf855507-5ee6-46fe-abb2-71641b21b33f.jsonl",
+      "sha256": "424f71a2c2be98ab599aae5842b07734b3943b83094e8e3bea351d08d015e3f3",
+      "size_bytes": 2328997
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "52bfaf5b69734da549937a9b681e6ec41617e1ce",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-19T11:00:38.393000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/d35657c1-dd6d-4703-a7db-e1e16d7cc349.jsonl",
+      "sha256": "c7f176f0afe73ced3c0dc25d9183e5efb8073d403faff559cfb4f205fae9e266",
+      "size_bytes": 1681231
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "e7448c242b9acd07e5739f0d8d5a8a39257d74d1",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-19T08:18:42.830000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/d55f937b-63b0-42aa-8e9a-30ab48a35980.jsonl",
+      "sha256": "b5e826e7a68b4c1acfe2a51f67adb422e454d3758b77fc8043b48cdeff6f96a0",
+      "size_bytes": 2652869
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "b389c8561079bc4e4d8f28de61ea52ba285445fb",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-18T14:57:13.119000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/e1055b99-7b5f-4404-aaa5-338d257c420c.jsonl",
+      "sha256": "5861a4d4052bfef7f47f8532f2bd04cea57b75261e3ed5d18c4cf645b7796eeb",
+      "size_bytes": 1899776
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "73478356e80e865b286518b514da1e52e3ac18ad",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-18T12:18:31.188000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/ea45d9f3-c192-4bd6-93cc-a7080d38baa8.jsonl",
+      "sha256": "1d83d256bb6111dfb7d4fec6796a29ae8443525afb2ce61a2299bd313eced981",
+      "size_bytes": 46291
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ce3d740d5d5a58f3e9fa7cbf84323fbeb9a4428e",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-19T13:57:08.725000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/F--Code-better-arc/ee0b7b09-139b-4f89-90a4-471212a64925.jsonl",
+      "sha256": "7f48a43b272bfdc371f3e9c3d956a7f270517925f11f504bd121f2396635758a",
+      "size_bytes": 2361348
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ba4c869b7f3d582b744fa4ecc900c7d4cdf4bf5e",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-14T23:07:07.617000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/c--Users-Yufeng-Ying-Desktop------/b9b8005e-9ce1-4800-bfac-8d17435eeb13.jsonl",
+      "sha256": "34492e0dad926eebec197cf2eed5d01bb2b06695f3d81a75e3592f11d2efc10b",
+      "size_bytes": 2079981
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "8fe9fb9bcd7c116d69922225158a1de2372ebc02",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-14T15:36:27.154000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/c--Users-Yufeng-Ying-Desktop-----/07173876-4de0-4988-88e9-fcb7415edfe3.jsonl",
+      "sha256": "0bad62b8a02ff409b983d999f27cf84bdd6c1564d6c2167ebb759564be212e21",
+      "size_bytes": 154743
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "23fc8bcf6d1822d1c71931e357535cc8dd5f3c45",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-14T13:40:53.742000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/c--Users-Yufeng-Ying-Desktop-----/19c5c7ee-3ae1-4ba8-b9b0-fb192973ecd2.jsonl",
+      "sha256": "3795f84eff2215f34cbd60ba39a5e5b5855cbd0526346d973cdb62b6806ed46f",
+      "size_bytes": 5887120
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "c2a3202af80c2a9d31e7205a2d4938d61798d398",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T10:06:43.977000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/c--Users-Yufeng-Ying-Desktop-----/19e8b0d1-efd9-4c80-80dc-57cef42fd011.jsonl",
+      "sha256": "ec30397719ec290a75c116fe4ad50ccec53bde043aa8ca9de27e5f2b32162690",
+      "size_bytes": 1791281
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "82a48fa63734c9b5b419718a80482e735874ca78",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-14T07:35:02.654000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/c--Users-Yufeng-Ying-Desktop-----/76b033e0-93a0-46c7-aef3-0b890f3efff6.jsonl",
+      "sha256": "b781b0a3f9a33169f2201353bbbd88a8fa573baba81cef4c646c7d5c0c976d2a",
+      "size_bytes": 222020
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "e6d16c456bf58d58cbd7f5f1f7aef6eced80d78d",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-14T12:58:20.673000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/c--Users-Yufeng-Ying-Desktop-----/7f4caa1c-edc6-45ec-aa88-d048106db47d.jsonl",
+      "sha256": "57789a1adaf42141cea2524850b67d89f46f0cc06c4674f7ea7d7e629f1917e2",
+      "size_bytes": 358482
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "bef16effe8ab2ae9ccf2b8b7a71e8f529b5093cb",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-14T14:20:29.745000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/c--Users-Yufeng-Ying-Desktop-----/95a66c22-694c-4c5a-87ab-ef12435dc057.jsonl",
+      "sha256": "046e860c8a59a8e9c759966dba228bcfdb48d23dc33400695589e4a5aa06a6de",
+      "size_bytes": 2193922
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "3cb08452bf568cec88d8034e1f56c76f2a995673",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-14T08:31:59.332000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/c--Users-Yufeng-Ying-Desktop-----/ad707375-58b2-4bad-82f1-8fe639717be6.jsonl",
+      "sha256": "7afa694fcd756114b761570d923b150dd95675ba94a1ab42b6ea2f140389db47",
+      "size_bytes": 1194355
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "50f223044ecc80afabcafe65df427a13ebf52ee9",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-21T17:45:26.751000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/c--Users-Yufeng-Ying-Documents-Dyson-Sphere-Program-Blueprint/ae09d0b8-7abc-4cd0-968e-7934b539a1ab.jsonl",
+      "sha256": "7f0c267d3e8fd2f2681ece86cce4b349cb39ea13805d11b2b986010bb28bdb05",
+      "size_bytes": 305258
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "89bf8e35db97c31f67d94b576bbecb7215fea453",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T01:46:01.163000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/0a9dbdb8-e4b0-4f46-80b7-3c8fc643e810.jsonl",
+      "sha256": "6e68eab0d35ece869415f7de18f3882bd27a8a57c1d5f958b2460f4fd5810690",
+      "size_bytes": 228939
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "66af5f6720283c657aac177c4b79fefb07b4534a",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T16:09:33.133000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/0bb0b9a2-f9e5-4389-801d-0c6e3af7df34.jsonl",
+      "sha256": "bd1cd6cd675e71532c86b2b98d9cbf53091d6eaca821ada2077e1ebad24eef08",
+      "size_bytes": 238527
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "6ea2632d64a5f4c562cfd08eb4e5a44a19ef844d",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T16:44:42.823000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/229903ec-5833-4fc6-9f23-50b7b83c305e.jsonl",
+      "sha256": "0e879777dd66c1c4174c2eb5fe08407cff7791d15099343129adfccbb05f0759",
+      "size_bytes": 1158622
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "1ad92d692356036f577a26bbe40c80968fb89fe8",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T01:22:03.802000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/4c4ad102-1db7-49b8-aa6e-20808e243d14.jsonl",
+      "sha256": "c07f490f231534ae267328cd6740d9242afbafa7869b03d97011db37ab5c278e",
+      "size_bytes": 274690
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "2534d846ccb5ff9e1a5ab420f21dc362c34b7f83",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T03:08:13.638000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/5d4f3e38-ca6d-4206-96de-bbb634a668e6.jsonl",
+      "sha256": "4ebe11f6165f845b4021149aeb9b19373a7cefe3b1e4dea2990ef6805fc0b87c",
+      "size_bytes": 358009
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "68de5fe4fef951936473d39811f6d09c81b6eee5",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T01:06:17.744000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/761057b0-1f88-455d-9189-228ad988124f.jsonl",
+      "sha256": "79d21532f27a85932f5f1c66e0ec672c61d98c83aab4406a31959ea78054a00d",
+      "size_bytes": 1090235
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "e70a0e8231a8ff15ae2516009c21df506653d67a",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T15:24:52.284000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/8a1433be-4967-4214-864d-12acdf839f92.jsonl",
+      "sha256": "39fca0c44ecea0c7ad47b318a986e1a7c35cea9a1db9da5a429d507fd0527cb3",
+      "size_bytes": 285586
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ea336fe2e019b4cd523001625c7667e737862d2a",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T00:53:04.859000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/972970ad-2759-48a2-8cf1-fd572c7a6565.jsonl",
+      "sha256": "a807de97f68e0b8becd37f53767c6d1161bedbe6a49540778b7a71a227cf4b49",
+      "size_bytes": 41576
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "24d9a135e6b5783c3b8277a9efffe396099ea1f4",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-12T02:13:09.720000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/9a75a877-e5b9-43ca-ad26-da75199d764e.jsonl",
+      "sha256": "9487562b6428cbe7cd6ee05fcca1f2fea49f089ed4e80ecaa8602acf448fd386",
+      "size_bytes": 1058739
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "5705a263d6d9f6097c1cb40f55840045b36b8814",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T16:02:33.520000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/ab1da94a-5d24-4017-bfae-0ec0e799cda4.jsonl",
+      "sha256": "b7d56dba0bcdd82ac390784aed9ba017ffdd502b1ccf22bd2017ba524ade3d91",
+      "size_bytes": 250447
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "c427f05177cea2815470d03cceb41ffa39bb1c73",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T01:28:59.664000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/b314a254-4fe6-481b-922b-76c53cc90867.jsonl",
+      "sha256": "dbfcace89a408613f119d289017b6506cc310c433c246af9fbd4f9f5a2ac7df3",
+      "size_bytes": 29956
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "b034eaa14962729f6c802480512011e6bb73ecee",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T15:52:01.503000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/b5257e41-c799-4ea0-9e66-25da4604ff98.jsonl",
+      "sha256": "a77afa441698b565ae819db27c5194888dd08d173e6a377dde23763df8abdc4f",
+      "size_bytes": 151065
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "50579b858699ed0b8b616db19ef8775c27a4ee89",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T15:18:43.476000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/b6117a52-a3d1-4e95-9b46-ce92054f839e.jsonl",
+      "sha256": "c7f75142f6b73ee2e358a438308187c7e0f849def31e091910cbb219910d8390",
+      "size_bytes": 41416
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ba4c869b7f3d582b744fa4ecc900c7d4cdf4bf5e",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-14T23:07:07.617000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/b9b8005e-9ce1-4800-bfac-8d17435eeb13.jsonl",
+      "sha256": "34492e0dad926eebec197cf2eed5d01bb2b06695f3d81a75e3592f11d2efc10b",
+      "size_bytes": 2079981
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "b0b94d80d0b1f16f8d5187f37a3cb1d11084a0aa",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T16:43:44.726000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/bb94299e-3929-4fb7-8f78-98e729a962a6.jsonl",
+      "sha256": "58f42fdaf2d342c7751778492edf0aba9f0205cb7379b4a74897e39600929b60",
+      "size_bytes": 133345
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "27909e65c8e2f45c23c0184ed602d5fb35da8ac5",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T16:44:44.619000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/c168c0df-ed6b-4631-8c11-ff2e6ec5da46.jsonl",
+      "sha256": "faa08e296073abeca9db19a9cfab86cdc95fec71f34bef6b5ab910b73a3e8a3a",
+      "size_bytes": 13817
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "43e923f975819f83e258c69c22989f167ceb910a",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T16:17:59.748000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/de258f95-40bb-4544-93c0-ccc941a1f6fa.jsonl",
+      "sha256": "0694aa9423261f39857a20d07b660e9dd221700e6d51366db3f0a4a07844c840",
+      "size_bytes": 434166
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "93be2b65940baf6ee601cb6550333cc5c0c8f035",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T15:06:54.421000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/ecc89880-a666-4e8c-be70-3ee9d62463ff.jsonl",
+      "sha256": "6da32df8435e690df2f741ebb1ad6624eb978142fe1332c307a564d8ff31147e",
+      "size_bytes": 2144259
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "a06a665369c10a81847a04c70fe39a7b07a2cc82",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T16:04:46.262000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/f4f106b9-2cc3-4280-b561-289c778472c4.jsonl",
+      "sha256": "fd27b3ea376cddd0f96676b3687d8d3419bb07f28378d8d20cecdad1db71868e",
+      "size_bytes": 204797
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "4836b8a551bdc3de52e780b85a8b390c37625672",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-15T15:51:52.423000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Context/f77dba53-9038-40b8-a67e-2e6b7b4075fa.jsonl",
+      "sha256": "f875d418b558cc6788ba04674c7d26b1e2b859883932e3fdbade8128526583e1",
+      "size_bytes": 268406
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "65cc6d2beb9ab6fabf02ae3d1bb1991a5ff56c15",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T10:47:35.748000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/0431dc54-03e0-463d-b759-447f5665b395.jsonl",
+      "sha256": "ff61e36ecdc4a42554794c61be6e9ff6d0f3785033cf4e8c47e532c7cc20622a",
+      "size_bytes": 25158
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ef48169373b2b63ebe5bece74f598260a976d6c5",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-13T03:32:36.521000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/0a67b3a6-f211-4dd9-9691-87cd41ad71c0.jsonl",
+      "sha256": "91d99db8fa0a9562e31f71d608d2eafeda372e7329b4d5d6de385a481f42e19e",
+      "size_bytes": 144957
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "0adb73a67afeee85aa434faebde82b4178cdd5ef",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:53:33.491000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/14a51b5c-77ce-4475-ba0b-af41382d02b8.jsonl",
+      "sha256": "fda1480907c0864e66d5b40951b372ada08f7a00a856b5e383499e3a3cbfcda6",
+      "size_bytes": 14016
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "1454b3f5e0d1ef62e3be1aab7cf2a1a8b9e6905e",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T11:50:53.347000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/1676ead1-82c8-480e-929e-fda5f84d5d71.jsonl",
+      "sha256": "e62cd85ce31884865d38e2bc394b419dacf8f93936e9b3e77f4c35a765110384",
+      "size_bytes": 22668
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "c7c894bfdc2793d1a98e0bda5ded15b49aea1ce5",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:44:48.828000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/26e18bef-9b0e-40fd-baf6-420cec10ccc2.jsonl",
+      "sha256": "40da1cba85b7aee656d6b1d53527977b140af8a73ea1ccbee57bd8f6578b196f",
+      "size_bytes": 94506
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "b62c8ec54ddb5d064bd5446329f8c732fd81c4cd",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:54:14.440000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/2c54bc91-37be-40c8-9b88-9a7fae628be3.jsonl",
+      "sha256": "c1069cc60240d4cd8a55c790f561d86bcf395b132d86989a190c330789d52f50",
+      "size_bytes": 3956
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "4e7bca68c46a4c8ded02c7c20d771b6c4ce81304",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T15:57:04.237000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/31c72154-5a63-4f44-af4b-21fe602ee6aa.jsonl",
+      "sha256": "1e357b0f7c7a2fecf332b64bdc73e8e4f069195ec9c43d02653a3590d0e0bbbe",
+      "size_bytes": 363860
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "399d9404549c53556c4386455a9e358aa48e4b1f",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T21:25:54.545000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/36b1efe0-7ca4-4b6f-b6b5-cc48f03f52a2.jsonl",
+      "sha256": "26aa872ee470371787860a010e7976a6c6706b36e452879c4aad09d01604c0da",
+      "size_bytes": 210846
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "faa89dcd4239d2d8d1b8eefa7e0517782d9fa059",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T21:26:03.962000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/40eca24b-b6c2-44df-886c-6a1eb76f52cd.jsonl",
+      "sha256": "1b4fdf8aab238d30b559f7e41b24454d21f3e95ea294d4141ed415e4cc5afdc0",
+      "size_bytes": 462629
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ff83bb59ac873c0453e0f70ecae283254165a60c",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T22:52:47.764000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/435288da-eb12-4437-a214-06812be28c10.jsonl",
+      "sha256": "1a1ea6a5a2bac3cbe293223065ccce43b02f3ca8eef3dc69eb0a17e4cb7c7d90",
+      "size_bytes": 1380258
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "81362ee06cfd7d8a3d9dbc0a783519920250ba33",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T12:20:38.897000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/47a89027-2fd7-40f8-bd5d-0628e62511ab.jsonl",
+      "sha256": "39c7d9162dd47d476f287a97afa864ca34589999bde4a52e044910df3c4c0d0e",
+      "size_bytes": 535015
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "c30b462b997a3faf18e13ffe46061aa59f0cb2ee",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T11:37:59.907000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/47fc423c-20ff-45c4-9647-e52ae6d1a20b.jsonl",
+      "sha256": "b641ec4315d80e0a79bbeff94f34976316f4fd84a8e681527accf8d82a87c807",
+      "size_bytes": 4239
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "049d3b221bcd9d8f33db68c1204790cb7696eeb2",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T18:00:21.210000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/4a5da99c-cfaa-4970-b12b-debcf9fedaa9.jsonl",
+      "sha256": "cfb081a957180371badf31b171404579674adf37803ce1766e2e0b5e72b6e2e3",
+      "size_bytes": 3375
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "3b98b369b543d3dea845ac3d19600343dfe919ff",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:43:30.541000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/4a8cc239-68b9-41e9-8142-a27745a26a44.jsonl",
+      "sha256": "d8b2cc9d951d27e0ae2e8099eddd58c64da2c7776f1e347c2f582efe18a76082",
+      "size_bytes": 31936
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "3615401410862f326be928dc8dce022b1db1b318",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T18:18:23.638000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/4d80aedf-94e7-452f-803d-757d675fd24b.jsonl",
+      "sha256": "46ba085b905ce5f21217daf0ba8887b3040067996e194d4b7e11dab8ad7cc241",
+      "size_bytes": 60943
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "7c555c5b833b99c351fcba40f49236ac02e53258",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T13:40:20.945000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/5a313a1c-ccb0-49ea-838a-0ce91f68162d.jsonl",
+      "sha256": "ce64c211fd1dba5347df49d389c111b96114a920b52c80f9be3fd932a8c11fbe",
+      "size_bytes": 1885466
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "215e9c7bb1926cc243b83442a9d07a04cf5accf4",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T10:48:24.848000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/64405f88-e3b5-4f96-bf62-b8e9046d89f2.jsonl",
+      "sha256": "b93bcb34480e5d1e5cbe89a7bae6c8b0ef188acc0c84c1f6329f1aaf88e87200",
+      "size_bytes": 5320
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "441c83eacaaa2f67d9bf014b794a24a71b6920ae",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T22:40:19.557000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/6a7d3027-3676-4839-bb51-f9bd1000b629.jsonl",
+      "sha256": "402c578b890614301c2c0c91da1f991d8b1e4b92cbc7c553b86a451d1f52ad89",
+      "size_bytes": 977872
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "816506b9d327dca6b4a379728c409064c4a834bd",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T18:27:46.984000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/6c2f98d8-ff9e-4e2f-8b76-94017c7edb1e.jsonl",
+      "sha256": "6a7d7cff66a1d5f585c83c8ab10a2b54ca43ced1073b74e90d1b24e392bc6967",
+      "size_bytes": 976774
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "9fd7d13af5925a0fd7f9e730d61ad6030dfcf951",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T11:52:24.547000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/6cc2f9ee-2e31-4905-a021-68aece3665f7.jsonl",
+      "sha256": "f8f6b79d51a83b3e9302215028015d03e88153d90afa288df85bed3bb8674c73",
+      "size_bytes": 45983
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "b777810c39e095811913a7a8daad0ebf951c12aa",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T21:54:19.980000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/71d26d84-02cb-4cc0-884d-d6c20ec193a5.jsonl",
+      "sha256": "75569607f217cbba0dded4339b017da20a3d46c5dc297cfc9b13dd665858df4c",
+      "size_bytes": 2267707
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "598a88585af6d8183521bfeffeccbec139f1c407",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T13:11:56.948000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/72e7e461-cce7-4331-b19c-de431c90190b.jsonl",
+      "sha256": "f45ad471c2285af6b83bb842b3d9b7c5abb177e080abf82f49f3fc95ad759ca4",
+      "size_bytes": 230270
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "18fc7390555dc11acfbdae489013c524dd9cdde2",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T14:29:18.907000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/73f705ca-dcbd-4a1d-be15-d94eada54f91.jsonl",
+      "sha256": "8d16c78b9ebe36ac27e107b45f9e4bc61f8e23fd92e945f89535d1d6a4b5e841",
+      "size_bytes": 167753
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "0f99e8dbdc4fb855082b97201c3422be58a34a40",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T11:54:17.087000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/745cf8c7-47a8-4b4c-a9ba-7a593dea970c.jsonl",
+      "sha256": "48ba4f912ae8ad43243d28529f09bb4cc151e10b1aa2f7129cef38e3e9444ff3",
+      "size_bytes": 239524
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "c09c186573c46c32a3a3f0b947757d91c5119162",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T09:05:50.367000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/7629ed54-bfe5-4cfd-8b39-bba93244082a.jsonl",
+      "sha256": "1c56f96df256fce057c4e5b95adb9a10dc6f8c106234a502ed9a2282b211df46",
+      "size_bytes": 219940
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "98d6dc342c183c95a99a6d36ca236489388b3bf9",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:42:03.797000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/80ffd109-c1f0-459e-bbd8-f3be0933eb83.jsonl",
+      "sha256": "a660c9ee4a092e8af19477930055e942778fd5e0941c9608211f581599910d2c",
+      "size_bytes": 38649
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "98cfdc6d7be576a9e27f748dc8530fa17f8f0148",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:41:03.944000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/84c1e159-37b0-4426-ad4c-f248dee64c50.jsonl",
+      "sha256": "1ef23de443c2555001391998c3f1491f30d1f43478cb86f4c757574a18c76a39",
+      "size_bytes": 13648
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "6a6e3c03f95866c44aae9898769b5f7682b44cd2",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:40:04.692000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/8a8c1880-aaeb-479b-9896-a23fcda1b07d.jsonl",
+      "sha256": "ab9c653e2d888e256656662e24bbbfc7f7bcae65edf1ff0fa0d8e804c210e0e3",
+      "size_bytes": 28160
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "a58e7e2bb1036723018fff0107c9acdf84ceb20b",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T11:01:30.803000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/8d096399-815d-4e59-ae8d-dbd46180c1e8.jsonl",
+      "sha256": "d91440787961d3c7da63edc89d41b4a9498be7c15c2afce6d6f2b993469e4f7b",
+      "size_bytes": 25391
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "687b12e76d25e1d5d379553c51b80139193d5451",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-13T15:37:12.175000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/8da62ecf-6d7b-4212-9996-2d275de588a6.jsonl",
+      "sha256": "be91c893e564b4fbb4cdabb980f4a01217672a3855f143ccdc87a9dd373a9bb2",
+      "size_bytes": 1481001
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "771339a0b5d4d1c7e2942e196395fa4db717e02d",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T14:11:15.276000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/8dc9127c-9b37-47e9-9906-5674604280b5.jsonl",
+      "sha256": "98f64ba94cf52633a67f51e831035ff449049831f9923d1fcc69d8961c8cfa93",
+      "size_bytes": 513467
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "0f42cb8df98366c08795c98d433556fe8a85cb75",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-08T14:14:40.649000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/98b8b23e-8533-4af5-9e79-edd90a3d535c.jsonl",
+      "sha256": "30d23e080da46716e63f329a95339221423ef2ad7a65e56387cfcb454e0ae2ca",
+      "size_bytes": 2174731
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "13273e9d6190eba23c7e4a6908c275cacf82dd17",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T11:54:06.532000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/a71f5122-3c9c-49a6-8616-7914d7f52b03.jsonl",
+      "sha256": "a146f43ff8eb2fd52c689d70448dcb1ec4e7295f72b9b5b9a3b12041af76ac87",
+      "size_bytes": 99635
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "35c14ae208007f8c0f0c81a3d743f330f930d3e8",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:38:30.826000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/a8d4f1fc-550a-4373-a2ff-edb0911b8147.jsonl",
+      "sha256": "3910b2aac05132f6583c5fbd846f6c28f0f2383faee31edb3a8a78bed9c2878e",
+      "size_bytes": 27546
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "a1a8c6d1fa0725b780ac1814e4c500ffc3403a4b",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:56:18.962000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/aa2a3874-93a5-4405-abca-6d6f0d2e3594.jsonl",
+      "sha256": "ee1f442bee6ac2c23448f54f142cceab8d90f1c474ddd09c23bd7a4cb2478a06",
+      "size_bytes": 136146
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "0e50d4ddb746ff5295a758328122dcac7aeba5a7",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:55:35.219000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/ab67ad4c-a200-4944-b7bc-4ba487269b31.jsonl",
+      "sha256": "05d27fe24fc3c5809a8313b7f2b19dfcdfa1ef8683afab4d7ce2a34ede4926b6",
+      "size_bytes": 201033
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "7186a8201fa256d1001a8c2b820503e8883ad572",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T10:01:10.382000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/b04e7d4a-5cfd-4697-b6f3-d06ccfc40cc4.jsonl",
+      "sha256": "6f0642cdcd09a25920a35e089ef4a4bc7a2d396a18ed4881648bb69fd4655db5",
+      "size_bytes": 1419292
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "e2cb77676719bd2ace553b843fc9e553d9af35e6",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T15:38:01.881000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/b638a7a8-33a8-40a3-ae87-f07a6c89116b.jsonl",
+      "sha256": "8236beaac41ac43f23ef8f8587189a0743daf002c6b2f1395a1902b8dbbb85c1",
+      "size_bytes": 1376103
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "f90eb8e54faefcf65185a387fe2ba3c50a7a787e",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T14:27:52.010000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/b774d96e-cb8e-45a5-bc77-8de27074462d.jsonl",
+      "sha256": "9d239306c730d919e67ebb0fd9f97853bdb65e9193ff1ed93dd97cc911230b9f",
+      "size_bytes": 112157
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "7ebd195fb86e4796c17e5fe938bced22db9902e7",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T12:10:32.365000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/b7f7458f-71fa-4bc0-9bab-9be3db726774.jsonl",
+      "sha256": "762fcb7067569fa18246982b33fa16fa78bd151b027d1f6955be6ec25be233fc",
+      "size_bytes": 1624038
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "8040dfaaada619fa8813caa9bcee58b87ce435f0",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-13T13:58:17.056000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/c0378850-58aa-4132-9ca5-c99fa6974f0b.jsonl",
+      "sha256": "c7a5a4fe635439e1f8d963d9480f6cf33986a7a86b2d67860836f090ef2c307d",
+      "size_bytes": 185341
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ff41b8d8840c1d45c4ff73de6830a36d09623a82",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-08T07:46:43.347000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/c97922c0-8672-4e3f-a49a-d4e8b8a28cee.jsonl",
+      "sha256": "5f3f7c12e7c28113749032361881e5aa03b6aced545a98f443a3f61bc100732e",
+      "size_bytes": 1036073
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "ae3ee00842b4d0974291a3f6c0e3ff4b8fe6d4e4",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T18:14:14.673000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/ce31f608-ee8c-4061-aa01-862d8c796aab.jsonl",
+      "sha256": "e8fff73ef101d6f213b7ece536b35f32629f0e10e6f498cfd48b0b6489716e40",
+      "size_bytes": 24956
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "a89a272797c9ce0deab876c4029aa97099928311",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-09T10:08:42.780000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/d0ebcf36-27e8-4e48-b3ba-aa606a83e36a.jsonl",
+      "sha256": "e889e34be8a3470ae789371d8a3a973f78d05156e3dfa082564cf45d5c839c7d",
+      "size_bytes": 1849
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "62825d007963d32e5e0dbd68e52f93d1317efd6a",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T18:15:54.714000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/d4be2a8d-951c-498e-b8e9-792641cd4142.jsonl",
+      "sha256": "7f6457a646c75ca8f12f7480e40ae8fc25804a78687a77a67eb6abcc6410cb47",
+      "size_bytes": 48481
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "f496e6b5a3bf812ce70c3d59dbe1aeb6fffe3391",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:49:14.815000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/d6578783-6dc1-420b-815f-a3a2662f19d7.jsonl",
+      "sha256": "6b54ceee481c369dbe5c6597d1456c2854438f18a0ceccb1945e4f4ead083497",
+      "size_bytes": 293835
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "577a2949bb1a56aecc3474d6229da8e0bb817c87",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T16:27:00.127000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/eafa9e05-3153-4d51-afb6-08068704aec2.jsonl",
+      "sha256": "a7a821c86a2c8170a996794143c8c41abebc884ac4cd21b7080bcc6e0f8eddcf",
+      "size_bytes": 197140
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "89ce0971f36a64c594d94b8db4cf3bd18d6b989b",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T11:45:51.887000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/ebc81efb-346f-4093-bfba-e4d75f1df400.jsonl",
+      "sha256": "7a8916ce6354a8ab5341d02e504fa13cca1590b0ddf55fd6b671f646c69f4bd9",
+      "size_bytes": 25727
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "f5de47e89ae2e7bb00854682b3eb453b0326b3a3",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:36:33.759000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/f295ef02-7a73-4f0b-bdea-41267c9ac7bc.jsonl",
+      "sha256": "73899ee5e759a34d30c8e95c8c682cf7d1d8d7d8df02c20364de2c30438729b0",
+      "size_bytes": 30362
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "8c46002f4bf55f24811b65098879d9431814d369",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T12:57:49.312000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/f55e1dcf-f893-4b02-9b9e-66c0ff50946d.jsonl",
+      "sha256": "7ab2b92edfa9538dbe86d360450aab03f2206a3205c1bf7f0405a2a68275db28",
+      "size_bytes": 1613278
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "5d3454fdc967e1c8705381ddb8c9e81fa50eaea5",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-10T17:37:26.753000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/f7df6671-62a6-4dd9-b218-be60d1320702.jsonl",
+      "sha256": "d1d41dec0e48ae09d571391396a3c1a6d7a1538d1c7975ae63b9ce38f5309dbb",
+      "size_bytes": 26293
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "e279738384489c839ce78b518291e11cd46a82da",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-11T14:29:57.269000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-Ring-rs/feb882d5-5f83-4a6e-9761-b30b06932567.jsonl",
+      "sha256": "6833e77d3d565385429372d67b6c4f21a23cc4e43dbe2c4b4b0b6232fb507c80",
+      "size_bytes": 353143
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "a5aeac456919fcfab7ee37507fcc7b7e7141bf43",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-04-22T12:00:36.183000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--Code-dsp-blueprint-generator/5f5c953d-5ea8-43d9-8089-b0d281c628a8.jsonl",
+      "sha256": "93985167d631ba3832173af7cccfb4f39dad174c30be01b640bd9923979ad28c",
+      "size_bytes": 1402420
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "git_blob": "24d9a135e6b5783c3b8277a9efffe396099ea1f4",
+        "kind": "git_tree",
+        "latest_record_timestamp": "2026-05-12T02:13:09.720000+00:00",
+        "mode": "100644"
+      },
+      "path": "fs/sessions/f--onedriveDump------VDB/9a75a877-e5b9-43ca-ad26-da75199d764e.jsonl",
+      "sha256": "9487562b6428cbe7cd6ee05fcca1f2fea49f089ed4e80ecaa8602acf448fd386",
+      "size_bytes": 1058739
+    },
+    {
+      "evidence": {
+        "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+        "kind": "git_tree_skill_copy",
+        "source_path": ".claude/skills/deepseek-dispatch/SKILL.md"
+      },
+      "path": "skills/deepseek-dispatch/SKILL.md",
+      "sha256": "8a3cf96aaefbc615f8c1a34ec9cc197cae4774d3ca24b318c41b716633c4f18c",
+      "size_bytes": 3299
+    },
+    {
+      "evidence": {
+        "kind": "adapter_index"
+      },
+      "path": "skills/index.json",
+      "sha256": "7af36c54679213a185f7eaca312561b21a7255f0fc9ddbf6dd65d174bd8160d3",
+      "size_bytes": 579
+    },
+    {
+      "evidence": {
+        "kind": "observed_static_skill_payload",
+        "observed_at": "2026-05-15T21:29:01.526Z",
+        "raw_line_sha256": "d53ccccb0f9d26de5ea38b999f5b1f8efba69dc38536aed6fec81aa84e16838b",
+        "source_line": 16,
+        "source_version": "bea7ae5d11c470b18048e2a143f31bd59eb51021",
+        "temporal_basis": "first-turn load, before any local write; existence at anchor inferred",
+        "transformation": "removed invocation-specific ARGUMENTS suffix only"
+      },
+      "path": "skills/personal-context/SKILL.md",
+      "sha256": "81100f2bd1194ec2d59e4de862f5f453e699c800bba052bb5ad0c11025ef52d6",
+      "size_bytes": 2974
+    },
+    {
+      "evidence": {
+        "kind": "observed_static_skill_payload",
+        "observed_at": "2026-05-15T21:30:05.147Z",
+        "raw_line_sha256": "a6f7d161524819b5aab480ae13c6e455d6f9c04ca23ede2adcbc8c7267f00194",
+        "source_line": 29,
+        "source_version": "bea7ae5d11c470b18048e2a143f31bd59eb51021",
+        "temporal_basis": "first-turn load, before any local write; existence at anchor inferred",
+        "transformation": "removed invocation-specific ARGUMENTS suffix only"
+      },
+      "path": "skills/superpowers__brainstorming/SKILL.md",
+      "sha256": "41d4f841808354b40e392087cf423a2a126dfe730da0f1220789990d34086747",
+      "size_bytes": 10529
+    },
+    {
+      "evidence": {
+        "declared_plugin_version": "5.1.0",
+        "kind": "pre_anchor_static_skill_payload",
+        "observed_at": "2026-05-11T14:54:00.838Z",
+        "raw_line_sha256": "e590c9971ac594bed66bfe0aa5d76b5556d0f4e17cca527a535e5ec2b2cd8986",
+        "source_line": 431,
+        "source_path": "fs/sessions/f--Code-Ring-rs/b638a7a8-33a8-40a3-ae87-f07a6c89116b.jsonl",
+        "temporal_basis": "pre-anchor observation of same plugin release; live file state unverified",
+        "transformation": "removed invocation-specific ARGUMENTS suffix if present"
+      },
+      "path": "skills/superpowers__subagent-driven-development/SKILL.md",
+      "sha256": "47dd9e7af25fe103653f268fd17c2abdb755fbc02eabf46f79768ce76f73c779",
+      "size_bytes": 12556
+    },
+    {
+      "evidence": {
+        "declared_plugin_version": "5.1.0",
+        "kind": "pre_anchor_static_skill_payload",
+        "observed_at": "2026-05-11T16:23:55.176Z",
+        "raw_line_sha256": "0527e5c953e1a4f352a74b53ca8db9d72a13552d53b5a6440fa3cc2cc44fe5b6",
+        "source_line": 40,
+        "source_path": "fs/sessions/f--Code-Ring-rs/eafa9e05-3153-4d51-afb6-08068704aec2.jsonl",
+        "temporal_basis": "pre-anchor observation of same plugin release; live file state unverified",
+        "transformation": "removed invocation-specific ARGUMENTS suffix if present"
+      },
+      "path": "skills/superpowers__systematic-debugging/SKILL.md",
+      "sha256": "07a0aafc4369575d2a77ea46cc460f1539175f5bbbadf9dacfb79feac6d9b814",
+      "size_bytes": 9888
+    },
+    {
+      "evidence": {
+        "kind": "preloaded_hook_payload",
+        "source": {
+          "line": 4,
+          "raw_line_sha256": "1125982a8c59922a1bbf324863e019adc006a423d06146d5202af7d9641afb7f",
+          "version": "bea7ae5d11c470b18048e2a143f31bd59eb51021"
+        }
+      },
+      "path": "skills/superpowers__using-superpowers/SKILL.md",
+      "sha256": "deae504ad14187f49c20237ae2cac7de2815957546a923ce614f4bae157358ab",
+      "size_bytes": 5648
+    },
+    {
+      "evidence": {
+        "declared_plugin_version": "5.1.0",
+        "kind": "pre_anchor_static_skill_payload",
+        "observed_at": "2026-05-11T14:45:21.922Z",
+        "raw_line_sha256": "6152383d2469e8894ab98a68eb6d8824e0864b33dda8caf331574276e8929316",
+        "source_line": 304,
+        "source_path": "fs/sessions/f--Code-Ring-rs/b638a7a8-33a8-40a3-ae87-f07a6c89116b.jsonl",
+        "temporal_basis": "pre-anchor observation of same plugin release; live file state unverified",
+        "transformation": "removed invocation-specific ARGUMENTS suffix if present"
+      },
+      "path": "skills/superpowers__writing-plans/SKILL.md",
+      "sha256": "e874be813ea9c27c93a71e367f9f13a7cca3be715030140d9e9b129e774ad437",
+      "size_bytes": 6111
+    },
+    {
+      "evidence": {
+        "declared_plugin_version": "5.1.0",
+        "kind": "pre_anchor_static_skill_payload",
+        "observed_at": "2026-05-15T01:12:55.966Z",
+        "raw_line_sha256": "43d950b5a83687e6aa4c95752a8746ef72d1ecd551ac9d3e62b167de52f3a1ba",
+        "source_line": 16,
+        "source_path": "fs/sessions/f--Code-Context/4c4ad102-1db7-49b8-aa6e-20808e243d14.jsonl",
+        "temporal_basis": "pre-anchor observation of same plugin release; live file state unverified",
+        "transformation": "removed invocation-specific ARGUMENTS suffix if present"
+      },
+      "path": "skills/superpowers__writing-skills/SKILL.md",
+      "sha256": "72c27d1b89c5a7f1b2b8de58a7ed1fdbf110c3dab3d7170fc6e11c01793c8301",
+      "size_bytes": 22622
+    }
+  ],
+  "fs_root": "fs",
+  "input_sha256": "4e9c5e957b7b06be71682dc3d67fbdcffab27d03059c31a7d80a21d92abcef14",
+  "limitations": [
+    "A complete tracked tree does not prove the live anchor checkout or untracked files.",
+    "Two static skills were observed just after the anchor, before local writes; not preloaded.",
+    "Other global skills, skill companion files, full system prompt and external services remain unknown.",
+    "Candidate tools are read-only and do not run scripts, hooks, subagents or external APIs.",
+    "Later replay rounds use this same anchor environment, not a later writable workspace."
+  ],
+  "missing_files": [],
+  "moment_id": "M01",
+  "profile_read_crosscheck": {
+    "matches": true,
+    "normalization": "CRLF/LF and final newline only",
+    "source_line": 22
+  },
+  "recovery": "partial",
+  "repository": {
+    "commit": "ac36b6755aa18d9fcaebd2c8d2fb97736e2d6ec9",
+    "committer_utc": "2026-05-15T17:36:25+00:00",
+    "dirty_state": "unknown",
+    "name": "Context",
+    "selection": "latest retained Context commit before anchor, not verified live HEAD",
+    "tracked_files_restored": 196,
+    "tracked_tree_complete": true,
+    "tree": "7d03104de5d74750aa2d608027beff678511d8f7"
+  },
+  "resource_inventory_sha256": "0464374074d87b0537340a99ff59a4e360db6604a4991fcec2693f041e6eb074",
+  "schema_version": 1,
+  "skills_root": "skills",
+  "unrecovered_skills": [
+    "claude-api",
+    "fewer-permission-prompts",
+    "init",
+    "keybindings-help",
+    "loop",
+    "review",
+    "schedule",
+    "security-review",
+    "simplify",
+    "superpowers:dispatching-parallel-agents",
+    "superpowers:executing-plans",
+    "superpowers:finishing-a-development-branch",
+    "superpowers:receiving-code-review",
+    "superpowers:requesting-code-review",
+    "superpowers:test-driven-development",
+    "superpowers:using-git-worktrees",
+    "superpowers:verification-before-completion",
+    "update-config"
+  ],
+  "virtual_cwd": "F:\\Code\\Context",
+  "visibility": "tool_access_only"
+}
