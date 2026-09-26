@@ -1,0 +1,2 @@
+# Frozen replay packets must retain exact bytes for integrity checks.
+replay_packets/** -text

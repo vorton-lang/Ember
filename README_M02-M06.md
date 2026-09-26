@@ -1,11 +1,11 @@
 # M02–M06 交互回放包
 
-解压到空目录或 Vorton-Archeology 仓库根目录，从解压目录运行。不会覆盖 M01 的 runner。
+以下保留 M02–M06 的包说明与历史恢复限制；当前通用 runner、OpenRouter 配置与日志格式见 [README.md](README.md)。
 
 ## 启动
 
 ```powershell
-pip install -U anthropic
+pip install -r requirements-replay.txt
 $env:DEEPSEEK_API_KEY="你的key"
 python tools/replay_deepseek.py --moment M03 --model deepseek-v4-pro --effort max
 ```

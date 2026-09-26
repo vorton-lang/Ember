@@ -43,6 +43,7 @@ def validate(environment, packet_dir=None):
             if hashlib.sha256(path.read_bytes()).hexdigest() != packet["integrity"]["files"][spec["path"]]:
                 raise ValueError("Model input changed: " + spec["path"])
     expected, inventory = {"manifest.json"}, []
+    resource_errors = []
     for entry in manifest["files"]:
         relative = PurePosixPath(entry["path"])
         if relative.is_absolute() or ".." in relative.parts or entry["path"] in expected:
@@ -51,9 +52,13 @@ def validate(environment, packet_dir=None):
         path = environment.joinpath(*relative.parts)
         if path.is_symlink() or not path.resolve().is_relative_to(environment):
             raise ValueError("Resource escapes bundle")
+        if not path.is_file():
+            resource_errors.append("Missing resource: " + entry["path"])
+            continue
         data = path.read_bytes()
         if len(data) != entry["size_bytes"] or hashlib.sha256(data).hexdigest() != entry["sha256"]:
-            raise ValueError("Resource hash mismatch: " + entry["path"])
+            resource_errors.append("Resource hash mismatch: " + entry["path"])
+            continue
         evidence = entry["evidence"]
         if evidence["kind"] == "git_tree":
             if evidence["commit"] != repository["commit"]:
@@ -69,6 +74,8 @@ def validate(environment, packet_dir=None):
                 if record.get("timestamp") and utc(record["timestamp"]) > anchor:
                     raise ValueError("Future session record")
         inventory.append({k: entry[k] for k in ("path", "sha256", "size_bytes")})
+    if resource_errors:
+        raise ValueError("Frozen environment integrity failed:\n" + "\n".join(resource_errors))
     actual = set()
     for path in environment.rglob("*"):
         if path.is_symlink():

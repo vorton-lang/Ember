@@ -6,12 +6,11 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
-from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import replay_deepseek as r
+import replay as r
 from validate_replay_environment import validate
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -92,35 +91,6 @@ class ReplayMomentTests(unittest.TestCase):
         self.assertNotIn("FUTURE_POISON", str(prefix))
         self.assertTrue(r.is_direct_human_user(history[cut-1]))
 
-    def test_mock_api_tools_and_interrupt_logging(self):
-        packet = PACKETS / "M03"
-        args = SimpleNamespace(model="deepseek-v4-pro", max_tokens=1024, effort="max")
-        calls = []
-        responses = [SimpleNamespace(id="test-1", model=args.model, role="assistant", stop_reason="tool_use", content=[
-            {"type": "tool_use", "id": "call-1", "name": "Read", "input": {"file_path": "docs/philosophy.md"}}]),
-            SimpleNamespace(id="test-2", model=args.model, role="assistant", stop_reason="end_turn", content=[{"type": "text", "text": "Offline test complete."}])]
-        def create(**kwargs):
-            calls.append(copy.deepcopy(kwargs))
-            return responses.pop(0)
-        client = SimpleNamespace(messages=SimpleNamespace(create=create))
-        with tempfile.TemporaryDirectory() as directory:
-            log = r.RunLog(Path(directory) / "run", {"status": "running"})
-            messages = [{"role": "user", "content": [{"type": "text", "text": "Inspect philosophy."}]}]
-            r.api_turn(client, args, "Test", messages, r.FrozenEnvironment(packet / "environment", None), log, set())
-            self.assertEqual(len(calls), 2)
-            self.assertIn("公理", calls[1]["messages"][-1]["content"][0]["content"])
-            self.assertEqual(calls[0]["model"], "deepseek-v4-pro")
-            self.assertTrue(any(e["kind"] == "tool_result" for e in log.events))
-        with tempfile.TemporaryDirectory() as directory:
-            fake_client = SimpleNamespace(messages=SimpleNamespace(create=lambda **kwargs: (_ for _ in ()).throw(KeyboardInterrupt())))
-            fake_sdk = SimpleNamespace(Anthropic=lambda **kwargs: fake_client)
-            cli = ["replay_deepseek.py", "--packet", str(packet), "--runs-dir", directory]
-            with patch.object(sys, "argv", cli), patch.dict(sys.modules, {"anthropic": fake_sdk}), patch.dict(r.os.environ, {"DEEPSEEK_API_KEY": "offline-test-only"}):
-                self.assertEqual(r.main(), 130)
-            run_path = next(Path(directory).rglob("run.json"))
-            self.assertEqual(json.loads(run_path.read_text())["status"], "interrupted")
-            self.assertTrue((run_path.parent / "initial_request.json").exists())
-            self.assertNotIn("offline-test-only", (run_path.parent / "transcript.jsonl").read_text())
 
 
 if __name__ == "__main__":

@@ -1,1 +1,1 @@
-anthropic
+httpx>=0.27,<1
