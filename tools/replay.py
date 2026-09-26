@@ -23,8 +23,9 @@ import uuid
 from urllib.parse import urlsplit
 from pathlib import Path
 from typing import Any, Iterable
+from harness_profiles import available_profiles, load_profile, read_manifest
 
-ADAPTER_VERSION = "ember-messages-http-v3.1"
+ADAPTER_VERSION = "ember-messages-http-v3.2"
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BASE_URL = "https://openrouter.ai/api"
 GATEWAYS = {
@@ -1467,11 +1468,15 @@ def parse_args(argv: list[str] | None = None, default_gateway: str = "openrouter
     parser.add_argument("--provider", help="OpenRouter provider slug to pin (e.g. anthropic)")
     parser.add_argument("--allow-provider-fallbacks", action="store_true",
                         help="Use provider as a preference instead of an allow-list; exploratory runs only")
-    parser.add_argument("--harness", choices=("minimal",), default="minimal")
+    profiles = parser.add_mutually_exclusive_group()
+    profiles.add_argument("--harness", choices=available_profiles(), default="minimal",
+                          help="Select a pinned behavior profile (default: minimal)")
+    profiles.add_argument("--system-prompt-file", type=Path,
+                          help="Replace the harness scaffold; recovered context is still appended")
+    parser.add_argument("--list-harnesses", action="store_true",
+                        help="List built-in profiles and exit without API calls")
     parser.add_argument("--replay-mode", choices=("semantic", "faithful"), default="semantic",
                         help="semantic removes historical workflow injections (default); faithful preserves the previous projection")
-    parser.add_argument("--system-prompt-file", type=Path,
-                        help="Replace the harness scaffold; recovered context is still appended")
     parser.add_argument("--temperature", type=float, default=None)
     parser.add_argument("--cache-input", action="store_true",
                         help="Enable 5-minute input caching for Claude via OpenRouter (default: off)")
@@ -1501,6 +1506,12 @@ def parse_args(argv: list[str] | None = None, default_gateway: str = "openrouter
 
 def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> int:
     args = parse_args(argv, default_gateway)
+
+    if args.list_harnesses:
+        print("minimal: original EMBER baseline (default)")
+        for name, profile in read_manifest()["profiles"].items():
+            print(f"{name}: {profile['description']}")
+        return 0
 
     if args.start_round < 1:
         raise RuntimeError("--start-round must be >= 1")
@@ -1607,8 +1618,9 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
     elif args.check_environment:
         raise RuntimeError("No verifiable environment manifest found")
 
-    profile_path = args.system_prompt_file or ROOT / "harnesses" / f"{args.harness}.md"
-    profile_text = profile_path.read_text(encoding="utf-8")
+    profile_path, profile_text, harness_provenance = load_profile(args.harness, args.system_prompt_file)
+    if harness_provenance is not None and args.replay_mode == "faithful":
+        adapter_warnings.append("Named behavior profile is mixed with recovered historical harness injections; use semantic for prompt-only comparisons.")
     if args.replay_mode == "semantic":
         recovered_context = semantic_catalog(env)
     system = make_system_prompt(recovered_context, env, env.available, profile_text)
@@ -1661,6 +1673,7 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
         "harness": "custom" if args.system_prompt_file else args.harness,
         "harness_file": str(profile_path.resolve()),
         "harness_sha256": sha256_bytes(profile_text.encode("utf-8")),
+        "harness_provenance": harness_provenance,
         "system_sha256": sha256_bytes(system.encode("utf-8")),
         "tools_sha256": sha256_bytes(json_dump(TOOLS).encode("utf-8")),
         "temperature": args.temperature,
@@ -1707,6 +1720,7 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
     print(f"Model requested: {args.model}")
     print(f"Start round: {args.start_round}")
     print(f"Replay mode: {args.replay_mode}")
+    print(f"Harness: {metadata['harness']}")
     print(f"Frozen environment: {'yes' if env.available else 'NO'}")
     print("Ctrl+C to stop and save.")
     print()

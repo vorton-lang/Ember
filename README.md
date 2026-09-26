@@ -14,7 +14,7 @@ EMBER 研究一个问题：**现代模型能否通过合适的提示词与协作
 - **比较 harness**：固定模型，比较不同提示词与协作规则能否稳定改善这些行为。
 - **形成可用成果**：将有效的方法整理为日常可用的 harness / skill，并用实验记录支撑后续研究报告。
 
-EMBER 是一个轻量的实验项目，目前提供历史回放、终端交互与结果记录。内置 `minimal` harness，支持自定义提示词；其他实验 profile 和自动评估尚未内置。
+EMBER 是一个轻量的实验项目，目前提供历史回放、终端交互与结果记录。内置 minimal、Claude Code 和 Codex 行为提示词候选，也支持自定义提示词；自动评估尚未内置。
 
 ## 快速开始
 
@@ -77,6 +77,28 @@ python tools/replay.py --moment M01 --start-round 2 --model anthropic/claude-opu
 
 ## 配置实验
 
+### 切换提示词
+
+保持原命令不变，追加 `--harness` 即可。默认仍为 `minimal`。
+
+| 候选 | 对应条件 |
+|---|---|
+| `minimal` | 原有基线 |
+| `cc-2.1.142` | Claude Code 初期版本，2026 年 5 月 |
+| `cc-2.1.172` | Claude Code 晚期版本，2026 年 6 月 |
+| `codex-5.3` | 2026-06-14 Codex 快照中的 gpt-5.3-codex 基础指令 |
+| `cc-2.1.162` | 4.8 历史使用版本，备用条件 |
+
+```powershell
+python tools/replay.py --moment M03 --model anthropic/claude-opus-4.8 --provider anthropic --effort high --harness cc-2.1.172
+```
+
+把最后的候选名换成 `cc-2.1.142` 或 `codex-5.3`，即可做同条件对照。`codex-5.3` 是提示词来源，**不会更换请求模型**。查看候选用 `python tools/replay.py --list-harnesses`。
+
+这些候选测试的是**行为提示词**，不是完整产品环境。Claude Code 使用版本归档中的选定主代理片段；原产品的开关、拼装顺序无法完整恢复。工具、只读环境和历史起点保持一致。来源、片段选择和适配说明见 [候选说明](harnesses/README.md)。
+
+新增候选建议使用默认 `semantic` 模式；`faithful` 会混入历史 harness 指令。来源标签和适配记录只写入实验日志，不作为模型提示词。
+
 | 参数 | 用途 |
 |---|---|
 | `--model vendor/model` | 选择 OpenRouter 模型 |
@@ -85,6 +107,7 @@ python tools/replay.py --moment M01 --start-round 2 --model anthropic/claude-opu
 | `--effort high` | 设置推理强度；默认 `default`，使用服务端默认配置 |
 | `--cache-input` | 开启 5 分钟输入缓存；默认关闭，适用于 OpenRouter 的 Claude 模型 |
 | `--temperature 0.7` | 设置采样温度；默认使用服务端配置 |
+| `--harness NAME` | 选择内置提示词候选；默认 `minimal` |
 | `--system-prompt-file PATH` | 加载自定义 harness 提示词，仍保留历史上下文 |
 | `--max-tokens 32768` | 设置单次响应的输出上限 |
 
@@ -117,6 +140,8 @@ python tools/replay.py --gateway deepseek --moment M03 --model deepseek-v4-pro -
 - **`initial_request.json`**：检查模型在起跑时收到的输入。
 
 `run.json` 记录回放模式、投影版本和清理计数。此前没有 `replay_mode` 字段的旧 runner 记录属于 `faithful` 条件；已有实验文件保留原样，不与新的 `semantic` baseline 混用。
+
+命名候选还记录原文哈希、固定来源 commit、片段顺序、每处文本替换和拼装假设。最终模型输入以 `initial_request.json` 为准；运行前可加 `--dry-run` 检查，无需 API key，也不会调用模型。
 
 结果适合用于逐轮分析：模型有没有重新理解问题？用户的一次纠偏是否改变了后续方向？协作让用户更容易继续思考，还是增加了整理负担？当前没有自动评分，也不会自动替用户回答。
 

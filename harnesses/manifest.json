@@ -1,0 +1,556 @@
+{
+  "schema_version": 1,
+  "adapter": {
+    "path": "runtime-adapter.md",
+    "sha256": "46c1cbe7315e3282cd308a3076c368e658be9bcdddf6a91c4f52fd67f5eff114"
+  },
+  "profiles": {
+    "cc-2.1.142": {
+      "description": "Claude Code 2.1.142: curated main-agent behavior",
+      "fidelity": "curated-behavior-not-runtime-reconstruction",
+      "source": {
+        "repository": "Piebald-AI/claude-code-system-prompts",
+        "ref": "v2.1.142",
+        "commit": "d325d10da473ad294ccec97ff15bda8053c9bde0",
+        "commit_date": "2026-05-14T20:05:57-06:00"
+      },
+      "assembly_assumptions": [
+        "Order follows the parts list; archive does not establish the original concatenation order or feature-flag conditions.",
+        "Choose communication-style exclusively; do not combine competing communication styles.",
+        "Choose compact action-safety-and-truthful-reporting, not the alternative long executing-actions-with-care.",
+        "Exclude identity, plan/auto/worker/coordinator modes, subagent and utility prompts, native tool descriptions, memory and platform integrations.",
+        "Exclude task-management and subagent guidance because EMBER exposes neither TodoWrite nor Agent. No substitute planner or worker instruction is injected.",
+        "Exclude standalone concise-output-short because its activation condition is unknown; brevity inside the chosen communication section is retained.",
+        "Retain exploratory 2-3 sentence instruction where present, even with the new communication style: these are intentional behavior variables."
+      ],
+      "parts": [
+        {
+          "path": "sources/claude-code-2.1.142/system-prompt-harness-instructions.md",
+          "sha256": "b030884f923525cdb560c7731382fb4ef5cf1ea2ea9105db12b61773dea67c3d",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/d325d10da473ad294ccec97ff15bda8053c9bde0/system-prompts/system-prompt-harness-instructions.md",
+          "strip_archive_header": true,
+          "replacements": [
+            {
+              "before": "${INTRODUCTORY_LINE}",
+              "after": "You are a coding assistant collaborating with the user.",
+              "reason": "Neutral identity shared with the Codex adaptation; original runtime identity was not recovered."
+            },
+            {
+              "before": "${SECURITY_NOTE}",
+              "after": "",
+              "reason": "Do not invent the unrecovered runtime security-note value; selected source security and action-safety sections remain."
+            },
+            {
+              "before": " - Tools run behind a user-selected permission mode; a denied call means the user declined it — adjust, don't retry verbatim.",
+              "after": " - Use only the tools exposed in this session. A tool error reports a capability or input problem, not a user permission decision.",
+              "reason": "EMBER has no product permission-mode protocol."
+            },
+            {
+              "before": " - `<system-reminder>` tags in messages and tool results are injected by the harness, not the user. Hooks may intercept tool calls; treat hook output as user feedback.",
+              "after": "",
+              "reason": "EMBER semantic replay has no live hooks or product system-reminder injection."
+            },
+            {
+              "before": " - Prefer the dedicated file/search tools over shell commands when one fits. Independent tool calls can run in parallel in one response.",
+              "after": " - Use Read, Glob, and Grep for file access and search. Independent tool calls can run in parallel in one response.",
+              "reason": "Map file operations to available tools; no shell fallback exists."
+            },
+            {
+              "before": " - Reference code as `file_path:line_number` — it's clickable.",
+              "after": " - Reference code as `file_path:line_number`.",
+              "reason": "Keep reference format without claiming terminal link support."
+            }
+          ]
+        },
+        {
+          "path": "sources/claude-code-2.1.142/system-prompt-doing-tasks-software-engineering-focus.md",
+          "sha256": "7c3535ef18cbe5572a6ff6d9689a1b06011c8651cd6d14f0be7b917b005fc5be",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/d325d10da473ad294ccec97ff15bda8053c9bde0/system-prompts/system-prompt-doing-tasks-software-engineering-focus.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.142/system-prompt-doing-tasks-ambitious-tasks.md",
+          "sha256": "f6868dd9acb86330ed3fab9f62275846b7ceb46fd52803deffaeebdf0876530f",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/d325d10da473ad294ccec97ff15bda8053c9bde0/system-prompts/system-prompt-doing-tasks-ambitious-tasks.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.142/system-prompt-doing-tasks-security.md",
+          "sha256": "59bf5c66b93ad460c064fd0155e3baeca6615d28b2f33887dffe28fd4969631d",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/d325d10da473ad294ccec97ff15bda8053c9bde0/system-prompts/system-prompt-doing-tasks-security.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.142/system-prompt-doing-tasks-no-unnecessary-error-handling.md",
+          "sha256": "a6610050219f1e8e53042fa5e6d1231ca75d068384fa1e4b4701ee61d02050dd",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/d325d10da473ad294ccec97ff15bda8053c9bde0/system-prompts/system-prompt-doing-tasks-no-unnecessary-error-handling.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.142/system-prompt-doing-tasks-no-compatibility-hacks.md",
+          "sha256": "fc88ec013a7791e43254e73235e6a6dd47ed2a876cdcce6c600db05e4ff846d1",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/d325d10da473ad294ccec97ff15bda8053c9bde0/system-prompts/system-prompt-doing-tasks-no-compatibility-hacks.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.142/system-prompt-action-safety-and-truthful-reporting.md",
+          "sha256": "524bc7a720dcf563119a7a3a389fad7c28d37ccc9612924b260f7c80b4b6c7eb",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/d325d10da473ad294ccec97ff15bda8053c9bde0/system-prompts/system-prompt-action-safety-and-truthful-reporting.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.142/system-prompt-communication-style.md",
+          "sha256": "c0b8f14545558cacca18f6365b4f31582cb18795cea7d8f68ac4dfa729f4145f",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/d325d10da473ad294ccec97ff15bda8053c9bde0/system-prompts/system-prompt-communication-style.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.142/system-prompt-tone-and-style-code-references.md",
+          "sha256": "3d0e4119d997679e327c28b26f42cd76f1eee19b7bb8cd2536fb2cbe694c7899",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/d325d10da473ad294ccec97ff15bda8053c9bde0/system-prompts/system-prompt-tone-and-style-code-references.md",
+          "strip_archive_header": true,
+          "replacements": []
+        }
+      ]
+    },
+    "cc-2.1.162": {
+      "description": "Claude Code 2.1.162: curated main-agent behavior (reserve)",
+      "fidelity": "curated-behavior-not-runtime-reconstruction",
+      "source": {
+        "repository": "Piebald-AI/claude-code-system-prompts",
+        "ref": "v2.1.162",
+        "commit": "4cd566a1ec0403e01055d3d400092b087a076697",
+        "commit_date": "2026-06-03T16:00:08-06:00"
+      },
+      "assembly_assumptions": [
+        "Order follows the parts list; archive does not establish the original concatenation order or feature-flag conditions.",
+        "Choose communication-style exclusively; do not combine competing communication styles.",
+        "Choose compact action-safety-and-truthful-reporting, not the alternative long executing-actions-with-care.",
+        "Exclude identity, plan/auto/worker/coordinator modes, subagent and utility prompts, native tool descriptions, memory and platform integrations.",
+        "Exclude task-management and subagent guidance because EMBER exposes neither TodoWrite nor Agent. No substitute planner or worker instruction is injected.",
+        "Exclude standalone concise-output-short because its activation condition is unknown; brevity inside the chosen communication section is retained.",
+        "Retain exploratory 2-3 sentence instruction where present, even with the new communication style: these are intentional behavior variables."
+      ],
+      "parts": [
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-harness-instructions.md",
+          "sha256": "b030884f923525cdb560c7731382fb4ef5cf1ea2ea9105db12b61773dea67c3d",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-harness-instructions.md",
+          "strip_archive_header": true,
+          "replacements": [
+            {
+              "before": "${INTRODUCTORY_LINE}",
+              "after": "You are a coding assistant collaborating with the user.",
+              "reason": "Neutral identity shared with the Codex adaptation; original runtime identity was not recovered."
+            },
+            {
+              "before": "${SECURITY_NOTE}",
+              "after": "",
+              "reason": "Do not invent the unrecovered runtime security-note value; selected source security and action-safety sections remain."
+            },
+            {
+              "before": " - Tools run behind a user-selected permission mode; a denied call means the user declined it — adjust, don't retry verbatim.",
+              "after": " - Use only the tools exposed in this session. A tool error reports a capability or input problem, not a user permission decision.",
+              "reason": "EMBER has no product permission-mode protocol."
+            },
+            {
+              "before": " - `<system-reminder>` tags in messages and tool results are injected by the harness, not the user. Hooks may intercept tool calls; treat hook output as user feedback.",
+              "after": "",
+              "reason": "EMBER semantic replay has no live hooks or product system-reminder injection."
+            },
+            {
+              "before": " - Prefer the dedicated file/search tools over shell commands when one fits. Independent tool calls can run in parallel in one response.",
+              "after": " - Use Read, Glob, and Grep for file access and search. Independent tool calls can run in parallel in one response.",
+              "reason": "Map file operations to available tools; no shell fallback exists."
+            },
+            {
+              "before": " - Reference code as `file_path:line_number` — it's clickable.",
+              "after": " - Reference code as `file_path:line_number`.",
+              "reason": "Keep reference format without claiming terminal link support."
+            }
+          ]
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-doing-tasks-software-engineering-focus.md",
+          "sha256": "7c3535ef18cbe5572a6ff6d9689a1b06011c8651cd6d14f0be7b917b005fc5be",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-doing-tasks-software-engineering-focus.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-doing-tasks-ambitious-tasks.md",
+          "sha256": "f6868dd9acb86330ed3fab9f62275846b7ceb46fd52803deffaeebdf0876530f",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-doing-tasks-ambitious-tasks.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-doing-tasks-security.md",
+          "sha256": "59bf5c66b93ad460c064fd0155e3baeca6615d28b2f33887dffe28fd4969631d",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-doing-tasks-security.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-doing-tasks-no-unnecessary-error-handling.md",
+          "sha256": "a6610050219f1e8e53042fa5e6d1231ca75d068384fa1e4b4701ee61d02050dd",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-doing-tasks-no-unnecessary-error-handling.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-doing-tasks-no-compatibility-hacks.md",
+          "sha256": "fc88ec013a7791e43254e73235e6a6dd47ed2a876cdcce6c600db05e4ff846d1",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-doing-tasks-no-compatibility-hacks.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-exploratory-questions-analyze-before-implementing.md",
+          "sha256": "d3c4ad2dbbc15c600862d95839cb8c2347e5c730d8baf3c6e236c54271c8e753",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-exploratory-questions-analyze-before-implementing.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-doing-tasks-no-unnecessary-additions.md",
+          "sha256": "7f8c19ef554af6bea8749774e21e8ca1dc74024bf99a6331e6d145f9471b2da1",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-doing-tasks-no-unnecessary-additions.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-prefer-editing-existing-files.md",
+          "sha256": "3cb1e49f8f9024b9abb8e7f594b2dba4414d3a7e6f7963c019e420369fffc69c",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-prefer-editing-existing-files.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-comment-why-only-guidance.md",
+          "sha256": "daa861c2b7bd529ebf26f2150e566d9eb195648437df688044130d4d6a067a97",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-comment-why-only-guidance.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-comment-what-and-task-context-avoidance.md",
+          "sha256": "d9255f8c0a016c0fabb71faa6db4fdd691ef03af6db4e4819b90224455869d3b",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-comment-what-and-task-context-avoidance.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-emoji-avoidance.md",
+          "sha256": "3db38d2a82e65a6b2e2efee62c57b0487e046407749d89df60fd92f6e6336ae7",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-emoji-avoidance.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-tool-call-colon-avoidance.md",
+          "sha256": "2dcc047dcfa084eb9c07b569c10bf2c464f440089004b5594f3815710c5ab928",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-tool-call-colon-avoidance.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-action-safety-and-truthful-reporting.md",
+          "sha256": "4e28d694c01b5452cf2ed846b1e889eb0b0f32e5d5d1ea03bce408b746fd1d45",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-action-safety-and-truthful-reporting.md",
+          "strip_archive_header": true,
+          "replacements": [
+            {
+              "before": "${SHOULD_PERSIST_APPROVAL_CONTEXT_FN()?\"For actions that are hard to reverse or outward-facing, confirm first unless durably authorized or explicitly told to proceed without asking.\":\"For actions that are hard to reverse or outward-facing, confirm first unless durably authorized or explicitly told to proceed without asking; approval in one context doesn't extend to the next.\"}",
+              "after": "For actions that are hard to reverse or outward-facing, confirm first unless durably authorized or explicitly told to proceed without asking; approval in one context doesn't extend to the next.",
+              "reason": "Select SHOULD_PERSIST_APPROVAL_CONTEXT_FN=false; no durable product approval store in EMBER."
+            }
+          ]
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-communication-style.md",
+          "sha256": "c0b8f14545558cacca18f6365b4f31582cb18795cea7d8f68ac4dfa729f4145f",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-communication-style.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.162/system-prompt-tone-and-style-code-references.md",
+          "sha256": "3d0e4119d997679e327c28b26f42cd76f1eee19b7bb8cd2536fb2cbe694c7899",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/4cd566a1ec0403e01055d3d400092b087a076697/system-prompts/system-prompt-tone-and-style-code-references.md",
+          "strip_archive_header": true,
+          "replacements": []
+        }
+      ]
+    },
+    "cc-2.1.172": {
+      "description": "Claude Code 2.1.172: curated main-agent behavior",
+      "fidelity": "curated-behavior-not-runtime-reconstruction",
+      "source": {
+        "repository": "Piebald-AI/claude-code-system-prompts",
+        "ref": "v2.1.172",
+        "commit": "94e0b89bb6e7eedc34e871e18d862af6385f4c32",
+        "commit_date": "2026-06-10T13:10:24-06:00"
+      },
+      "assembly_assumptions": [
+        "Order follows the parts list; archive does not establish the original concatenation order or feature-flag conditions.",
+        "Choose outcome-first-communication-style exclusively; do not combine competing communication styles.",
+        "Choose compact action-safety-and-truthful-reporting, not the alternative long executing-actions-with-care.",
+        "Exclude identity, plan/auto/worker/coordinator modes, subagent and utility prompts, native tool descriptions, memory and platform integrations.",
+        "Exclude task-management and subagent guidance because EMBER exposes neither TodoWrite nor Agent. No substitute planner or worker instruction is injected.",
+        "Exclude standalone concise-output-short because its activation condition is unknown; brevity inside the chosen communication section is retained.",
+        "Retain exploratory 2-3 sentence instruction where present, even with the new communication style: these are intentional behavior variables."
+      ],
+      "parts": [
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-harness-instructions.md",
+          "sha256": "b030884f923525cdb560c7731382fb4ef5cf1ea2ea9105db12b61773dea67c3d",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-harness-instructions.md",
+          "strip_archive_header": true,
+          "replacements": [
+            {
+              "before": "${INTRODUCTORY_LINE}",
+              "after": "You are a coding assistant collaborating with the user.",
+              "reason": "Neutral identity shared with the Codex adaptation; original runtime identity was not recovered."
+            },
+            {
+              "before": "${SECURITY_NOTE}",
+              "after": "",
+              "reason": "Do not invent the unrecovered runtime security-note value; selected source security and action-safety sections remain."
+            },
+            {
+              "before": " - Tools run behind a user-selected permission mode; a denied call means the user declined it — adjust, don't retry verbatim.",
+              "after": " - Use only the tools exposed in this session. A tool error reports a capability or input problem, not a user permission decision.",
+              "reason": "EMBER has no product permission-mode protocol."
+            },
+            {
+              "before": " - `<system-reminder>` tags in messages and tool results are injected by the harness, not the user. Hooks may intercept tool calls; treat hook output as user feedback.",
+              "after": "",
+              "reason": "EMBER semantic replay has no live hooks or product system-reminder injection."
+            },
+            {
+              "before": " - Prefer the dedicated file/search tools over shell commands when one fits. Independent tool calls can run in parallel in one response.",
+              "after": " - Use Read, Glob, and Grep for file access and search. Independent tool calls can run in parallel in one response.",
+              "reason": "Map file operations to available tools; no shell fallback exists."
+            },
+            {
+              "before": " - Reference code as `file_path:line_number` — it's clickable.",
+              "after": " - Reference code as `file_path:line_number`.",
+              "reason": "Keep reference format without claiming terminal link support."
+            }
+          ]
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-doing-tasks-software-engineering-focus.md",
+          "sha256": "7c3535ef18cbe5572a6ff6d9689a1b06011c8651cd6d14f0be7b917b005fc5be",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-doing-tasks-software-engineering-focus.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-doing-tasks-ambitious-tasks.md",
+          "sha256": "f6868dd9acb86330ed3fab9f62275846b7ceb46fd52803deffaeebdf0876530f",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-doing-tasks-ambitious-tasks.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-doing-tasks-security.md",
+          "sha256": "59bf5c66b93ad460c064fd0155e3baeca6615d28b2f33887dffe28fd4969631d",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-doing-tasks-security.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-doing-tasks-no-unnecessary-error-handling.md",
+          "sha256": "a6610050219f1e8e53042fa5e6d1231ca75d068384fa1e4b4701ee61d02050dd",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-doing-tasks-no-unnecessary-error-handling.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-doing-tasks-no-compatibility-hacks.md",
+          "sha256": "fc88ec013a7791e43254e73235e6a6dd47ed2a876cdcce6c600db05e4ff846d1",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-doing-tasks-no-compatibility-hacks.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-exploratory-questions-analyze-before-implementing.md",
+          "sha256": "d3c4ad2dbbc15c600862d95839cb8c2347e5c730d8baf3c6e236c54271c8e753",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-exploratory-questions-analyze-before-implementing.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-doing-tasks-no-unnecessary-additions.md",
+          "sha256": "7f8c19ef554af6bea8749774e21e8ca1dc74024bf99a6331e6d145f9471b2da1",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-doing-tasks-no-unnecessary-additions.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-prefer-editing-existing-files.md",
+          "sha256": "3cb1e49f8f9024b9abb8e7f594b2dba4414d3a7e6f7963c019e420369fffc69c",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-prefer-editing-existing-files.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-comment-why-only-guidance.md",
+          "sha256": "daa861c2b7bd529ebf26f2150e566d9eb195648437df688044130d4d6a067a97",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-comment-why-only-guidance.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-comment-what-and-task-context-avoidance.md",
+          "sha256": "d9255f8c0a016c0fabb71faa6db4fdd691ef03af6db4e4819b90224455869d3b",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-comment-what-and-task-context-avoidance.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-emoji-avoidance.md",
+          "sha256": "3db38d2a82e65a6b2e2efee62c57b0487e046407749d89df60fd92f6e6336ae7",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-emoji-avoidance.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-tool-call-colon-avoidance.md",
+          "sha256": "2dcc047dcfa084eb9c07b569c10bf2c464f440089004b5594f3815710c5ab928",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-tool-call-colon-avoidance.md",
+          "strip_archive_header": true,
+          "replacements": []
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-action-safety-and-truthful-reporting.md",
+          "sha256": "4e28d694c01b5452cf2ed846b1e889eb0b0f32e5d5d1ea03bce408b746fd1d45",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-action-safety-and-truthful-reporting.md",
+          "strip_archive_header": true,
+          "replacements": [
+            {
+              "before": "${SHOULD_PERSIST_APPROVAL_CONTEXT_FN()?\"For actions that are hard to reverse or outward-facing, confirm first unless durably authorized or explicitly told to proceed without asking.\":\"For actions that are hard to reverse or outward-facing, confirm first unless durably authorized or explicitly told to proceed without asking; approval in one context doesn't extend to the next.\"}",
+              "after": "For actions that are hard to reverse or outward-facing, confirm first unless durably authorized or explicitly told to proceed without asking; approval in one context doesn't extend to the next.",
+              "reason": "Select SHOULD_PERSIST_APPROVAL_CONTEXT_FN=false; no durable product approval store in EMBER."
+            }
+          ]
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-outcome-first-communication-style.md",
+          "sha256": "fbbf804e6bdd5a2ebb03b332a0d53efa1407bec3ffbf66d1d67cb2792371eff8",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-outcome-first-communication-style.md",
+          "strip_archive_header": true,
+          "replacements": [
+            {
+              "before": "${IS_TEXT_OUTPUT_VISIBLE_TO_USER?\"Your text output is what the user reads; they usually can't see your thinking or the raw tool results.\":\"Your text output is what the user reads between tool calls; they usually can't see your thinking or the raw tool results.\"}",
+              "after": "Your text output is what the user reads between tool calls; they usually can't see your thinking or the raw tool results.",
+              "reason": "Select IS_TEXT_OUTPUT_VISIBLE_TO_USER=false terminal branch; EMBER displays intermediate text."
+            },
+            {
+              "before": "${IS_TEXT_OUTPUT_VISIBLE_TO_USER?`\n\nText you write between tool calls may not be shown to the user. Everything the user needs from this turn — answers, summaries, findings, conclusions, deliverables — must be in the final text message of your turn, with no tool calls after it. Keep text between tool calls to brief status notes. If something important appeared only mid-turn or in your thinking, restate it in that final message.`:\"\"}",
+              "after": "",
+              "reason": "Same false branch: no hidden-intermediate-text instruction."
+            }
+          ]
+        },
+        {
+          "path": "sources/claude-code-2.1.172/system-prompt-tone-and-style-code-references.md",
+          "sha256": "3d0e4119d997679e327c28b26f42cd76f1eee19b7bb8cd2536fb2cbe694c7899",
+          "url": "https://github.com/Piebald-AI/claude-code-system-prompts/blob/94e0b89bb6e7eedc34e871e18d862af6385f4c32/system-prompts/system-prompt-tone-and-style-code-references.md",
+          "strip_archive_header": true,
+          "replacements": []
+        }
+      ]
+    },
+    "codex-5.3": {
+      "description": "Codex gpt-5.3-codex base instructions at dfd03ea (2026-06-14)",
+      "fidelity": "adapted-base-instructions-not-full-product-harness",
+      "source": {
+        "repository": "openai/codex",
+        "commit": "dfd03ea01bbec2613013b477fb82abc67534a7d7",
+        "path": "codex-rs/models-manager/models.json",
+        "selector": "models[slug='gpt-5.3-codex'].base_instructions",
+        "models_json_git_blob_sha": "213fdcf6c42fe180e52ecf4a62fd1d94becfda44"
+      },
+      "assembly_assumptions": [
+        "Use the complete selected base_instructions string, not model_instructions templates or personality overlays.",
+        "Do not impersonate GPT-5. Preserve behavior, autonomy, review, editing, frontend, and communication rules; unavailable operations are constrained by the shared runtime adapter.",
+        "No product developer prompt, shell, write tools, permission layer, or native channel protocol is reconstructed."
+      ],
+      "parts": [
+        {
+          "path": "sources/codex/gpt-5.3-codex.base_instructions.txt",
+          "sha256": "e3b788a31f645a805ffff636cd89d2fa5c7fa84d674df5a6fb69eb2441a49ce3",
+          "url": "https://github.com/openai/codex/blob/dfd03ea01bbec2613013b477fb82abc67534a7d7/codex-rs/models-manager/models.json",
+          "strip_archive_header": false,
+          "replacements": [
+            {
+              "before": "You are Codex, a coding agent based on GPT-5. You and the user share the same workspace and collaborate to achieve the user's goals.",
+              "after": "You are a coding assistant collaborating with the user.",
+              "reason": "Remove GPT-5/Codex identity so the provider model is not told it is another model."
+            },
+            {
+              "before": "- When searching for text or files, prefer using `rg` or `rg --files` respectively because `rg` is much faster than alternatives like `grep`. (If the `rg` command is not found, then use alternatives.)",
+              "after": "- When searching for text or files, use Grep or Glob respectively. Use Read to inspect file contents.",
+              "reason": "Map shell search/read operations to the frozen workspace tools."
+            },
+            {
+              "before": "- Parallelize tool calls whenever possible - especially file reads, such as `cat`, `rg`, `sed`, `ls`, `git show`, `nl`, `wc`. Use `multi_tool_use.parallel` to parallelize tool calls and only this.",
+              "after": "- Parallelize independent tool calls whenever possible by emitting multiple tool_use blocks in one response.",
+              "reason": "EMBER accepts multiple tool_use blocks and has no multi_tool_use.parallel wrapper."
+            },
+            {
+              "before": "- Share intermediary updates in `commentary` channel. ",
+              "after": "- Share intermediary updates as text before or between tool calls.",
+              "reason": "Messages API has text blocks, not a commentary channel."
+            },
+            {
+              "before": "- After you have completed all your work, send a message to the `final` channel.",
+              "after": "- After you have completed all your work, send a final text response with no tool calls.",
+              "reason": "Map the final channel to end-of-turn text."
+            },
+            {
+              "before": "- Intermediary updates go to the `commentary` channel.",
+              "after": "- Intermediary updates are text before or between tool calls.",
+              "reason": "Map repeated channel directive consistently."
+            },
+            {
+              "before": "- Try to use apply_patch for single file edits, but it is fine to explore other options to make the edit if it does not work well. Do not use apply_patch for changes that are auto-generated (i.e. generating package.json or running a lint or format command like gofmt) or when scripting is more efficient (such as search and replacing a string across a codebase).",
+              "after": "",
+              "reason": "Remove unavailable native edit/shell protocol or false shared-machine claim; preserve general editing behavior."
+            },
+            {
+              "before": "- Do not use Python to read/write files when a simple shell command or apply_patch would suffice.",
+              "after": "",
+              "reason": "Remove unavailable native edit/shell protocol or false shared-machine claim; preserve general editing behavior."
+            },
+            {
+              "before": "- You struggle using the git interactive console. **ALWAYS** prefer using non-interactive git commands.",
+              "after": "",
+              "reason": "Remove unavailable native edit/shell protocol or false shared-machine claim; preserve general editing behavior."
+            },
+            {
+              "before": "- Never tell the user to \"save/copy this file\", the user is on the same machine and has access to the same files as you have.",
+              "after": "",
+              "reason": "Remove unavailable native edit/shell protocol or false shared-machine claim; preserve general editing behavior."
+            },
+            {
+              "before": "- If the user makes a simple request (such as asking for the time) which you can fulfill by running a terminal command (such as `date`), you should do so.",
+              "after": "- If the user makes a simple request which you can fulfill with an available tool, you should do so.",
+              "reason": "Preserve tool-use preference without instructing nonexistent shell execution."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
