@@ -415,38 +415,119 @@ M03 是新 session 第一轮：
 
 两者都可能 master-like，只是自然切入面不同。
 
-### 8.3 当前最重要的因素排序
+### 8.3 因素排序需要拆成 activation 与 orchestration
 
-在现有小样本内，一个更符合观察的定性排序是：
+之前的定性判断：
 
 `task / moment effect >>> model identity effect ≳ system-prompt effect`
 
-这不是量化结论，只是当前 evidence ordering。
+现在看来过于粗糙，容易误解成“model / system prompt 对 master experience 影响很小”。
 
-最强证据来自同一模型跨任务的变化：
+更准确的分解是：
 
-- M01 r2：容易被强 priming 吸进“完整设计 artifact”；
-- M03：4.6 / 4.7 / 4.8 都自然进入 ontology refactoring / meta-control。
+#### Master cognition activation
 
-相比之下：
+当前 M03 小样本里，**task / context geometry 是最强变量**。
 
-- 4.6 → 4.7 → 4.8 的 M03 差异远小于 M01 → M03；
-- 4.8 在不同 historical system prompt 下的差异主要是 style / search strategy / organization，而不是 master capability on/off；
-- 小 active model（V4.1 Flash）在 M03 上仍能显示相当多 master bundle。
+- M01 r2：高 priming，容易把模型吸进 continuation / complete-artifact basin；
+- M03：4.6 / 4.7 / 4.8 / V4.1 Flash 都容易进入 ontology refactoring / adversarial review / latent-invariant discovery。
 
-因此新的核心假说是：
+因此目前可以说：
 
-> **master behavior 高度 context-sensitive。4.6 的历史优势未必主要是 peak capability，而可能是它在更广 task distribution 上、更弱 elicitation signal 下也更容易进入 master policy。**
+> 在“核心 master cognition 是否被激活”这一维度，M03 的 task signal 强到足以压过不少 model / prompt 差异。
 
-这可以称为：
+#### Master cognition orchestration / realized usability
 
-> **activation basin width hypothesis**
+但一旦 cognition 已经被激活，**model identity 和 system prompt 对怎么组织这些能力有明显影响**：
+
+- 注意力落在哪一层；
+- 是先 conceptual compression 还是先 audit / evidence enumeration；
+- 把多少 unresolved surface 暴露给用户；
+- 一次要求用户承担多少判断；
+- 什么时候停；
+- 是交一个高价值问题回来，还是交一串决策清单；
+- 是否把用户留在 collaborator 角色，还是推成 reviewer。
+
+这些都直接作用于 collaborative control，因此不能视作次要“文风差异”。
+
+所以当前更合适的说法不是一个总排序，而是：
+
+> **task geometry 目前主要影响 master cognition 的 activation；model / system prompt 则明显影响被激活后的 orchestration。**
+
+两类 effect 最终都进入乘法链，因此即使 core reasoning quality 接近，realized master usability 仍可能差很多。
+
+### 8.4 交互管理重读：Opus vs DeepSeek Flash
+
+重新只看 M03 各条件的回复组织，而不是内容正确性后，出现一个稳定的模型差异候选。
+
+#### Opus 4.8：更倾向先压缩，再暴露少数高价值判断
+
+跨 minimal / CC 1.4.2 / CC 1.7.2 / Codex prompt，4.8 经常把大量发现先压成少数高层分叉：
+
+- CC 1.4.2：最终收束成“根公理 / 推论层 / 工程纲领”，然后只把 3 个核心争议交回用户，并明确允许逐条反击或指出 framing 错误；
+- CC 1.7.2：给出 4 条建议后，不要求用户逐项审批，而是问“哪条最不服”，再追一个高信息量历史问题（no-GC 最初是审美还是性能论证）；
+- Codex：给出三条重构后的根后，只要求用户先确认方向再动 docs；
+- minimal：实际多轮里，用户通过少量拍板后，4.8 能把 agenda 缩到用户选中的两件事，并据此继续调查；后续证据推翻了自己前一轮的漂亮叙事时，也会主动修正。
+
+这更接近：
+
+`大量内部问题 → conceptual compression → 少量不可替代的人类判断`
+
+也就是较强的 judgment bandwidth management。
+
+#### DeepSeek V4.1 Flash：更倾向把 audit surface 直接展开给用户
+
+Flash 的 reasoning 本身并不弱，甚至在证据核查、文档漂移、实现欠账和治理机制上经常更强。但它更容易把这些真实发现直接变成用户需要承接的 decision surface：
+
+- CC 1.7.2 条件下一次列出 D1–D8 八个决策点；
+- Codex 条件下先给 A/B/C 三种结构方案，再要求用户拍 4 个具体决策，并给顺序 1→2→3→4；
+- minimal 条件下先列 8 个“文档漂移实锤”、5 个缺失维度，再给 A/B/C 重构方案，随后才进入拍板；
+- CC 1.4.2 也倾向在大量具体 audit 之后再形成多个分叉。
+
+这更接近：
+
+`大量内部问题 → evidence-grounded decomposition → 把多个真实分叉显式交给用户`
+
+优点是透明、可审计、operational；代价是较高 cognitive carrying cost 和 integration burden。
+
+因此当前一个值得继续验证的模型级假说是：
+
+> **Opus 更擅长把复杂性留在自己内部并压缩成少数高杠杆判断；DeepSeek Flash 更擅长把复杂性拆清楚，但较容易把拆出的判断面一起暴露给用户。**
+
+这与 M01 r1 的主观体验一致：Flash 的 abstraction / initiative 很强，但用户压力更大；Pro / Opus 风格更容易让用户用短高密度回复继续 steering。
+
+### 8.5 这不是“谁更聪明”，而是 master capability vs master usability
+
+需要正式区分：
+
+**master capability**：在合适 elicitation 下，模型能不能做 framing repair、ontology refactoring、latent-invariant discovery、second-order reasoning。
+
+**master usability**：在真实长程交互里，模型能不能稳定地：
+
+- 在正确时机调用这些能力；
+- 控制展开量；
+- 管理 judgment bandwidth；
+- 保留用户 agency；
+- 接住 sparse feedback；
+- 避免 premature closure；
+- 让用户愿意继续提供高熵输入。
+
+M03 目前主要证明：现代模型的 **master capability** 比最初怀疑的更普遍。
+
+而历史长期体感的差异，很可能更多落在：
+
+> **master usability / orchestration policy**
+
+这与乘法假说完全兼容：只要 collaborative control 一项明显下降，最终长期体验就可能大幅下降，即使 representation mobility 和 abstraction 仍然很强。
+
 
 ---
 
 ## 9. 交互表面不是“文风问题”
 
-此前观察到 4.6 的回复整体比 4.8 更舒服，这不应只当审美。
+M03 的交叉实验进一步强化了这一点：即使不同模型都能给出高质量 ontology work，**回复组织本身仍会改变用户承担的判断量和下一轮输入熵**。
+
+此前观察到 4.6 的回复整体比 4.8 更舒服，这不应只当审美。最新重读还提示，DeepSeek Flash 相比 Opus 更容易暴露较大的 decision surface；这可能是同一 collaborative-control 维度的另一种表现。
 
 可能存在链条：
 
@@ -618,17 +699,22 @@ M03 的新结果说明：很多模型在任务明确要求“全面 argue / 重�
 
 > **task / context geometry**
 
-更准确可以写成：
+更准确可以拆成两段：
 
-`latent capability × task geometry × default policy × harness × UX → observed trajectory`
+`latent capability × task geometry → master cognition activation`
+
+`master cognition × model policy × system prompt / harness × UX → cognition orchestration → realized master usability`
 
 其中：
 
 - **latent capability** 决定能不能做；
 - **task geometry** 决定当前问题是否天然要求 reframing / ontology work；
-- **default policy** 决定欠规格任务下默认选择 worker 还是 master；
-- **harness** 决定哪些 state / tools / process 被激活；
-- **UX** 决定用户能不能继续给高熵 feedback。
+- **model policy** 不只影响是否激活，也影响激活后如何压缩、展开、收敛和交还判断；
+- **system prompt / harness** 会改变 search strategy、证据组织、task framing 和 continuation policy；
+- **UX** 决定用户能不能低成本继续给高熵 feedback；
+- **orchestration** 决定同样强的 cognition 最终是形成低阻力 collaborative trajectory，还是高 integration-burden 的 reviewer workflow。
+
+这使乘法假说有了更明确的因果位置：model / prompt 即使不关闭 master cognition，也可以只通过削弱 collaborative control 就显著降低最终 usability。
 
 ### Activation basin width hypothesis
 
@@ -667,7 +753,8 @@ M03 的新结果说明：很多模型在任务明确要求“全面 argue / 重�
 9. 对架构 / 参数量没有官方来源的模型，必须把 dense/MoE/规模判断标为假说。
 10. **高 priming replay 不能当 clean capability benchmark。** M01 r2 已经证明历史 assistant 提供的 candidate space 会强烈限制后续 answer basin。
 11. **prompt ablation 要区分“公开 system prompt 文本”与“完整产品 harness”。** 仅加载 prompt 不足以声称复现 Claude Code / Codex 产品环境。
-12. 当前所有“task > model > prompt”结论都只是小样本的 qualitative ordering，不是 effect-size 测量。
+12. 不再使用“task > model > prompt”作为全局排序；它最多描述当前样本中的 cognition activation。对 orchestration / usability，model 与 prompt 的 effect 已经明显可见，尚无可靠排序。
+13. 当前 DS vs Opus 的 interaction-management 判断主要来自首轮回复中暴露的 decision surface、压缩层级和停点设计；除 4.8 minimal 外，多数条件还缺完整多轮 human-steering 对照，因此暂时是候选模型差异，不是定论。
 
 ---
 
@@ -759,6 +846,8 @@ system prompt 单独移植效果有限，下一步如果继续研究 Claude Code
 
 ### D. Collaborative-control / UX 独立实验
 
+这部分优先级应提高，因为当前最明显的 model-level 差异候选就出现在 interaction management。
+
 继续保留：
 
 - 纯 free-form terminal；
@@ -766,12 +855,25 @@ system prompt 单独移植效果有限，下一步如果继续研究 Claude Code
 - options 默认、free-text 多一步；
 - 有 / 无 timeout。
 
+同时增加 **同一回答内容下的 decision-surface 记录**：
+
+- 一轮暴露多少独立待决项；
+- 这些待决项处在哪个抽象层；
+- 是否先压缩成少数高层 fork；
+- 是否明确允许用户拒绝模型 framing；
+- 是否主动给判断排序 / 推荐先处理一个；
+- 回复结束时用户最自然的下一步是“继续思考”还是“review 一堆东西”。
+
 重点不只是答题正确率，而是：
 
 - 用户回复熵；
 - 用户是否愿意继续；
 - 每轮需要承担多少不可替代判断；
-- 模型是否把用户变成 reviewer。
+- cognitive carrying cost；
+- 模型是否把用户变成 reviewer；
+- sparse feedback 能否被下一轮有效吸收。
+
+特别需要补一个 **Opus 4.8 vs DeepSeek V4.1 Flash 的多轮对照**：固定 M03 和 harness，让用户只给同样长度/类型的短反馈，比较两者是否持续保持“少量高价值判断点”还是逐轮扩张 decision surface。
 
 ### E. Benchmark 方向暂不做单一 MasterScore
 
