@@ -59,12 +59,29 @@ python tools/replay.py --moment M05 --start-round 2 --model anthropic/claude-opu
 
 `--start-round` 选择的是历史起点，不限制本次交互的轮数。历史前缀里已经出现的想法，不应算作本次模型的独立发现。
 
+## 选择回放模式
+
+默认使用 **`semantic`**：保留任务对话、事实工具结果和文件变化，移除历史 skill 正文、强制流程注入及流程工具记录。历史选择题转为普通问答，保留选项和你的实际回答。Skill 资源仍可由模型自主加载，目录只列名称，不附带强制调用指令。
+
+**`faithful`** 保留旧 runner 的历史上下文投影，包括 Superpowers 注入与历史 Skill 调用，适合做 harness 对照；它仍不等同于原产品的完整运行环境。
+
+```powershell
+# 默认模式：重新测试 M01 r2 / 4.6 / high
+python tools/replay.py --moment M01 --start-round 2 --model anthropic/claude-opus-4.6 --provider anthropic --effort high
+
+# 复用旧回放条件时，追加此参数
+# --replay-mode faithful
+```
+
+清理指令不会消除历史对话已经受到的流程影响，也不会禁止模型在本次运行中主动调用 brainstorming。这里比较的是“无历史强制流程注入”的条件，而非完全禁用 skill。需要检查模型实际选择时，查看工具记录。
+
 ## 配置实验
 
 | 参数 | 用途 |
 |---|---|
 | `--model vendor/model` | 选择 OpenRouter 模型 |
 | `--provider anthropic` | 固定服务提供方，默认不允许 fallback |
+| `--replay-mode semantic` | 默认清理历史流程注入；`faithful` 保留旧条件 |
 | `--effort high` | 设置推理强度；默认 `default`，使用服务端默认配置 |
 | `--temperature 0.7` | 设置采样温度；默认使用服务端配置 |
 | `--system-prompt-file PATH` | 加载自定义 harness 提示词，仍保留历史上下文 |
@@ -72,7 +89,7 @@ python tools/replay.py --moment M05 --start-round 2 --model anthropic/claude-opu
 
 参数支持范围因模型与 provider 而异。完整选项见 `python tools/replay.py --help`。
 
-比较模型时，尽量保持 moment、起点、harness、推理设置与交互方式一致；比较 harness 时，保持模型和其他条件一致。正式记录建议指定 provider，减少自动路由带来的变量。
+比较模型时，尽量保持 moment、起点、回放模式、harness、推理设置与交互方式一致；比较 harness 时，保持模型和其他条件一致。正式记录建议指定 provider，减少自动路由带来的变量。
 
 ### DeepSeek 直连
 
@@ -87,12 +104,14 @@ python tools/replay.py --gateway deepseek --moment M03 --model deepseek-v4-pro -
 
 ## 查看结果
 
-每次运行的结果保存在 `runs/<moment>/<时间>-<模型>-r<轮次>/`。
+每次运行的结果保存在 `runs/<moment>/<时间>-<模型>-r<轮次>-<回放模式>/`。
 
 - **`conversation.md`**：阅读和分享本次对话。
 - **`run.json`**：查看实验配置与运行状态。
 - **`transcript.jsonl`**：查看完整交互与工具记录。
 - **`initial_request.json`**：检查模型在起跑时收到的输入。
+
+`run.json` 记录回放模式、投影版本和清理计数。此前没有 `replay_mode` 字段的旧 runner 记录属于 `faithful` 条件；已有实验文件保留原样，不与新的 `semantic` baseline 混用。
 
 结果适合用于逐轮分析：模型有没有重新理解问题？用户的一次纠偏是否改变了后续方向？协作让用户更容易继续思考，还是增加了整理负担？当前没有自动评分，也不会自动替用户回答。
 

@@ -24,7 +24,7 @@ from urllib.parse import urlsplit
 from pathlib import Path
 from typing import Any, Iterable
 
-ADAPTER_VERSION = "ember-messages-http-v3.0"
+ADAPTER_VERSION = "ember-messages-http-v3.1"
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BASE_URL = "https://openrouter.ai/api"
 GATEWAYS = {
@@ -229,7 +229,9 @@ def extract_injected_system_context(
     return "\n\n".join(sections), warnings
 
 
-def canonical_messages(conversation_events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def canonical_messages(
+    conversation_events: list[dict[str, Any]], replay_mode: str = "faithful",
+) -> list[dict[str, Any]]:
     """Preserve pre-anchor text AND tool exchanges, without hidden thinking."""
     messages: list[dict[str, Any]] = []
     for event in conversation_events:
@@ -239,9 +241,13 @@ def canonical_messages(conversation_events: list[dict[str, Any]]) -> list[dict[s
                 text = ("<system-reminder>\nObserved file change: "
                         + str(payload.get("filename", "")) + "\n"
                         + str(payload.get("snippet", "")) + "\n</system-reminder>")
+                if replay_mode == "semantic":
+                    text = text.replace("<system-reminder>\n", "").replace("\n</system-reminder>", "")
                 messages.append({"role": "user", "content": [{"type": "text", "text": text}]})
             continue
         if event.get("kind") != "message" or event.get("speaker") not in ("user", "assistant"):
+            continue
+        if replay_mode == "semantic" and event.get("is_meta"):
             continue
         clean = []
         for block in event.get("content", []):
@@ -418,7 +424,13 @@ def clean_historical_content(content: Any) -> list[dict[str, Any]]:
 
 def historical_record_to_api_message(
     record_wrapper: dict[str, Any],
+    replay_mode: str = "faithful",
 ) -> dict[str, Any] | None:
+    record = record_wrapper.get("record", {})
+    if replay_mode == "semantic" and (
+        record.get("isMeta") or record.get("sourceToolUseID") is not None
+    ):
+        return None
     message = raw_record_message(record_wrapper)
     if message is None:
         return None
@@ -503,6 +515,7 @@ def list_replay_rounds(
 def build_historical_prefix(
     historical_records: list[dict[str, Any]],
     start_round: int,
+    replay_mode: str = "faithful",
 ) -> tuple[list[dict[str, Any]], int]:
     if start_round <= 1:
         return [], 0
@@ -526,11 +539,117 @@ def build_historical_prefix(
 
     messages: list[dict[str, Any]] = []
     for wrapper in selected:
-        msg = historical_record_to_api_message(wrapper)
+        msg = historical_record_to_api_message(wrapper, replay_mode)
         if msg is not None:
             messages.append(msg)
 
     return merge_consecutive_roles(messages), len(selected)
+
+
+# Version this policy separately from transport: projection changes affect experiments.
+SEMANTIC_PROJECTION_VERSION = "semantic-v1"
+PROCESS_TOOLS = {
+    "Skill", "TodoWrite", "TodoRead", "TaskCreate", "TaskUpdate", "TaskList", "TaskGet",
+    "ToolSearch", "EnterPlanMode", "ExitPlanMode",
+}
+
+
+def is_skill_read(call: dict[str, Any]) -> bool:
+    if call.get("name") != "Read":
+        return False
+    path = str(call.get("input", {}).get("file_path", "")).replace("\\", "/").lower()
+    return path.endswith("/skill.md") or path == "skill.md" or "/skills/" in path
+
+
+def strip_process_reminders(text: str) -> str:
+    """Remove harness-tagged reminders, not ordinary prose mentioning skills."""
+    return re.sub(r"<system-reminder\b[^>]*>.*?</system-reminder>", "", text,
+                  flags=re.DOTALL | re.IGNORECASE)
+
+
+def question_text(call: dict[str, Any]) -> str:
+    """Retain what the human saw, including choices needed to interpret short answers."""
+    parts = []
+    for question in call.get("input", {}).get("questions", []):
+        parts.append(str(question.get("question", "")))
+        for index, option in enumerate(question.get("options", []), 1):
+            label = str(option.get("label", ""))
+            description = str(option.get("description", ""))
+            parts.append(f"{index}. {label}" + (f" — {description}" if description else ""))
+    return "\n".join(parts)
+
+
+def answer_text(content: Any) -> str:
+    text = text_from_content(content)
+    # These are transport wrappers; the quoted question/answer pairs remain verbatim.
+    text = re.sub(r"^(?:User has answered your questions|Your questions have been answered):\s*", "", text)
+    text = re.sub(r"\. You can now continue with (?:the user's|these) answers in mind\.$", "", text)
+    return text
+
+
+def semantic_messages(messages: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], dict[str, int]]:
+    """Remove historical workflow instructions; preserve task evidence and human choices.
+
+    Factual tool exchanges remain paired, with their original payloads. This is an
+    explicit projection, not a paraphrase or an assertion that the old dialogue was
+    generated without skills. Live tools and frozen resources are unchanged.
+    """
+    calls = {b["id"]: b for m in messages for b in m["content"] if b.get("type") == "tool_use"}
+    removed = {key for key, call in calls.items()
+               if call.get("name") in PROCESS_TOOLS or is_skill_read(call)}
+    stats = {"removed_process_blocks": 0, "removed_reminders": 0, "question_blocks_to_text": 0}
+    projected = []
+    for message in messages:
+        blocks = []
+        for block in message["content"]:
+            kind = block.get("type")
+            call_id = block.get("id") if kind == "tool_use" else block.get("tool_use_id")
+            if kind in ("tool_use", "tool_result") and call_id in removed:
+                stats["removed_process_blocks"] += 1
+                continue
+            if kind == "tool_use" and block.get("name") == "AskUserQuestion":
+                text = question_text(block)
+                stats["question_blocks_to_text"] += 1
+            elif kind == "tool_result" and (
+                calls.get(call_id, {}).get("name") == "AskUserQuestion"
+                or text_from_content(block.get("content")).startswith((
+                    "User has answered your questions:", "Your questions have been answered:",
+                ))
+            ):
+                text = answer_text(block.get("content"))
+                stats["question_blocks_to_text"] += 1
+            elif kind == "text":
+                text = str(block.get("text", ""))
+                if message["role"] == "user":
+                    cleaned = strip_process_reminders(text)
+                    stats["removed_reminders"] += int(cleaned != text)
+                    text = cleaned
+            elif kind == "tool_result":
+                # Handle orphan skill results from incomplete archives as well.
+                text = text_from_content(block.get("content"))
+                if text.startswith(("Launching skill:", "Base directory for this skill:")):
+                    stats["removed_process_blocks"] += 1
+                    continue
+                blocks.append(block)
+                continue
+            else:
+                blocks.append(block)
+                continue
+            if text.strip():
+                blocks.append({"type": "text", "text": text})
+        if blocks:
+            projected.append({"role": message["role"], "content": blocks})
+    return merge_consecutive_roles(projected), stats
+
+
+def semantic_catalog(env: FrozenEnvironment) -> str:
+    # Historical descriptions contain commands (including MUST). Expose resource
+    # names only, and let the candidate choose whether to load a skill at runtime.
+    if not env.skill_index:
+        return ""
+    return "Optional skill resources (load by name with Skill when useful):\n" + "\n".join(
+        "- " + name for name in sorted(env.skill_index)
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -1346,6 +1465,8 @@ def parse_args(argv: list[str] | None = None, default_gateway: str = "openrouter
     parser.add_argument("--allow-provider-fallbacks", action="store_true",
                         help="Use provider as a preference instead of an allow-list; exploratory runs only")
     parser.add_argument("--harness", choices=("minimal",), default="minimal")
+    parser.add_argument("--replay-mode", choices=("semantic", "faithful"), default="semantic",
+                        help="semantic removes historical workflow injections (default); faithful preserves the previous projection")
     parser.add_argument("--system-prompt-file", type=Path,
                         help="Replace the harness scaffold; recovered context is still appended")
     parser.add_argument("--temperature", type=float, default=None)
@@ -1392,7 +1513,7 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
 
     conversation_events = load_jsonl(component_paths["conversation"])
     pre_response_events = load_jsonl(component_paths["pre_response"])
-    base_messages = canonical_messages(conversation_events)
+    base_messages = canonical_messages(conversation_events, args.replay_mode)
 
     if not base_messages or base_messages[-1].get("role") != "user":
         raise RuntimeError("canonical projection does not end in a user message")
@@ -1422,14 +1543,29 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
     history_prefix, selected_record_count = build_historical_prefix(
         historical_records,
         args.start_round,
+        args.replay_mode,
     )
 
-    messages, exchange_warnings = repair_tool_exchanges(base_messages + history_prefix)
+    messages = base_messages + history_prefix
+    projection_stats = {}
+    if args.replay_mode == "semantic":
+        messages, projection_stats = semantic_messages(messages)
+        projection_stats["removed_meta_records"] = (
+            sum(bool(event.get("is_meta")) for event in conversation_events)
+            + sum(bool(wrapper["record"].get("isMeta") or wrapper["record"].get("sourceToolUseID"))
+                  for wrapper in historical_records[:selected_record_count])
+        )
+        recovered_context = ""
+        adapter_warnings = [
+            "Semantic projection removes historical workflow instructions, but visible historical "
+            "dialogue may already reflect those workflows. Skills remain optional live resources."
+        ]
+    else:
+        recovered_context, adapter_warnings = extract_injected_system_context(
+            conversation_events, pre_response_events,
+        )
 
-    recovered_context, adapter_warnings = extract_injected_system_context(
-        conversation_events,
-        pre_response_events,
-    )
+    messages, exchange_warnings = repair_tool_exchanges(messages)
 
     adapter_warnings.extend(exchange_warnings)
     workspace = load_json(component_paths["workspace"])
@@ -1466,6 +1602,8 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
 
     profile_path = args.system_prompt_file or ROOT / "harnesses" / f"{args.harness}.md"
     profile_text = profile_path.read_text(encoding="utf-8")
+    if args.replay_mode == "semantic":
+        recovered_context = semantic_catalog(env)
     system = make_system_prompt(recovered_context, env, env.available, profile_text)
     args.session_id = f"ember-{moment_id}-{uuid.uuid4().hex}"
     if args.gateway == "openrouter" and not (args.provider and not args.allow_provider_fallbacks):
@@ -1473,7 +1611,7 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
 
     timestamp = dt.datetime.now().strftime("%Y%m%d-%H%M%S-%f")
     safe_model = re.sub(r"[^A-Za-z0-9_.-]+", "_", args.model)
-    run_dir = args.runs_dir / moment_id / f"{timestamp}-{safe_model}-r{args.start_round}"
+    run_dir = args.runs_dir / moment_id / f"{timestamp}-{safe_model}-r{args.start_round}-{args.replay_mode}"
 
     script_hash = None
     try:
@@ -1497,6 +1635,9 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
         "resource_inventory_sha256": env.manifest.get("resource_inventory_sha256"),
         "historical_fidelity": packet.get("recovery", {}).get("status"),
         "start_round": args.start_round,
+        "replay_mode": args.replay_mode,
+        "projection_version": SEMANTIC_PROJECTION_VERSION if args.replay_mode == "semantic" else "faithful-v1",
+        "projection_stats": projection_stats,
         "historical_prefix_records": selected_record_count,
         "historical_prefix_used": args.start_round > 1,
         "requested_model": args.model,
@@ -1522,7 +1663,11 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
         "max_tokens": args.max_tokens,
         "script_sha256": script_hash,
         "warnings": adapter_warnings,
-        "projection": "canonical text + tool exchanges; thinking removed; edited-file observations preserved",
+        "projection": (
+            "task dialogue + factual tool exchanges; workflow/meta injections removed; historical questions rendered as text"
+            if args.replay_mode == "semantic" else
+            "canonical text + tool exchanges; thinking removed; edited-file observations preserved"
+        ),
     }
 
     runlog = RunLog(run_dir, metadata)
@@ -1535,6 +1680,7 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
     # Record fixed starting state separately from candidate-generated turns.
     runlog.event(
         "replay_start",
+        replay_mode=args.replay_mode,
         start_round=args.start_round,
         canonical_message_count=len(base_messages),
         historical_prefix_message_count=len(history_prefix),
@@ -1551,6 +1697,7 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
     print(f"Run: {run_dir}")
     print(f"Model requested: {args.model}")
     print(f"Start round: {args.start_round}")
+    print(f"Replay mode: {args.replay_mode}")
     print(f"Frozen environment: {'yes' if env.available else 'NO'}")
     print("Ctrl+C to stop and save.")
     print()
