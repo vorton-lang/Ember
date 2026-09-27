@@ -145,6 +145,8 @@ class HTTPReplayTests(unittest.TestCase):
             self.assertEqual(meta["tool_profile"], "files-only")
             self.assertEqual(meta["tool_names"], ["Read", "Glob", "Grep"])
             self.assertEqual([tool["name"] for tool in request["tools"]], ["Read", "Glob", "Grep"])
+            self.assertNotIn("AskUserQuestion is available", request["system"])
+            self.assertNotIn("load by name with Skill", request["system"])
             self.assertEqual(request["temperature"], 1.0)
             self.assertEqual(request["top_p"], 0.95)
             self.assertEqual(r.text_from_content(request["messages"][-1]["content"]), "重新审视这些设计原则。")
