@@ -1420,10 +1420,11 @@ def api_turn(
                 result = f"ERROR: {exc}"
                 is_error = True
 
-            # Keep terminal output manageable while preserving full result in log.
-            preview = result
-            if len(preview) > 6000:
-                preview = preview[:6000] + "\n... [tool output truncated in terminal]"
+            # Limit terminal previews by both lines and characters; keep the
+            # full result for the model and the archived transcript.
+            preview = "".join(result.splitlines(keepends=True)[:8])[:800]
+            if len(preview) < len(result):
+                preview = preview.rstrip() + "\n... [tool output truncated in terminal]"
             print(preview)
 
             runlog.event(
