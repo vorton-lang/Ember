@@ -25,7 +25,7 @@ from pathlib import Path
 from typing import Any, Iterable
 from harness_profiles import available_profiles, load_profile, read_manifest
 
-ADAPTER_VERSION = "ember-messages-http-v3.2"
+ADAPTER_VERSION = "ember-messages-http-v3.3"
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BASE_URL = "https://openrouter.ai/api"
 GATEWAYS = {
@@ -124,6 +124,20 @@ def text_from_content(content: Any) -> str:
             if block.get("type") == "text":
                 parts.append(str(block.get("text", "")))
     return "\n".join(x for x in parts if x)
+
+
+def replace_last_user_text(messages: list[dict[str, Any]], text: str) -> None:
+    """Replace the visible text of the final user turn while preserving tool results."""
+    for message in reversed(messages):
+        if message.get("role") != "user":
+            continue
+        content = message.get("content")
+        if not isinstance(content, list):
+            raise RuntimeError("final user message has invalid content")
+        non_text = [block for block in content if block.get("type") != "text"]
+        message["content"] = non_text + [{"type": "text", "text": text}]
+        return
+    raise RuntimeError("replay has no user message to override")
 
 
 # ---------------------------------------------------------------------------
@@ -1024,6 +1038,15 @@ TOOLS = [
 ]
 
 
+def tools_for_profile(profile: str) -> list[dict[str, Any]]:
+    if profile == "full":
+        return TOOLS
+    if profile == "files-only":
+        allowed = {"Read", "Glob", "Grep"}
+        return [tool for tool in TOOLS if tool["name"] in allowed]
+    raise RuntimeError(f"unknown tool profile: {profile}")
+
+
 def execute_tool(
     name: str,
     tool_input: dict[str, Any],
@@ -1162,10 +1185,25 @@ def make_system_prompt(
     env: FrozenEnvironment,
     environment_available: bool,
     profile_text: str | None = None,
+    tool_profile: str = "full",
 ) -> str:
     if profile_text is None:
         profile_text = (ROOT / "harnesses/minimal.md").read_text(encoding="utf-8")
     adapter = profile_text.replace("{env.virtual_cwd}", env.virtual_cwd)
+
+    if tool_profile == "files-only":
+        adapter = adapter.replace(
+            "Use Read, Glob, Grep, and Skill when useful.",
+            "Use Read, Glob, and Grep when useful.",
+        )
+        adapter = adapter.replace(
+            "AskUserQuestion is available when you genuinely need clarification from the user.\n",
+            "",
+        )
+        adapter += (
+            "\n\nTool boundary for this run: only Read, Glob, and Grep are available. "
+            "Do not assume Skill, AskUserQuestion, shell, or write tools exist."
+        )
 
     if not environment_available:
         adapter += """
@@ -1206,13 +1244,15 @@ def build_request(args: argparse.Namespace, system: str, messages: list[dict[str
         "max_tokens": args.max_tokens,
         "system": system,
         "messages": messages,
-        "tools": TOOLS,
+        "tools": tools_for_profile(args.tool_profile),
         "tool_choice": {"type": "auto"},
     }
     if args.effort != "default":
         request["output_config"] = {"effort": args.effort}
     if args.temperature is not None:
         request["temperature"] = args.temperature
+    if args.top_p is not None:
+        request["top_p"] = args.top_p
     if args.cache_input:
         # Automatic caching advances the breakpoint as the conversation grows.
         request["cache_control"] = {"type": "ephemeral", "ttl": "5m"}
@@ -1478,6 +1518,14 @@ def parse_args(argv: list[str] | None = None, default_gateway: str = "openrouter
     parser.add_argument("--replay-mode", choices=("semantic", "faithful"), default="semantic",
                         help="semantic removes historical workflow injections (default); faithful preserves the previous projection")
     parser.add_argument("--temperature", type=float, default=None)
+    parser.add_argument("--top-p", type=float, default=None,
+                        help="Nucleus sampling probability; default uses provider/model configuration")
+    parser.add_argument("--tool-profile", choices=("full", "files-only"), default="full",
+                        help="Candidate tool surface: full (default) or read-only files-only")
+    parser.add_argument("--user-prompt-file", type=Path,
+                        help="Replace the final replay user turn with UTF-8 text from this file")
+    parser.add_argument("--run-label",
+                        help="Short experiment condition label included in the run directory name")
     parser.add_argument("--cache-input", action="store_true",
                         help="Enable 5-minute input caching for Claude via OpenRouter (default: off)")
     parser.add_argument("--timeout", type=float, default=600.0, help="HTTP timeout in seconds")
@@ -1491,6 +1539,12 @@ def parse_args(argv: list[str] | None = None, default_gateway: str = "openrouter
         parser.error("start-round, max-tokens and timeout must be positive")
     if args.temperature is not None and not 0 <= args.temperature <= 1:
         parser.error("Messages API temperature must be between 0 and 1")
+    if args.top_p is not None and not 0 < args.top_p <= 1:
+        parser.error("top-p must be greater than 0 and at most 1")
+    if args.user_prompt_file is not None and not args.user_prompt_file.is_file():
+        parser.error("user-prompt-file must point to an existing file")
+    if args.run_label is not None and not args.run_label.strip():
+        parser.error("run-label cannot be empty")
     if args.gateway != "openrouter" and (args.provider or args.allow_provider_fallbacks):
         parser.error("provider routing options require --gateway openrouter")
     if args.cache_input and (args.gateway != "openrouter" or not args.model.startswith("anthropic/")):
@@ -1502,6 +1556,56 @@ def parse_args(argv: list[str] | None = None, default_gateway: str = "openrouter
         parser.error("base-url must be an HTTP(S) URL without credentials, query or fragment")
     args.endpoint = messages_endpoint(args.base_url)
     return args
+
+
+def _run_slug(value: str, limit: int = 48) -> str:
+    value = re.sub(r"[^A-Za-z0-9_.-]+", "-", value.strip()).strip("-._")
+    return (value or "none")[:limit]
+
+
+def _sampling_tag(value: float | None) -> str:
+    if value is None:
+        return "def"
+    return f"{value:g}".replace(".", "p")
+
+
+def run_directory_name(args: argparse.Namespace, timestamp: str) -> str:
+    model = _run_slug(args.model.split("/")[-1])
+    label_source = args.run_label
+    if label_source is None and args.user_prompt_file is not None:
+        label_source = args.user_prompt_file.stem
+    label = _run_slug(label_source, 32) if label_source else None
+
+    if args.gateway == "openrouter":
+        if args.provider:
+            route = _run_slug(args.provider, 24)
+            if args.allow_provider_fallbacks:
+                route += "-fallback"
+            else:
+                route += "-strict"
+        else:
+            route = "auto"
+    else:
+        route = _run_slug(args.gateway, 24)
+
+    harness = "custom" if args.system_prompt_file else _run_slug(args.harness, 32)
+    mode = "sem" if args.replay_mode == "semantic" else "faith"
+    tools = "files" if args.tool_profile == "files-only" else "full"
+
+    parts = [timestamp]
+    if label:
+        parts.append(label)
+    parts.extend([
+        model,
+        route,
+        harness,
+        f"r{args.start_round}-{mode}",
+        f"e-{_run_slug(args.effort, 12)}",
+        f"t-{_sampling_tag(args.temperature)}",
+        f"p-{_sampling_tag(args.top_p)}",
+        f"tools-{tools}",
+    ])
+    return "__".join(parts)
 
 
 def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> int:
@@ -1585,6 +1689,13 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
 
     messages, exchange_warnings = repair_tool_exchanges(messages)
 
+    user_prompt_text = None
+    if args.user_prompt_file is not None:
+        user_prompt_text = args.user_prompt_file.read_text(encoding="utf-8").strip()
+        if not user_prompt_text:
+            raise RuntimeError("user prompt override is empty")
+        replace_last_user_text(messages, user_prompt_text)
+
     adapter_warnings.extend(exchange_warnings)
     workspace = load_json(component_paths["workspace"])
     fallback_cwd = None
@@ -1622,15 +1733,20 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
     if harness_provenance is not None and args.replay_mode == "faithful":
         adapter_warnings.append("Named behavior profile is mixed with recovered historical harness injections; use semantic for prompt-only comparisons.")
     if args.replay_mode == "semantic":
-        recovered_context = semantic_catalog(env)
-    system = make_system_prompt(recovered_context, env, env.available, profile_text)
+        recovered_context = semantic_catalog(env) if args.tool_profile == "full" else ""
+    system = make_system_prompt(
+        recovered_context,
+        env,
+        env.available,
+        profile_text,
+        tool_profile=args.tool_profile,
+    )
     args.session_id = f"ember-{moment_id}-{uuid.uuid4().hex}"
     if args.gateway == "openrouter" and not (args.provider and not args.allow_provider_fallbacks):
         adapter_warnings.append("Provider is not pinned: exploratory routing, not a strict comparison.")
 
     timestamp = dt.datetime.now().strftime("%Y%m%d-%H%M%S-%f")
-    safe_model = re.sub(r"[^A-Za-z0-9_.-]+", "_", args.model)
-    run_dir = args.runs_dir / moment_id / f"{timestamp}-{safe_model}-r{args.start_round}-{args.replay_mode}"
+    run_dir = args.runs_dir / moment_id / run_directory_name(args, timestamp)
 
     script_hash = None
     try:
@@ -1675,8 +1791,16 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
         "harness_sha256": sha256_bytes(profile_text.encode("utf-8")),
         "harness_provenance": harness_provenance,
         "system_sha256": sha256_bytes(system.encode("utf-8")),
-        "tools_sha256": sha256_bytes(json_dump(TOOLS).encode("utf-8")),
+        "tool_profile": args.tool_profile,
+        "tool_names": [tool["name"] for tool in tools_for_profile(args.tool_profile)],
+        "tools_sha256": sha256_bytes(json_dump(tools_for_profile(args.tool_profile)).encode("utf-8")),
         "temperature": args.temperature,
+        "top_p": args.top_p,
+        "run_label": args.run_label,
+        "user_prompt_file": str(args.user_prompt_file.resolve()) if args.user_prompt_file else None,
+        "user_prompt_sha256": (
+            sha256_bytes(user_prompt_text.encode("utf-8")) if user_prompt_text is not None else None
+        ),
         "timeout_seconds": args.timeout,
         "automatic_retries": 0,
         "effort": args.effort,
@@ -1693,6 +1817,8 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
     }
 
     runlog = RunLog(run_dir, metadata)
+    if user_prompt_text is not None:
+        (run_dir / "user_prompt.txt").write_text(user_prompt_text + "\n", encoding="utf-8")
     actual_models: set[str] = set()
     initial_request = build_request(args, system, messages)
     request_bytes = encode_request(initial_request)
@@ -1721,6 +1847,10 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
     print(f"Start round: {args.start_round}")
     print(f"Replay mode: {args.replay_mode}")
     print(f"Harness: {metadata['harness']}")
+    print(f"Tool profile: {args.tool_profile}")
+    print(f"Sampling: effort={args.effort}, temperature={args.temperature}, top_p={args.top_p}")
+    if args.run_label:
+        print(f"Run label: {args.run_label}")
     print(f"Frozen environment: {'yes' if env.available else 'NO'}")
     print("Ctrl+C to stop and save.")
     print()
