@@ -41,6 +41,7 @@ class HTTPReplayTests(unittest.TestCase):
         body = r.build_request(args, "system", [])
         self.assertNotIn("output_config", body)
         self.assertNotIn("temperature", body)
+        self.assertNotIn("top_p", body)
         self.assertNotIn("cache_control", body)
         self.assertFalse(args.cache_input)
         self.assertEqual(body["provider"], {
@@ -49,12 +50,17 @@ class HTTPReplayTests(unittest.TestCase):
         self.assertEqual(body["session_id"], args.session_id)
         self.assertEqual(args.endpoint, "https://openrouter.ai/api/v1/messages")
         self.assertEqual(r.request_headers(args, "test-key")["X-OpenRouter-Metadata"], "enabled")
-        args = arguments("--provider", "anthropic", "--allow-provider-fallbacks", "--effort", "xhigh")
+        args = arguments(
+            "--provider", "anthropic", "--allow-provider-fallbacks",
+            "--effort", "xhigh", "--temperature", "0.7", "--top-p", "0.9",
+        )
         body = r.build_request(args, "", [])
         self.assertNotIn("only", body["provider"])
         self.assertEqual(body["provider"]["order"], ["anthropic"])
         self.assertTrue(body["provider"]["allow_fallbacks"])
         self.assertEqual(body["output_config"], {"effort": "xhigh"})
+        self.assertEqual(body["temperature"], 0.7)
+        self.assertEqual(body["top_p"], 0.9)
         args = arguments("--gateway", "deepseek")
         body = r.build_request(args, "", [])
         self.assertEqual(args.api_key_env, "DEEPSEEK_API_KEY")
@@ -110,6 +116,46 @@ class HTTPReplayTests(unittest.TestCase):
             self.assertEqual(log.metadata["routing_observations"][1]["resolved_providers"], [])
             self.assertTrue(log.metadata["warnings"])
             self.assertNotIn("offline-secret", (log.run_dir / "transcript.jsonl").read_text())
+
+    def test_experiment_controls_prompt_override_and_run_name(self):
+        with tempfile.TemporaryDirectory() as directory:
+            prompt = Path(directory) / "T2-neutral.txt"
+            prompt.write_text("重新审视这些设计原则。", encoding="utf-8")
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(r.main([
+                    "--moment", "M03",
+                    "--model", "deepseek/deepseek-v4-flash-0731",
+                    "--provider", "deepinfra",
+                    "--effort", "max",
+                    "--temperature", "1",
+                    "--top-p", "0.95",
+                    "--tool-profile", "files-only",
+                    "--user-prompt-file", str(prompt),
+                    "--run-label", "PT-T2-r1",
+                    "--dry-run",
+                    "--runs-dir", directory,
+                ]), 0)
+
+            run = next(Path(directory).rglob("run.json"))
+            meta = json.loads(run.read_text())
+            request = json.loads((run.parent / "initial_request.json").read_text())
+
+            self.assertEqual(meta["run_label"], "PT-T2-r1")
+            self.assertEqual(meta["top_p"], 0.95)
+            self.assertEqual(meta["tool_profile"], "files-only")
+            self.assertEqual(meta["tool_names"], ["Read", "Glob", "Grep"])
+            self.assertEqual([tool["name"] for tool in request["tools"]], ["Read", "Glob", "Grep"])
+            self.assertEqual(request["temperature"], 1.0)
+            self.assertEqual(request["top_p"], 0.95)
+            self.assertEqual(r.text_from_content(request["messages"][-1]["content"]), "重新审视这些设计原则。")
+            self.assertEqual((run.parent / "user_prompt.txt").read_text(encoding="utf-8").strip(),
+                             "重新审视这些设计原则。")
+            name = run.parent.name
+            for fragment in (
+                "PT-T2-r1", "deepseek-v4-flash-0731", "deepinfra-strict",
+                "minimal", "r1-sem", "e-max", "t-1", "p-0p95", "tools-files",
+            ):
+                self.assertIn(fragment, name)
 
     def test_cache_input_dry_run_records_condition_without_changing_context(self):
         requests = []
