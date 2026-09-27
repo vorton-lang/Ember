@@ -66,7 +66,8 @@ class ReplayModeTests(unittest.TestCase):
                 self.assertIn("personal-context", request["system"])
                 self.assertIn("superpowers:brainstorming", request["system"])
                 self.assertEqual(request["tools"], r.TOOLS)
-                self.assertTrue(path.parent.name.endswith(meta["replay_mode"]))
+                mode_tag = "sem" if semantic else "faith"
+                self.assertIn(f"__r{meta['start_round']}-{mode_tag}__", path.parent.name)
                 self.assertEqual(meta["projection_version"], "semantic-v1" if semantic else "faithful-v1")
                 if semantic and meta["start_round"] == 2:
                     self.assertEqual(meta["projection_stats"]["removed_meta_records"], 2)
