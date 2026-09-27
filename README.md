@@ -107,6 +107,10 @@ python tools/replay.py --moment M03 --model anthropic/claude-opus-4.8 --provider
 | `--effort high` | 设置推理强度；默认 `default`，使用服务端默认配置 |
 | `--cache-input` | 开启 5 分钟输入缓存；默认关闭，适用于 OpenRouter 的 Claude 模型 |
 | `--temperature 0.7` | 设置采样温度；默认使用服务端配置 |
+| `--top-p 0.95` | 设置 nucleus sampling；默认使用服务端配置 |
+| `--tool-profile full\|files-only` | 固定候选工具面；`files-only` 只开放 Read / Glob / Grep |
+| `--user-prompt-file PATH` | 用文件内容替换回放起点最后一条用户消息，适合 task-gradient |
+| `--run-label NAME` | 给实验条件加短标签，直接写入归档目录名 |
 | `--harness NAME` | 选择内置提示词候选；默认 `minimal` |
 | `--system-prompt-file PATH` | 加载自定义 harness 提示词，仍保留历史上下文 |
 | `--max-tokens 32768` | 设置单次响应的输出上限 |
@@ -118,6 +122,8 @@ python tools/replay.py --moment M03 --model anthropic/claude-opus-4.8 --provider
 实际命中取决于 provider 支持、重复前缀长度和请求间隔；可在原始响应的 `usage.cache_read_input_tokens` / `usage.cache_creation_input_tokens` 中检查读写量。参数依据 [OpenRouter prompt caching 文档](https://openrouter.ai/docs/guides/best-practices/prompt-caching)。
 
 比较模型时，尽量保持 moment、起点、回放模式、harness、推理设置与交互方式一致；比较 harness 时，保持模型和其他条件一致。正式记录建议指定 provider，减少自动路由带来的变量。
+
+做正式对照时，建议显式设置 `--run-label`，并在需要控制 workflow 干扰时使用 `--tool-profile files-only`。task-gradient 不需要复制 packet：把不同首轮措辞写成独立文本文件，通过 `--user-prompt-file` 覆盖即可；文件 stem 在未指定 `--run-label` 时也会自动作为目录标签。
 
 ### DeepSeek 直连
 
@@ -132,12 +138,25 @@ python tools/replay.py --gateway deepseek --moment M03 --model deepseek-v4-pro -
 
 ## 查看结果
 
-每次运行的结果保存在 `runs/<moment>/<时间>-<模型>-r<轮次>-<回放模式>/`。
+每次运行的结果保存在 `runs/<moment>/` 下。新目录名直接编码主要实验条件，格式近似：
+
+```text
+<time>__<label?>__<model>__<route>__<harness>__r<round>-<mode>__e-<effort>__t-<temperature>__p-<top_p>__tools-<profile>
+```
+
+例如：
+
+```text
+20260928-001500-123456__PT-T2-r1__deepseek-v4-flash-0731__deepinfra-strict__minimal__r1-sem__e-max__t-1__p-0p95__tools-files
+```
+
+目录名用于肉眼浏览；完整配置仍以 `run.json` 为准。
 
 - **`conversation.md`**：阅读和分享本次对话。
 - **`run.json`**：查看实验配置与运行状态。
 - **`transcript.jsonl`**：查看完整交互与工具记录。
 - **`initial_request.json`**：检查模型在起跑时收到的输入。
+- **`user_prompt.txt`**：使用 `--user-prompt-file` 时保存实际覆盖的首轮用户 prompt。
 
 `run.json` 记录回放模式、投影版本和清理计数。此前没有 `replay_mode` 字段的旧 runner 记录属于 `faithful` 条件；已有实验文件保留原样，不与新的 `semantic` baseline 混用。
 
