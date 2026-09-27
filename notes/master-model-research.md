@@ -275,11 +275,70 @@ Flash 的证据核查和 operationalization 很强，但更容易把发现直接
 
 优点是透明、完整、可审计；代价是更高的 cognitive carrying cost / integration burden。
 
-当前候选结论：
+当前候选结论需要在 Preview → GA 实验后进一步收窄：
 
-> **Opus 更擅长把复杂性留在内部并压缩成少数高杠杆判断；DeepSeek Flash 更擅长把复杂性拆清楚，但更容易把拆出的判断面一起暴露给用户。**
+> **此前样本中的 Opus 更常表现为“内部压缩 → 少量高杠杆判断”，DeepSeek Flash 更常表现为“证据拆解 → 较大 decision surface”；但这至少不是固定的 DeepSeek 家族属性。**
 
-这和 M01 r1 的用户体验一致，但多数 M03 条件仍只有首轮输出，因此暂不当作定论。
+V4 Flash GA 相比 Preview 已经明显减少外露 decision surface，并出现“先停在这里、一次一个问题”这类很强的 collaborative-control 行为。因此 interaction management 很可能本身就是 **post-training 可塑的 policy trait**。
+
+Opus 与 Flash GA 之间是否仍有稳定差异，还需要相同多轮 steering 下再比较。
+
+---
+
+## 3.6 V4 Flash Preview → GA：第一组 post-training 对照
+
+配置固定为原版 M03 / minimal / semantic / files-only，同 provider 与 sampling；比较 V4 Flash Preview 0423 与 GA 0731，各 3 次。M03 本身是强 elicitation 条件，所以这组主要看 **peak master cognition 是否保留** 和 **orchestration / usability 是否变化**，不能直接测 activation basin 宽度。
+
+### Capability：两边都强，但 GA 更稳定
+
+六个样本都不是普通局部审计；Preview 和 GA 都能做跨公理矛盾、所有权 / effect / annotation 的二阶分析。
+
+但 Preview 三次方差更大：
+
+- Preview r1 更像深技术 audit，重点落在 escape / alias / ownership soundness，整体 ontology refactoring 较弱；
+- Preview r2 / r3 才明显上升到公理优先级、目标 / 约束冲突和设计空间重构。
+
+GA 三次则都很早完成 meta-level reclassification：
+
+- GA r1：价值 / 硬约束 / 可修订工程决策；
+- GA r2：价值承诺 / 工程选择 / 经验赌注，并进一步重建目的层 / 手段层 / 赌注层；
+- GA r3：工程约束 / 经验赌注 / 风格偏好，并做可证伪性审计。
+
+因此当前更像：
+
+> **re-post-training 没有伤害 master capability；在强 elicitation 下，GA 的 hierarchical abstraction / representation mobility 反而表现得更稳定。**
+
+### Usability：GA 的改善更清楚
+
+Preview 的典型组织方式仍偏“把找到的问题尽量展开”：
+
+- r1 有十个主题段、七条具体建议，结束时没有压成一个明确的下一判断；
+- r2 / r3 虽然有优先级或总结，但仍保留很大的 review surface。
+
+GA 更倾向先整合再交判断：
+
+- r1 最终压成三个需要裁决的核心问题；
+- r2 明确“先停在这里，一次一个问题”，只推进迭代器语义，并给推荐 / 退路 / 换序权；
+- r3 给出整体重构方案后，只选择 ③×④ 的 warning-vs-error 作为第一个待拍板问题。
+
+按当前 collaborative-control 定义，这不是单纯文风差异，而是更好的 judgment-bandwidth management / appropriate continuation。
+
+一个粗略可见量：三次 GA 的最终 assistant 文本平均约 7.2k 字符，Preview 约 9.1k，GA 约短 21%，但高层结构并没有因此减少。
+
+### Thinking 时长是重要 caveat，也是潜在机制
+
+用户现场观察到 GA 的 thinking wall time 数倍于 Preview；conversation.md 不含可验证的 hidden-thinking 用量，因此目前只能记作外部运行观察。
+
+如果后续从 run/raw usage 证实，这会有两种解释：
+
+1. **比较 deployed behavior**：更多 test-time deliberation 本身就是 re-post-training 后 policy 的一部分，那么“内部想更多、外部更压缩”正可能是 master usability 改善的机制；
+2. **比较 matched-compute policy**：当前实验没有固定真实 inference compute，因此不能把改善完全归因于更好的 orchestration policy，而与更多 thinking compute 分离。
+
+因此当前能下的结论是：
+
+> **这组证据反对“post-training 普遍压制 master usability”的强假说；它更支持“post-training 是 master orchestration 的高杠杆控制面，而且影响方向可以是正的”。**
+
+同时，这组仍处于 M03 强激活区，不能据此判断 GA 的 activation basin 是否比 Preview 更宽；需要 task-gradient 才能回答。
 
 ---
 
@@ -333,9 +392,15 @@ M03 是强 master-eliciting task：
 
 ### 4.5 Post-training / default-policy gating
 
-仍是强候选，但现在更适合表述为：
+第一组 V4 Flash Preview → GA 对照改变了这里的表述。
 
-> latent capability 仍在；变化发生在默认 policy、触发阈值、activation basin、以及 orchestration strategy。
+原先“现代 post-training 可能系统性压制 master usability”仍可作为特定产品 / lineage 假说，但**不能再当一般方向性假说**：在当前同-base Flash 对照里，GA 没有表现出 master cognition 衰退，反而在 hierarchical abstraction 的稳定性和 judgment-bandwidth management 上更好。
+
+因此更稳妥的总假说是：
+
+> **post-training 是 activation / orchestration 的高杠杆控制面；它可以缩窄或扩大 activation basin，也可以改善或恶化 master usability，符号取决于训练目标。**
+
+当前 Flash 数据只覆盖强 M03 激活区，所以最明确的是 orchestration 改善；activation-basin 方向仍未知。
 
 ### 4.6 Product harness / UX
 
@@ -495,12 +560,13 @@ system prompt 已不足以解释产品差异。下一步只逐层增加：
 
 目前最稳妥的工作模型是：
 
-1. **Master cognition 不是 4.6 独占能力。** 4.7、4.8、甚至 V4.1 Flash 在强 elicitation 下都能表现出很多同类能力。
-2. **历史差异仍然真实可解释。** 差异可能主要落在 activation basin 和 orchestration / collaborative control，而不是单点 peak reasoning。
-3. **Task geometry 决定“会不会进入”，model / prompt / harness 决定“进去以后怎么工作”。**
-4. **System prompt 有影响，但不足以等同产品 harness。**
-5. **Opus vs DeepSeek 的当前重要差异候选不是聪明程度，而是 judgment bandwidth management。**
-6. **乘法假说仍成立且更重要：只伤一个 collaborative-control 因子，最终 master usability 就可能显著下降。**
+1. **Master cognition 不是 4.6 独占能力。** 4.7、4.8、DeepSeek Flash 在强 elicitation 下都能表现出同类高阶能力。
+2. **历史差异仍然真实可解释。** 差异更可能落在 activation basin 和 orchestration / collaborative control，而不是单点 peak reasoning。
+3. **Task geometry 强烈影响“会不会进入”；model / post-training / prompt / harness 会影响“进去以后怎么工作”。**
+4. **Post-training 的作用不是单向压制。** 第一组 V4 Flash Preview → GA 对照反而显示 GA 在强 M03 下更稳定、更会压缩 decision surface；post-training 应被视为高杠杆 policy control，而不是预设负号。
+5. **Interaction management 不是固定模型家族标签。** Preview Flash 暴露大 decision surface 的倾向，在 GA 中已经明显改善。
+6. **System prompt 有影响，但不足以等同产品 harness。**
+7. **乘法假说仍成立：只改变 collaborative-control 一个因子，就足以显著改变最终 master usability。**
 
 EMBER 接下来的目标不是继续证明“这些模型都很聪明”，而是定位：
 
