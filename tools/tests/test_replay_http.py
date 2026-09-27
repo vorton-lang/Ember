@@ -152,12 +152,76 @@ class HTTPReplayTests(unittest.TestCase):
             self.assertEqual(r.text_from_content(request["messages"][-1]["content"]), "重新审视这些设计原则。")
             self.assertEqual((run.parent / "user_prompt.txt").read_text(encoding="utf-8").strip(),
                              "重新审视这些设计原则。")
+            self.assertEqual(hashlib.sha256((run.parent / "user_prompt.txt").read_bytes()).hexdigest(),
+                             meta["user_prompt_sha256"])
             name = run.parent.name
             for fragment in (
                 "PT-T2-r1", "deepseek-v4-flash-0731", "deepinfra-strict",
                 "minimal", "r1-sem", "e-max", "t-1", "p-0p95", "tools-files",
             ):
                 self.assertIn(fragment, name)
+
+    def test_files_only_rejects_unadvertised_calls_at_execution(self):
+        args = arguments("--tool-profile", "files-only", "--top-p", "0.95")
+        responses = [
+            message([
+                {"type": "tool_use", "id": "s1", "name": "Skill",
+                 "input": {"skill": "discussion"}},
+                {"type": "tool_use", "id": "q1", "name": "AskUserQuestion",
+                 "input": {"questions": [{"question": "Choose?"}]}},
+                {"type": "tool_use", "id": "r1", "name": "Read",
+                 "input": {"file_path": "docs/philosophy.md"}},
+            ], stop_reason="tool_use"),
+            message(),
+        ]
+        requests = []
+
+        def handler(request):
+            requests.append(json.loads(request.content))
+            return httpx.Response(200, json=responses.pop(0))
+
+        with tempfile.TemporaryDirectory() as directory:
+            log = r.RunLog(Path(directory) / "run", {})
+            with httpx.Client(transport=httpx.MockTransport(handler)) as client, \
+                    patch.object(r, "execute_tool", wraps=r.execute_tool) as execute, \
+                    patch("builtins.input", return_value="should not be asked") as user_input, \
+                    contextlib.redirect_stdout(io.StringIO()):
+                r.api_turn(client, args, "system", [{"role": "user", "content": "Review."}],
+                           r.FrozenEnvironment(PACKET / "environment", None), log, set())
+            user_input.assert_not_called()
+            self.assertEqual([call.args[0] for call in execute.call_args_list], ["Read"])
+            results = requests[1]["messages"][-1]["content"]
+            self.assertEqual([item["is_error"] for item in results], [True, True, False])
+            self.assertIn("files-only", results[0]["content"])
+            for request in requests:
+                self.assertEqual(request["top_p"], 0.95)
+                self.assertEqual([tool["name"] for tool in request["tools"]], ["Read", "Glob", "Grep"])
+
+    def test_files_only_named_harness_does_not_advertise_disabled_tools(self):
+        env = r.FrozenEnvironment(PACKET / "environment", None)
+        for name in r.available_profiles():
+            with self.subTest(harness=name):
+                _, profile, _ = r.load_profile(name)
+                system = r.make_system_prompt("", env, True, profile, "files-only")
+                self.assertNotIn("AskUserQuestion obtains live answers", system)
+                self.assertNotIn("Skill loads optional skill resources", system)
+                self.assertNotIn("only callable tools are Read, Glob, Grep, Skill", system)
+
+    def test_prompt_override_preserves_merged_context_and_tool_results(self):
+        packet = ROOT / "replay_packets/moments/M04"
+        messages = r.canonical_messages(r.load_jsonl(packet / "conversation.jsonl"), "faithful")
+        messages, _ = r.repair_tool_exchanges(messages)
+        before = copy.deepcopy(messages)
+        self.assertGreater(len(messages[-1]["content"]), 1)
+        r.replace_last_user_text(messages, "New task")
+        self.assertEqual(messages[:-1], before[:-1])
+        self.assertEqual(messages[-1]["content"][:-1], before[-1]["content"][:-1])
+        self.assertEqual(messages[-1]["content"][-1], {"type": "text", "text": "New task"})
+
+        result = {"type": "tool_result", "tool_use_id": "read1", "content": "Evidence"}
+        messages = [{"role": "user", "content": [result, {"type": "text", "text": "Old task"}]}]
+        r.replace_last_user_text(messages, "New task")
+        self.assertEqual(messages[0]["content"], [result, {"type": "text", "text": "New task"}])
 
     def test_cache_input_dry_run_records_condition_without_changing_context(self):
         requests = []

@@ -25,7 +25,7 @@ from pathlib import Path
 from typing import Any, Iterable
 from harness_profiles import available_profiles, load_profile, read_manifest
 
-ADAPTER_VERSION = "ember-messages-http-v3.3"
+ADAPTER_VERSION = "ember-messages-http-v3.3.1"
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BASE_URL = "https://openrouter.ai/api"
 GATEWAYS = {
@@ -127,16 +127,18 @@ def text_from_content(content: Any) -> str:
 
 
 def replace_last_user_text(messages: list[dict[str, Any]], text: str) -> None:
-    """Replace the visible text of the final user turn while preserving tool results."""
+    """Replace the anchor text, preserving observations merged into the user turn."""
     for message in reversed(messages):
         if message.get("role") != "user":
             continue
         content = message.get("content")
         if not isinstance(content, list):
             raise RuntimeError("final user message has invalid content")
-        non_text = [block for block in content if block.get("type") != "text"]
-        message["content"] = non_text + [{"type": "text", "text": text}]
-        return
+        for index in range(len(content) - 1, -1, -1):
+            if content[index].get("type") == "text":
+                content[index] = {"type": "text", "text": text}
+                return
+        raise RuntimeError("final user message has no anchor text to override")
     raise RuntimeError("replay has no user message to override")
 
 
@@ -1200,6 +1202,17 @@ def make_system_prompt(
             "AskUserQuestion is available when you genuinely need clarification from the user.\n",
             "",
         )
+        # Named profiles share this runtime paragraph. Adapt the rendered prompt,
+        # leaving the pinned source files and their provenance untouched.
+        adapter = adapter.replace(
+            "The workspace is read-only. The only callable tools are Read, Glob, Grep, Skill,\n"
+            "and AskUserQuestion, with the schemas supplied in this session. Read opens files;\n"
+            "Glob finds paths; Grep searches file contents. Skill loads optional skill resources.\n"
+            "AskUserQuestion obtains live answers from the user.",
+            "The workspace is read-only. The only callable tools are Read, Glob, and Grep,\n"
+            "with the schemas supplied in this session. Read opens files; Glob finds paths;\n"
+            "Grep searches file contents.",
+        )
         adapter += (
             "\n\nTool boundary for this run: only Read, Glob, and Grep are available. "
             "Do not assume Skill, AskUserQuestion, shell, or write tools exist."
@@ -1355,6 +1368,7 @@ def api_turn(
     runlog: RunLog,
     actual_models: set[str],
 ) -> None:
+    allowed_tools = {tool["name"] for tool in tools_for_profile(args.tool_profile)}
     while True:
         request = build_request(args, system, messages)
         raw = send_request(client, args, request, runlog)
@@ -1394,6 +1408,10 @@ def api_turn(
             runlog.event("tool_call", name=tool_name, input=tool_input, id=call.get("id"))
 
             try:
+                if tool_name not in allowed_tools:
+                    raise RuntimeError(
+                        f"tool {tool_name!r} is unavailable in tool profile {args.tool_profile!r}"
+                    )
                 result = execute_tool(tool_name, tool_input, env)
                 is_error = False
             except (KeyboardInterrupt, EOFError):
@@ -1818,7 +1836,9 @@ def main(argv: list[str] | None = None, default_gateway: str = "openrouter") -> 
 
     runlog = RunLog(run_dir, metadata)
     if user_prompt_text is not None:
-        (run_dir / "user_prompt.txt").write_text(user_prompt_text + "\n", encoding="utf-8")
+        # Store exactly the bytes hashed above and sent as the replacement text,
+        # without platform newline translation or an extra trailing newline.
+        (run_dir / "user_prompt.txt").write_bytes(user_prompt_text.encode("utf-8"))
     actual_models: set[str] = set()
     initial_request = build_request(args, system, messages)
     request_bytes = encode_request(initial_request)
