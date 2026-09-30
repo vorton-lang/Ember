@@ -243,6 +243,68 @@ Manager 必然会猜错用户。
 - 不把已被用户关闭的方向换个措辞继续 reopen；
 - 尽量让一次误判只造成一轮的小损失，而不是污染整条 trajectory。
 
+### 3.7 Epistemic humility and temporary flattening
+
+Manager 必须会明确地说：
+
+> **“我不知道。”**
+
+以及在必要时：
+
+> **“这部分我没有看懂，不能可靠替你做过滤。”**
+
+这不是能力缺陷，而是一种风险控制能力。Manager 位于信息流中央，如果它对自己并不理解的技术内容强行做 salience judgment、压缩或下行翻译，破坏可能比直接承认不知道更大。
+
+因此 Manager 需要区分至少三种状态：
+
+```text
+UNDERSTAND
+UNCERTAIN
+DO_NOT_UNDERSTAND
+```
+
+对于后两种状态，不应通过“像懂了一样”的语言把不确定性掩盖掉。
+
+当 Manager 自身不足以可靠仲裁时，系统应允许 **temporary flattening**：临时取消严格的层级过滤，把相关角色同时拉进同一个上下文中，让 User、Manager、Tech Leader、Worker 直接交换必要信息。
+
+```text
+正常状态：
+
+User ↔ Manager ↔ {Tech Lead, Worker}
+
+必要时：
+
+        User
+      ↙  ↓  ↘
+ Manager TL  Worker
+      ↖  ↑  ↗
+    shared meeting
+```
+
+这不是默认工作方式。扁平化会提高用户认知负担、token 成本和协调复杂度，所以应作为 escalation path 使用。
+
+典型触发条件包括：
+
+- Manager 明确无法理解 TL 的关键 objection；
+- TL 与 Worker 对事实或任务状态存在实质冲突；
+- Manager 无法判断某条信息是否值得打断用户，而误判代价很高；
+- 用户的意图本身无法被 Manager 稳定翻译给下层；
+- 连续几轮代理式传话正在造成信息损失；
+- 当前问题已经变成需要多方共同建立 shared world model，而不是单纯的上下行 delegation。
+
+扁平化之后，Manager 仍负责主持和重新收敛，而不是退出系统：
+
+1. 明确自己卡在哪里；
+2. 只拉起必要角色；
+3. 让各方直接暴露关键事实、假设与分歧；
+4. 帮用户形成决定；
+5. 将决定重新写回 state ledger；
+6. 恢复正常层级。
+
+原则是：
+
+> **不知道时升级信息通路，而不是伪造理解。**
+
 ## 4. Competency map
 
 第一版先不做总分，只定义能力维度。
@@ -261,6 +323,8 @@ Manager 必然会猜错用户。
 | **Momentum management** | 会不会让讨论陷入永恒 reopening |
 | **Anti-sycophancy** | 能否在必要时呈现真正重要的坏消息 |
 | **Context comprehension** | 是否理解足够多上下文来管理 TL / Worker |
+| **Epistemic humility** | 看不懂或无法可靠判断时，能否明确承认“不知道 / 不理解” |
+| **Escalation judgment** | 是否知道什么时候该临时扁平化管理、把相关角色拉起来直接对齐 |
 
 一个关键边界：
 
@@ -419,7 +483,10 @@ Manager A / B / C
 - TL 的问题技术上成立，但当前 expected value 不足以打断；
 - Worker 已经开始执行，而一个迟来的 objection 介于“值得记 backlog”和“必须停止执行”之间；
 - 用户显式关闭了一个方向，TL 后续用不同 framing 又提出本质相同的问题；
-- 用户看似接受一个方向，但后续行为持续绕开它。
+- 用户看似接受一个方向，但后续行为持续绕开它；
+- TL 提出一个高度技术化且可能致命的 objection，Manager 实际没有理解，却必须决定是否压住；
+- Manager 对 TL 与 Worker 的冲突无法可靠仲裁：应该继续代理式转述，还是临时拉平组织直接开会；
+- 用户和下层连续经过两次转述后已经出现语义漂移，Manager 是否能意识到“继续管理”本身正在制造损失。
 
 这些 case 更可能区分真正的 Manager capability。
 
@@ -481,6 +548,8 @@ Model D
 - 应把问题交给 TL；
 - 应把任务交给 Worker；
 - 用户状态发生突然变化；
-- Manager 猜错后需要 recovery。
+- Manager 猜错后需要 recovery；
+- Manager 应明确承认不知道 / 看不懂；
+- Manager 应触发 temporary flattening / shared meeting。
 
 先做人工 qualitative review，观察不同候选模型是否出现稳定、可解释的能力差异，再决定是否引入量化评价。
