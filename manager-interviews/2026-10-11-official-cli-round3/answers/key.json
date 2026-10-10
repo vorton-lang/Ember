@@ -1,0 +1,14 @@
+{
+  "candidates": {
+    "P": {
+      "cli": "claude",
+      "model": "claude-opus-5-5",
+      "effort": "high"
+    },
+    "Q": {
+      "cli": "codex",
+      "model": "gpt-6.1-sol",
+      "effort": "xhigh"
+    }
+  }
+}

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Angela 初稿前后对照</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f2f3f5; --surface: #ffffff; --sunken: #e9ecef; --ink: #16191d; --muted: #5a626d; --line: #d7dbe1;
+    --accent: #2b6a88; --quote: #e8f0f4; --v0: #8a8f98; --v1: #2f7d57; --a: #9a6026; --b: #7a4689;
+    --sans: "IBM Plex Sans", "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", Consolas, "Microsoft YaHei UI", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { color-scheme: dark; --bg: #111316; --surface: #191c20; --sunken: #22262b; --ink: #e4e7ea; --muted: #9aa2ac; --line: #2d3238; --accent: #74b3d0; --quote: #1b252c; --v0: #8a919b; --v1: #6cc08b; --a: #dca468; --b: #c592d4; }
+  }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.65; }
+  [hidden] { display: none !important; }
+  .wrap { max-width: 1360px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; display: grid; gap: 20px; }
+  h1 { font-size: 25px; font-weight: 600; margin: 0; }
+  .lede { color: var(--muted); max-width: 76ch; margin: 6px 0 0; }
+  .meta { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+  details > summary { cursor: pointer; color: var(--accent); font-weight: 500; }
+  button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+  .tab { flex: 0 0 auto; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 6px; padding: 7px 12px; font: inherit; font-size: 13.5px; cursor: pointer; max-width: 280px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tab .id { font-family: var(--mono); color: var(--muted); margin-right: 6px; }
+  .tab[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 -2px 0 var(--accent); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px 20px; display: grid; gap: 10px; }
+  .cut { background: var(--quote); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 0 6px 6px 0; white-space: pre-wrap; max-width: 90ch; }
+  .switch { display: flex; border: 1px solid var(--line); border-radius: 6px; width: fit-content; overflow: hidden; background: var(--surface); }
+  .switch button { border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 14px; padding: 7px 14px; cursor: pointer; }
+  .switch button + button { border-left: 1px solid var(--line); }
+  .switch button[aria-pressed="true"] { background: var(--sunken); font-weight: 600; }
+  .pair { display: grid; gap: 8px; }
+  .pair h2 { font-size: 16px; margin: 6px 0 0; color: var(--c); }
+  .cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: start; }
+  @media (max-width: 900px) { .cols { grid-template-columns: minmax(0, 1fr); } }
+  .ans { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--v); border-radius: 6px; min-width: 0; }
+  .ans header { display: flex; justify-content: space-between; padding: 8px 14px 0; font-family: var(--mono); font-size: 13px; color: var(--v); }
+  .v0 { --v: var(--v0); } .v1 { --v: var(--v1); } .a { --c: var(--a); } .b { --c: var(--b); }
+  .md { padding: 2px 14px 10px; font-size: 14px; overflow-wrap: anywhere; }
+  .md p { margin: 0.5em 0; } .md ul, .md ol { padding-left: 1.3em; margin: 0.4em 0; }
+  .md code { font-family: var(--mono); font-size: 0.92em; background: var(--sunken); padding: 0 4px; border-radius: 3px; }
+  .md pre { background: var(--sunken); padding: 8px 10px; border-radius: 4px; overflow-x: auto; } .md pre code { background: none; }
+  .md table { border-collapse: collapse; display: block; overflow-x: auto; font-size: 13.5px; }
+  .md th, .md td { border: 1px solid var(--line); padding: 4px 8px; vertical-align: top; }
+  .md h1, .md h2, .md h3, .md h4 { font-size: 1.02em; margin: 0.9em 0 0.3em; }
+  .md blockquote { margin: 0.5em 0; padding-left: 10px; border-left: 3px solid var(--line); color: var(--muted); }
+  .history { max-height: 480px; overflow: auto; }
+  .reviews { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: start; }
+  @media (max-width: 1100px) { .reviews { grid-template-columns: minmax(0, 1fr); } }
+  .reviews .card h2 { font-size: 16px; margin: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Angela 初稿前后对照</h1>
+    <p class="lede">同一批案例，同一个候选，在初稿 v0（第二轮）和 v1（第三轮）下的回答并排放。甲是 Opus 5.5，两轮都是 high；乙是 gpt-6.1-sol，v0 为 high、v1 为 xhigh，所以乙的变化不能全算在初稿上。第一个标签页是两位审阅者的前后对比全文。</p>
+    <details><summary>两版初稿</summary><div class="cols"><div class="card"><div class="meta">v0</div><div class="md" id="d0"></div></div><div class="card"><div class="meta">v1</div><div class="md" id="d1"></div></div></div></details>
+  </header>
+  <nav class="tabs" role="tablist" aria-label="内容" id="tabs"></nav>
+  <main id="main"></main>
+</div>
+<script>
+const DATA = /*DATA*/null;
+const md = (t) => DOMPurify.sanitize(marked.parse(t || '', { gfm: true, breaks: true }));
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+document.getElementById('d0').innerHTML = md(DATA.drafts.v0);
+document.getElementById('d1').innerHTML = md(DATA.drafts.v1);
+let current = 'reviews';
+let interview = '1';
+const h = location.hash.slice(1);
+if (h === 'reviews' || DATA.cases.some((c) => c.id === h)) current = h;
+
+function tabs() {
+  const box = document.getElementById('tabs');
+  box.innerHTML = '';
+  const add = (key, html) => {
+    const b = document.createElement('button');
+    b.className = 'tab'; b.type = 'button'; b.setAttribute('role', 'tab');
+    b.setAttribute('aria-selected', String(key === current)); b.innerHTML = html;
+    b.onclick = () => { current = key; history.replaceState(null, '', `#${key}`); render(); };
+    box.append(b);
+  };
+  add('reviews', '两位审阅者的结论');
+  for (const c of DATA.cases) add(c.id, `<span class="id">${c.id}</span>${esc(c.title)}`);
+}
+
+function answer(label, cls, text) {
+  return `<article class="ans ${cls}"><header><span>${label}</span><span>${text ? text.length : 0} 字</span></header>${text ? `<div class="md">${md(text)}</div>` : '<div class="md">没有回答</div>'}</article>`;
+}
+
+function render() {
+  tabs();
+  const main = document.getElementById('main');
+  if (current === 'reviews') {
+    main.innerHTML = `<div class="reviews">
+      <section class="card"><h2>审阅一 · Claude 子 agent</h2><div class="md">${md(DATA.reviews.claude)}</div></section>
+      <section class="card"><h2>审阅二 · Codex（gpt-6-astra，high）</h2><div class="md">${md(DATA.reviews.codex)}</div></section></div>`;
+    return;
+  }
+  const c = DATA.cases.find((x) => x.id === current);
+  if (!c.interviews[interview]) interview = '1';
+  const sw = Object.keys(c.interviews).map((n) => `<button type="button" data-n="${n}" aria-pressed="${n === interview}">${n === '1' ? '面试 1 · 推断你的意图' : '面试 3 · 写给下层的 brief'}</button>`).join('');
+  const a = c.interviews[interview];
+  main.innerHTML = `<div style="display:grid;gap:16px">
+    <section class="card"><div class="meta">case-${c.id} · 你的本地时间 ${esc(c.time)}（JST）</div><h2 style="margin:0;font-size:18px">${esc(c.title)}</h2>
+      <div class="cut">${esc(c.cut)}</div>
+      <details><summary>背景与对话历史</summary><div class="md history">${md(c.history)}</div></details>
+      <details><summary>之后实际发生了什么</summary><div class="md">${md(c.truth)}</div></details></section>
+    <div class="switch" role="group" aria-label="面试">${sw}</div>
+    <section class="pair a"><h2>甲 · Opus 5.5</h2><div class="cols">${answer('v0 · high', 'v0', a['甲'].v0)}${answer('v1 · high', 'v1', a['甲'].v1)}</div></section>
+    <section class="pair b"><h2>乙 · gpt-6.1-sol</h2><div class="cols">${answer('v0 · high', 'v0', a['乙'].v0)}${answer('v1 · xhigh', 'v1', a['乙'].v1)}</div></section></div>`;
+  for (const b of main.querySelectorAll('.switch button')) b.onclick = () => { interview = b.dataset.n; render(); };
+}
+render();
+</script>
+</body>
+</html>
