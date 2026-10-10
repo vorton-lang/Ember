@@ -1,0 +1,17 @@
+{
+  "effort": "high",
+  "candidates": {
+    "X": {
+      "cli": "codex",
+      "model": "gpt-6-astra"
+    },
+    "Y": {
+      "cli": "claude",
+      "model": "claude-opus-5-5"
+    },
+    "Z": {
+      "cli": "codex",
+      "model": "gpt-6.1-sol"
+    }
+  }
+}

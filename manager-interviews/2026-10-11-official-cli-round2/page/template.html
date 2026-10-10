@@ -1,0 +1,256 @@
+<title>Angela 面试对照</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<style>
+  :root {
+    --bg: #f2f3f5;
+    --surface: #ffffff;
+    --sunken: #e9ecef;
+    --ink: #16191d;
+    --muted: #5a626d;
+    --line: #d7dbe1;
+    --accent: #2b6a88;
+    --quote: #e8f0f4;
+    --x: #4558a3;
+    --y: #9a6026;
+    --z: #7a4689;
+    --picked: #e6f1ea;
+    --picked-line: #3f8a5c;
+    --sans: "IBM Plex Sans", "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", "Cascadia Mono", Consolas, "Microsoft YaHei UI", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #111316;
+      --surface: #191c20;
+      --sunken: #22262b;
+      --ink: #e4e7ea;
+      --muted: #9aa2ac;
+      --line: #2d3238;
+      --accent: #74b3d0;
+      --quote: #1b252c;
+      --x: #93a5ea;
+      --y: #dca468;
+      --z: #c592d4;
+      --picked: #18291f;
+      --picked-line: #6cc08b;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #111316;
+    --surface: #191c20;
+    --sunken: #22262b;
+    --ink: #e4e7ea;
+    --muted: #9aa2ac;
+    --line: #2d3238;
+    --accent: #74b3d0;
+    --quote: #1b252c;
+    --x: #93a5ea;
+    --y: #dca468;
+    --z: #c592d4;
+    --picked: #18291f;
+    --picked-line: #6cc08b;
+  }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.65; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; display: grid; gap: 22px; }
+  h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.3; }
+  h1 { font-size: 26px; font-weight: 600; letter-spacing: 0.01em; }
+  .lede { color: var(--muted); max-width: 72ch; margin: 6px 0 0; }
+  .meta { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+  details > summary { cursor: pointer; color: var(--accent); font-weight: 500; }
+  details > summary:focus-visible, button:focus-visible, .pick input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+  .tab { flex: 0 0 auto; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 6px; padding: 7px 12px; font: inherit; font-size: 13.5px; cursor: pointer; display: flex; gap: 8px; align-items: baseline; max-width: 300px; }
+  .tab .id { font-family: var(--mono); color: var(--muted); }
+  .tab .t { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tab[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 -2px 0 var(--accent); }
+  .chip { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--accent); border: 1px solid currentColor; border-radius: 4px; padding: 0 5px; }
+  .done { color: var(--picked-line); }
+
+  .context { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 18px 20px; display: grid; gap: 12px; }
+  .context h2 { font-size: 19px; font-weight: 600; }
+  .cut { background: var(--quote); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 0 6px 6px 0; white-space: pre-wrap; max-width: 90ch; }
+  .label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .history { max-height: 520px; overflow: auto; border-top: 1px solid var(--line); margin-top: 8px; padding-top: 8px; font-size: 14px; }
+
+  .switch { display: flex; gap: 0; border: 1px solid var(--line); border-radius: 6px; width: fit-content; overflow: hidden; background: var(--surface); }
+  .switch button { border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 14px; padding: 7px 14px; cursor: pointer; }
+  .switch button + button { border-left: 1px solid var(--line); }
+  .switch button[aria-pressed="true"] { background: var(--sunken); font-weight: 600; }
+
+  .answers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: start; }
+  @media (max-width: 980px) { .answers { grid-template-columns: minmax(0, 1fr); } }
+  .answer { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--c); border-radius: 6px; display: grid; grid-template-rows: auto 1fr auto; min-width: 0; }
+  .answer.picked { border-color: var(--picked-line); border-top-color: var(--c); background: var(--picked); }
+  .answer header { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 14px 0; }
+  .who { font-family: var(--mono); font-weight: 500; font-size: 18px; color: var(--c); }
+  .len { font-family: var(--mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .md { padding: 4px 14px 8px; font-size: 14.2px; overflow-wrap: anywhere; }
+  .md p { margin: 0.5em 0; }
+  .md ul, .md ol { padding-left: 1.3em; margin: 0.4em 0; }
+  .md li { margin: 0.15em 0; }
+  .md code { font-family: var(--mono); font-size: 0.92em; background: var(--sunken); padding: 0 4px; border-radius: 3px; }
+  .md pre { background: var(--sunken); padding: 8px 10px; border-radius: 4px; overflow-x: auto; }
+  .md pre code { background: none; padding: 0; }
+  .md table { border-collapse: collapse; display: block; overflow-x: auto; }
+  .md th, .md td { border: 1px solid var(--line); padding: 3px 7px; }
+  .md h1, .md h2, .md h3, .md h4 { font-size: 1em; margin: 0.8em 0 0.3em; }
+  .md blockquote { margin: 0.5em 0; padding-left: 10px; border-left: 3px solid var(--line); color: var(--muted); }
+  .pick { display: flex; align-items: center; gap: 8px; padding: 10px 14px 12px; border-top: 1px dashed var(--line); font-size: 13.5px; cursor: pointer; }
+  .pick input { accent-color: var(--picked-line); }
+  .none { color: var(--muted); padding: 10px 14px; }
+
+  .reveal { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px 20px; display: grid; gap: 10px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 6px; padding: 7px 14px; font: inherit; font-size: 14px; cursor: pointer; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+  .summary { font-family: var(--mono); font-size: 13px; white-space: pre-wrap; background: var(--sunken); border-radius: 6px; padding: 10px 12px; margin: 0; }
+  .map { border-collapse: collapse; font-size: 14px; }
+  .map th, .map td { border-bottom: 1px solid var(--line); padding: 6px 12px 6px 0; text-align: left; }
+  .draft { white-space: pre-wrap; font-size: 14px; background: var(--sunken); border-radius: 6px; padding: 12px 14px; max-width: 90ch; }
+  .x { --c: var(--x); } .y { --c: var(--y); } .z { --c: var(--z); }
+  @media (prefers-reduced-motion: no-preference) { .answer { transition: background-color 120ms ease, border-color 120ms ease; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Angela 面试对照</h1>
+    <p class="lede">三个匿名候选在同一份指令初稿下回答同样的题。先读你当时说的那句话，再并排读三份回答，给每题标出最像你想要的 Angela 的那一份。"之后实际发生了什么"默认收起，候选的身份在页面最后揭晓。</p>
+    <p class="meta">第二轮 · 2026-10-11 · 面试 1：推断你的意图（8 个案例）· 面试 3：写给 Tech Lead 和 Worker 的 brief（4 个案例）</p>
+    <details>
+      <summary>候选收到的指令初稿</summary>
+      <div class="draft" id="draft"></div>
+    </details>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="案例" id="tabs"></nav>
+
+  <section class="context" id="context" aria-live="polite"></section>
+
+  <div class="switch" role="group" aria-label="面试" id="switch"></div>
+
+  <section class="answers" id="answers"></section>
+
+  <section class="context" id="truth"></section>
+
+  <section class="reveal">
+    <h2>你的选择</h2>
+    <pre class="summary" id="summary"></pre>
+    <div class="row">
+      <button class="btn primary" id="copy" type="button">复制选择</button>
+      <span class="meta" id="copied" hidden>已复制</span>
+      <button class="btn" id="show" type="button">揭晓 X / Y / Z</button>
+    </div>
+    <div id="mapping" hidden></div>
+  </section>
+</div>
+
+<script>
+const DATA = /*DATA*/null;
+const STORE = 'angela-picks-v2';
+const LABELS = ['X', 'Y', 'Z'];
+let picks = {};
+try { picks = JSON.parse(localStorage.getItem(STORE) || '{}'); } catch { picks = {}; }
+const save = () => { try { localStorage.setItem(STORE, JSON.stringify(picks)); } catch {} };
+const md = (text) => DOMPurify.sanitize(marked.parse(text || '', { gfm: true, breaks: true }));
+const el = (tag, attrs = {}, html) => { const e = document.createElement(tag); Object.assign(e, attrs); if (html !== undefined) e.innerHTML = html; return e; };
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+let current = DATA.cases[0].id;
+let interview = '1';
+const fromHash = location.hash.match(/^#c(\d\d)$/);
+if (fromHash && DATA.cases.some((c) => c.id === fromHash[1])) current = fromHash[1];
+
+document.getElementById('draft').textContent = DATA.draft;
+
+function renderTabs() {
+  const tabs = document.getElementById('tabs');
+  tabs.innerHTML = '';
+  for (const c of DATA.cases) {
+    const done = Object.keys(c.interviews).every((n) => picks[`${c.id}-${n}`]);
+    const b = el('button', { className: 'tab', type: 'button', role: 'tab', title: c.title });
+    b.setAttribute('aria-selected', String(c.id === current));
+    b.innerHTML = `<span class="id">${c.id}</span><span class="t">${esc(c.title)}</span>${c.first ? '<span class="chip">先看</span>' : ''}${done ? '<span class="done" aria-label="已选">✓</span>' : ''}`;
+    b.onclick = () => { current = c.id; if (!c.interviews[interview]) interview = '1'; history.replaceState(null, '', `#c${c.id}`); render(); };
+    tabs.append(b);
+  }
+}
+
+function render() {
+  const c = DATA.cases.find((x) => x.id === current);
+  if (!c.interviews[interview]) interview = '1';
+  renderTabs();
+
+  const ctx = document.getElementById('context');
+  ctx.innerHTML = `
+    <div class="row"><span class="meta">case-${c.id}</span><span class="meta">你的本地时间 ${esc(c.time)}（JST）</span></div>
+    <h2>${esc(c.title)}</h2>
+    <div><div class="label">截断处，你说</div><div class="cut">${esc(c.cut)}</div></div>
+    <details><summary>当时的背景与对话历史</summary><div class="history md">${md(c.history)}</div></details>`;
+
+  const sw = document.getElementById('switch');
+  sw.innerHTML = '';
+  for (const [n, label] of [['1', '面试 1 · 推断你的意图'], ['3', '面试 3 · 写给下层的 brief']]) {
+    if (!c.interviews[n]) continue;
+    const b = el('button', { type: 'button', textContent: label });
+    b.setAttribute('aria-pressed', String(n === interview));
+    b.onclick = () => { interview = n; render(); };
+    sw.append(b);
+  }
+
+  const box = document.getElementById('answers');
+  box.innerHTML = '';
+  const slot = `${c.id}-${interview}`;
+  for (const L of LABELS) {
+    const text = c.interviews[interview][L];
+    const card = el('article', { className: `answer ${L.toLowerCase()}${picks[slot] === L ? ' picked' : ''}` });
+    card.innerHTML = `<header><span class="who">${L}</span><span class="len">${text ? text.length : 0} 字</span></header>
+      ${text ? `<div class="md">${md(text)}</div>` : '<div class="none">没有回答</div>'}`;
+    const lab = el('label', { className: 'pick' });
+    const input = el('input', { type: 'radio', name: `pick-${slot}`, id: `pick-${slot}-${L}`, checked: picks[slot] === L });
+    input.onchange = () => { picks[slot] = L; save(); render(); };
+    lab.append(input, el('span', { textContent: '最像我想要的 Angela' }));
+    card.append(lab);
+    box.append(card);
+  }
+
+  document.getElementById('truth').innerHTML = `
+    <details><summary>之后实际发生了什么</summary><div class="md">${md(c.truth)}</div></details>
+    <details><summary>为什么选这个点</summary><div class="md">${md(c.why)}</div></details>`;
+
+  renderSummary();
+}
+
+function renderSummary() {
+  const lines = [];
+  for (const c of DATA.cases) for (const n of Object.keys(c.interviews)) {
+    const p = picks[`${c.id}-${n}`];
+    if (p) lines.push(`case-${c.id} 面试${n}: ${p}`);
+  }
+  document.getElementById('summary').textContent = lines.length ? lines.join('\n') : '还没有选择。每题在三份回答下面选一份。';
+}
+
+document.getElementById('copy').onclick = async () => {
+  const text = document.getElementById('summary').textContent;
+  const done = () => { const s = document.getElementById('copied'); s.hidden = false; setTimeout(() => (s.hidden = true), 1500); };
+  try { await navigator.clipboard.writeText(text); done(); }
+  catch { const r = document.createRange(); r.selectNodeContents(document.getElementById('summary')); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+};
+
+document.getElementById('show').onclick = () => {
+  const m = document.getElementById('mapping');
+  const names = { codex: 'Codex CLI', claude: 'Claude Code' };
+  const rows = LABELS.map((L) => { const c = DATA.key.candidates[L]; return `<tr><th class="${L.toLowerCase()}"><span class="who">${L}</span></th><td>${names[c.cli] ?? c.cli}</td><td class="meta">${esc(c.model)}</td></tr>`; }).join('');
+  m.innerHTML = `<table class="map"><thead><tr><th>标签</th><th>CLI</th><th>模型</th></tr></thead><tbody>${rows}</tbody></table><p class="meta">三者的 effort 都是 ${esc(DATA.key.effort)}；指令初稿相同。</p>`;
+  m.hidden = !m.hidden;
+  document.getElementById('show').textContent = m.hidden ? '揭晓 X / Y / Z' : '收起';
+};
+
+render();
+</script>
