@@ -1,0 +1,15 @@
+{"label":"claude --version","versionMs":[74,88,72]}
+{"label":"codex --version","versionMs":[55,54,53]}
+{"label":"claude haiku new","firstLine":1964,"init":1964,"firstText":3811,"done":3835,"exit":4725,"apiMs":1847,"wallMsReported":1892,"model":"claude-haiku-4-5-20251001","threadId":null,"error":null}
+{"label":"claude haiku resume","firstLine":1251,"init":1251,"firstText":2961,"done":3003,"exit":3896,"apiMs":3564,"wallMsReported":1761,"model":"claude-haiku-4-5-20251001","threadId":null,"error":null}
+{"label":"claude haiku resume","firstLine":1193,"init":1193,"firstText":2928,"done":2969,"exit":3877,"apiMs":5304,"wallMsReported":1784,"model":"claude-haiku-4-5-20251001","threadId":null,"error":null}
+{"label":"claude haiku resume","firstLine":1444,"init":1444,"firstText":3535,"done":3823,"exit":5055,"apiMs":7662,"wallMsReported":2405,"model":"claude-haiku-4-5-20251001","threadId":null,"error":null}
+{"label":"claude haiku new, no MCP","firstLine":1333,"init":1333,"firstText":3091,"done":3116,"exit":4010,"apiMs":1760,"wallMsReported":1800,"model":"claude-haiku-4-5-20251001","threadId":null,"error":null}
+{"label":"claude haiku resume, no MCP","firstLine":1346,"init":1346,"firstText":2977,"done":3002,"exit":4165,"apiMs":3397,"wallMsReported":1681,"model":"claude-haiku-4-5-20251001","threadId":null,"error":null}
+{"label":"claude default new","firstLine":1330,"init":1330,"firstText":2960,"done":3008,"exit":3879,"apiMs":1631,"wallMsReported":1702,"model":"claude-fable-5-1","threadId":null,"error":null}
+{"label":"claude default resume","firstLine":2101,"init":2101,"firstText":4007,"done":4047,"exit":4995,"apiMs":3543,"wallMsReported":1963,"model":"claude-fable-5-1","threadId":null,"error":null}
+{"label":"claude default resume","firstLine":2300,"init":2300,"firstText":4066,"done":4107,"exit":5059,"apiMs":5314,"wallMsReported":1815,"model":"claude-fable-5-1","threadId":null,"error":null}
+{"label":"codex default new","firstLine":1921,"init":1921,"firstText":5500,"done":5629,"exit":6365,"apiMs":null,"wallMsReported":null,"model":null,"threadId":"01a12665-7407-72a2-b3bd-135666f28217","error":null}
+{"label":"codex default resume","firstLine":499,"init":499,"firstText":4346,"done":4581,"exit":5556,"apiMs":null,"wallMsReported":null,"model":null,"threadId":"01a12665-7407-72a2-b3bd-135666f28217","error":null}
+{"label":"codex default resume","firstLine":520,"init":520,"firstText":4441,"done":4850,"exit":5624,"apiMs":null,"wallMsReported":null,"model":null,"threadId":"01a12665-7407-72a2-b3bd-135666f28217","error":null}
+{"label":"codex default resume","firstLine":472,"init":472,"firstText":5150,"done":5172,"exit":6700,"apiMs":null,"wallMsReported":null,"model":null,"threadId":"01a12665-7407-72a2-b3bd-135666f28217","error":null}
